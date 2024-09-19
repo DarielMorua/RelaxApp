@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.relaxapp.ui.theme.RelaxAppTheme
 
 //Prueba dev commit
-
+//Prueba dev commit 2
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
