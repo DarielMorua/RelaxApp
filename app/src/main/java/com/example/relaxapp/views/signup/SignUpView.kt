@@ -1,6 +1,5 @@
 package com.example.relaxapp.views.signup
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.Typography
@@ -40,40 +38,53 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
 
-val Nunito = FontFamily(
+//colores
+    val MintGreen = Color(185, 218, 212) // #B9DAD4
+    val CarolinaBlue = Color(139, 172, 205) // #8BACCD
+    val CambridgeBlue = Color(144, 181, 179) // #90B5B3
+    val AshGray = Color(177, 188, 177) // #B1BCB1
+    val BlueGray = Color(113, 156, 195) // #719CC3
+
+// Fuentes
+    val Nunito = FontFamily(
     Font(R.font.nunito_regular, FontWeight.Normal),
     Font(R.font.nunito_bold, FontWeight.Bold)
 )
 
-val Oxygen = FontFamily(
+    val Oxygen = FontFamily(
     Font(R.font.oxygen_regular, FontWeight.Normal)
 )
 
-// Define the typography
+// las tipograifas
 val CustomTypography = Typography(
-    //titulo
+
+// titulo
     headlineLarge = TextStyle(
         fontFamily = Nunito,
         fontWeight = FontWeight.Bold,
-        fontSize = 30.sp
+        fontSize = 30.sp,
+        color = CarolinaBlue
     ),
-    //boton
-    headlineMedium= TextStyle(
+    // boton
+    headlineMedium = TextStyle(
         fontFamily = Nunito,
         fontWeight = FontWeight.Bold,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        color = Color.White
     ),
-    //cuerpo
+    // cuerpo
     headlineSmall = TextStyle(
         fontFamily = Oxygen,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 14.sp,
+        color = CambridgeBlue
     ),
-    //caption
+    // caption
     labelSmall = TextStyle(
         fontFamily = Oxygen,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 12.sp,
+        color = AshGray
     )
 )
 
@@ -90,18 +101,19 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .background(Color.White),
+            .background(MintGreen),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Logo
+
+        // logo
         Image(
             painter = painterResource(id = R.drawable.ic_logo),
-            contentDescription = stringResource(id = R.string.app_name),  // Usa el nombre de la app
+            contentDescription = stringResource(id = R.string.app_name),
             modifier = Modifier.size(100.dp)
         )
 
-        // Título
+        // título
         Text(
             text = stringResource(id = R.string.sign_up_title),
             style = MaterialTheme.typography.headlineLarge
@@ -109,62 +121,74 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // CCorreo
+        // ccorreo
         TextField(
             value = email,
-            onValueChange = { signUpViewModel.onEmailChange(it) },  // Asegúrate de pasar el nuevo valor aquí
+            onValueChange = { signUpViewModel.onEmailChange(it) },
             label = { Text(text = stringResource(id = R.string.email), style = MaterialTheme.typography.headlineSmall) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-// numero de telefono
+        // num telefono
         TextField(
             value = telephone,
             onValueChange = { signUpViewModel.onTelephoneChange(it) },
             label = { Text(text = stringResource(id = R.string.phone_number), style = MaterialTheme.typography.headlineSmall) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        //  Usuario
+        // usuario
         TextField(
             value = username,
-            onValueChange = { signUpViewModel.onUsernameChange(it) },  // Asegúrate de pasar el nuevo valor aquí
+            onValueChange = { signUpViewModel.onUsernameChange(it) },
             label = { Text(text = stringResource(id = R.string.username), style = MaterialTheme.typography.headlineSmall) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Contraseña
+        // password
         TextField(
             value = password,
-            onValueChange = { signUpViewModel.onPasswordChange(it) },  // Asegúrate de pasar el nuevo valor aquí
+            onValueChange = { signUpViewModel.onPasswordChange(it) },
             label = { Text(text = stringResource(id = R.string.password), style = MaterialTheme.typography.headlineSmall) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
-        )    // CONFIRMAR Contraseña
-        Spacer(modifier = Modifier.height(16.dp))
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
+        )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // confirmar passw
         TextField(
             value = passwordConf,
             onValueChange = { signUpViewModel.onPasswordConfChange(it) },
             label = { Text(text = stringResource(id = R.string.sign_up_confirm_password), style = MaterialTheme.typography.headlineSmall) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Términos y Condiciones
+        // terminos y condiciones
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -175,37 +199,43 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón Registro
+        // boton registro
         Button(
             onClick = { signUpViewModel.onRegisterClicked() },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(BlueGray)
         ) {
-            Text(text = stringResource(id = R.string.sign_up_button), style = MaterialTheme.typography.headlineMedium, color = Color.White)
+            Text(text = stringResource(id = R.string.sign_up_button), style = MaterialTheme.typography.headlineMedium)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Registro con Google
+        // continuar con google
         Button(
             onClick = { signUpViewModel.onGoogleSignUp() },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(BlueGray)
         ) {
             Text(text = stringResource(id = R.string.continue_google), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Registro con Facebook
+        // continuar con fb
         Button(
             onClick = { signUpViewModel.onFacebookSignUp() },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(BlueGray)
         ) {
             Text(text = stringResource(id = R.string.continue_facebook), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // volver Iniciar Sesión
+        // volver sign in
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.sign_up_already_have_account)),
             onClick = { /* TODO */ },
