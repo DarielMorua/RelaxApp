@@ -204,7 +204,6 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
             onClick = { signUpViewModel.onRegisterClicked() },
             modifier = Modifier
                 .fillMaxWidth()
-                .background(BlueGray)
         ) {
             Text(text = stringResource(id = R.string.sign_up_button), style = MaterialTheme.typography.headlineMedium)
         }
@@ -216,7 +215,6 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
             onClick = { signUpViewModel.onGoogleSignUp() },
             modifier = Modifier
                 .fillMaxWidth()
-                .background(BlueGray)
         ) {
             Text(text = stringResource(id = R.string.continue_google), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
         }
@@ -228,7 +226,6 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
             onClick = { signUpViewModel.onFacebookSignUp() },
             modifier = Modifier
                 .fillMaxWidth()
-                .background(BlueGray)
         ) {
             Text(text = stringResource(id = R.string.continue_facebook), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
         }
