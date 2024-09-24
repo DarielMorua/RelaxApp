@@ -59,7 +59,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.rgituntime.livedata)
+    //implementation(libs.androidx.rgituntime.livedata)
     implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
