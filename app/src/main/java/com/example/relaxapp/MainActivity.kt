@@ -12,20 +12,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.relaxapp.ui.theme.RelaxAppTheme
+import com.example.relaxapp.views.signup.SignUpView
+import com.example.relaxapp.views.signup.SignUpViewModel
 
 //Prueba dev commit
-
+//Prueba dev commit 2
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             RelaxAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
+                    SignUpView(SignUpViewModel())
                 }
             }
         }

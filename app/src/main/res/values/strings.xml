@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">RelaxApp</string>
+    <string name="sign_up_title">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="continue_google">Continue with Google</string>
+    <string name="continue_facebook">Continue with Facebook</string>
+    <string name="sign_up_already_have_account">Already have an account?</string>
+    <string name="sign_up_go_back_to_sign_in">Go back to Sign In</string>
+    <string name="sign_up_accept_terms">I accept the terms and conditions</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="sign_up_confirm_password">Confirm Password</string>
+
+
 </resources>
