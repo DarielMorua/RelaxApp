@@ -143,7 +143,7 @@ fun LogInView(viewModel: LogInViewModel) {
                 .fillMaxWidth()
                 .background(BlueGray)
         ) {
-            Text(text = stringResource(id = R.string.), style = MaterialTheme.typography.headlineMedium)
+            Text(text = stringResource(id = R.string.sign_up_title), style = MaterialTheme.typography.headlineMedium)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
