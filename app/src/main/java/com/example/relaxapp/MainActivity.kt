@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.relaxapp.login.LogInView
+import com.example.relaxapp.login.LogInViewModel
 import com.example.relaxapp.ui.theme.RelaxAppTheme
 import com.example.relaxapp.views.signup.SignUpView
 import com.example.relaxapp.views.signup.SignUpViewModel
@@ -26,7 +28,7 @@ class MainActivity : ComponentActivity() {
             RelaxAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    SignUpView(SignUpViewModel())
+                    LogInView(LogInViewModel())
                 }
             }
         }
