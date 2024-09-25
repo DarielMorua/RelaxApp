@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -29,7 +30,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.relaxapp.R
+import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.views.signup.AshGray
 import com.example.relaxapp.views.signup.CambridgeBlue
 import com.example.relaxapp.views.signup.CarolinaBlue
@@ -74,115 +77,120 @@ val emojis = listOf("\uD83D\uDE04", "\uD83D\uDE42", "😐", "☹\uFE0F", "\uD83D
 
 
 @Composable
-fun MainMenu(viewModel: MainMenuViewModel) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF7F7F7))
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Logo y nombre de la app
-        Row(
+fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
+    Scaffold(
+        bottomBar = { BottomNavigationBar(navController = navController) }
+    ) { innerPadding ->
+
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
+                .background(Color(0xFFF7F7F7))
                 .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_logo),
-                contentDescription = "Logo",
-                modifier = Modifier.size(90.dp)
-            )
+            // Logo y nombre de la app
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier.size(90.dp)
+                )
 
-            Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(1f))
 
+                Text(
+                    text = "Relax",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.Black,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Image(
+                    painter = painterResource(id = R.drawable.ic_logo),
+                    contentDescription = "Imagen derecha",
+                    modifier = Modifier.size(70.dp)
+                )
+            }
+
+            // Emociones
             Text(
-                text = "Relax",
-                style = MaterialTheme.typography.headlineLarge,
-                color = Color.Black,
-                modifier = Modifier.align(Alignment.CenterVertically)
+                text = "¿Cómo te encuentras hoy?",
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 16.dp),
+                fontSize = 25.sp
             )
 
-            Spacer(modifier = Modifier.weight(1f))
-
-            Image(
-                painter = painterResource(id = R.drawable.ic_logo),
-                contentDescription = "Imagen derecha",
-                modifier = Modifier.size(70.dp)
-            )
-        }
-
-        // Emociones
-        Text(
-            text = "¿Cómo te encuentras hoy?",
-            style = MaterialTheme.typography.headlineMedium,
-            color = Color.Gray,
-            modifier = Modifier.padding(bottom = 16.dp),
-            fontSize = 25.sp
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            emojis.forEach { emoji ->
-                Button(
-                    onClick = {
-                        viewModel.onEmojiSelected(emoji)
-                    },
-                    shape = RoundedCornerShape(percent = 50),
-                    modifier = Modifier.size(50.dp),
-                    colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
-                ) {
-                    Text(
-                        text = emoji,
-                        fontSize = 24.sp,
-                        modifier = Modifier.align(Alignment.CenterVertically),
-                        textAlign = TextAlign.Center
-                    )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                emojis.forEach { emoji ->
+                    Button(
+                        onClick = {
+                            viewModel.onEmojiSelected(emoji)
+                        },
+                        shape = RoundedCornerShape(percent = 50),
+                        modifier = Modifier.size(50.dp),
+                        colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+                    ) {
+                        Text(
+                            text = emoji,
+                            fontSize = 24.sp,
+                            modifier = Modifier.align(Alignment.CenterVertically),
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { /* Acción */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .height(50.dp),
-            shape = RoundedCornerShape(24.dp),
-            colors = ButtonDefaults.buttonColors(Color(26, 204, 181, 255))
-        ) {
-            Text(
-                text = "¡Hazmelo saber!",
-                color = Color.White,
-                style = MaterialTheme.typography.headlineMedium
-            )
-        }
+            Button(
+                onClick = { /* Acción */ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .height(50.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = ButtonDefaults.buttonColors(Color(26, 204, 181, 255))
+            ) {
+                Text(
+                    text = "¡Hazmelo saber!",
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineMedium
+                )
+            }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón "Chatea con un Profesional"
-        Button(
-            onClick = { /* Acción */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .height(50.dp),
-            shape = RoundedCornerShape(24.dp),
-            colors = ButtonDefaults.buttonColors(Color(57, 211, 187, 255))
-        ) {
-            Text(
-                text = "Chatea con un Profesional",
-                color = Color.White,
-                style = MaterialTheme.typography.headlineMedium
-            )
+            // Botón "Chatea con un Profesional"
+            Button(
+                onClick = { /* Acción */ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .height(50.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = ButtonDefaults.buttonColors(Color(57, 211, 187, 255))
+            ) {
+                Text(
+                    text = "Chatea con un Profesional",
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineMedium
+                )
+            }
         }
     }
 }
