@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.ui.theme.RelaxAppTheme
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
@@ -23,10 +24,11 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             RelaxAppTheme {
+                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
                 //    SignUpView(SignUpViewModel())
-                    MainMenu(MainMenuViewModel())
+                    MainMenu(MainMenuViewModel(), navController)
                 }
             }
         }
