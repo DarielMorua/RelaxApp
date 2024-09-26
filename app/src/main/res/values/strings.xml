@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">RelaxApp</string>
     <string name="sign_up_title">Sign Up</string>
-    <string name="log_in_title">Sign Up</string>
+    <string name="log_in_title">Welcome</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="sign_up_button">Sign Up</string>
-    <string name="log_in_button">Sign Up</string>
+    <string name="log_in_button">Log In</string>
     <string name="continue_google">Continue with Google</string>
     <string name="continue_facebook">Continue with Facebook</string>
     <string name="sign_up_already_have_account">Already have an account?</string>

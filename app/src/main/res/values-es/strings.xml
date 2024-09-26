@@ -3,7 +3,7 @@
     <resources>
         <string name="app_name">RelaxUlsa</string>
         <string name="sign_up_title">Registrate</string>
-        <string name="log_in_title">Iniciar Sesion</string>
+        <string name="log_in_title">Bienvenido</string>
         <string name="email">Correo Electrónico</string>
         <string name="username">Usuario</string>
         <string name="password">Contraseña</string>

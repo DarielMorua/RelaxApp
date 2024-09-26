@@ -1,4 +1,4 @@
-package com.example.relaxapp.login
+package com.example.relaxapp.views.login
 
 
 import androidx.lifecycle.LiveData
