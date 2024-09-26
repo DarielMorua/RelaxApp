@@ -12,8 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.ui.theme.RelaxAppTheme
-import com.example.relaxapp.views.mainmenu.MainMenu
-import com.example.relaxapp.views.mainmenu.MainMenuViewModel
+
 
 //Prueba dev commit
 //Prueba dev commit 2
@@ -28,7 +27,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
                 //    SignUpView(SignUpViewModel())
-                    MainMenu(MainMenuViewModel(), navController)
+
+
                 }
             }
         }
