@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">RelaxApp</string>
     <string name="sign_up_title">Sign Up</string>
     <string name="log_in_title">Welcome</string>
@@ -16,6 +17,5 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="phone_number">Phone Number</string>
     <string name="sign_up_confirm_password">Confirm Password</string>
-
 
 </resources>
