@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation ("com.ramotion.paperonboarding:paper-onboarding:1.1.3")
     //implementation(libs.androidx.rgituntime.livedata)
     implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
     testImplementation(libs.junit)
@@ -68,4 +69,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }

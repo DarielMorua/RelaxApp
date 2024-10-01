@@ -5,16 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.relaxapp.ui.theme.RelaxAppTheme
 import com.example.relaxapp.views.onboarding.OnboardingView
-import com.example.relaxapp.views.signup.SignUpView
-import com.example.relaxapp.views.signup.SignUpViewModel
+
 
 //Prueba dev commit
 //Prueba dev commit 2
@@ -25,28 +25,30 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             RelaxAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Surface(modifier = Modifier.fillMaxSize(), color = (Color(0,125,255))) {
 
-                //    SignUpView(SignUpViewModel())
-                    OnboardingView {  }
+
+                    //    SignUpView(SignUpViewModel())
+                    OnboardingView()
+
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    @Composable
+    fun Greeting(name: String, modifier: Modifier = Modifier) {
+        Text(
+            text = "Hello $name!",
+            modifier = modifier
+        )
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RelaxAppTheme {
-        Greeting("Android")
+    @Preview(showBackground = true)
+    @Composable
+    fun GreetingPreview() {
+        RelaxAppTheme {
+            Greeting("Android")
+        }
     }
 }
