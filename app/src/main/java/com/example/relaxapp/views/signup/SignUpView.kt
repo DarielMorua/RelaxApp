@@ -38,6 +38,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
+import androidx.navigation.NavController
+import com.example.relaxapp.bottomnavigationbar.Routes
 
 //colores
     val MintGreen = Color(185, 218, 212) // #B9DAD4
@@ -91,7 +93,7 @@ val CustomTypography = Typography(
 )
 
 @Composable
-fun SignUpView(signUpViewModel: SignUpViewModel) {
+fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
     val email by signUpViewModel.email.observeAsState("")
     val telephone by signUpViewModel.telephone.observeAsState("")
     val username by signUpViewModel.username.observeAsState("")
@@ -203,7 +205,8 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
 
         // boton registro
         Button(
-            onClick = { signUpViewModel.onRegisterClicked() },
+            onClick = { //signUpViewModel.onRegisterClicked()
+                navController.navigate(Routes.MainMenuView) },
             modifier = Modifier
                 .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color(26, 204, 181,255))
