@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.TextStyle
 
 //colores
     val MintGreen = Color(185, 218, 212) // #B9DAD4
+    val asd = Color(26, 204, 181,255) //
     val CarolinaBlue = Color(139, 172, 205) // #8BACCD
     val CambridgeBlue = Color(144, 181, 179) // #90B5B3
     val AshGray = Color(177, 188, 177) // #B1BCB1
@@ -101,8 +103,7 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .background(MintGreen),
-        horizontalAlignment = Alignment.CenterHorizontally,
+,        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
 
@@ -116,7 +117,8 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
         // título
         Text(
             text = stringResource(id = R.string.sign_up_title),
-            style = MaterialTheme.typography.headlineLarge
+            style = MaterialTheme.typography.headlineLarge,
+            color=Color(26, 204, 181,255)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -203,9 +205,11 @@ fun SignUpView(signUpViewModel: SignUpViewModel) {
         Button(
             onClick = { signUpViewModel.onRegisterClicked() },
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(26, 204, 181,255))
         ) {
             Text(text = stringResource(id = R.string.sign_up_button), style = MaterialTheme.typography.headlineMedium)
+
         }
 
         Spacer(modifier = Modifier.height(16.dp))
