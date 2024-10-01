@@ -10,12 +10,12 @@ import com.example.relaxapp.R
 
 val NavBarItems = listOf(
     BarItem(
-        title = "Main Menu",
+        title = "Home",
         image = Icons.Filled.Home,
         route = Routes.MainMenuView
     ),
     BarItem(
-        title = "Doctor Chat",
+        title = "Dr.Chat",
         image = Icons.Filled.Face,
         route = Routes.DoctorChatView
     ),
