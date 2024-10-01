@@ -40,7 +40,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
+import androidx.navigation.NavController
 import com.example.relaxapp.R
+import com.example.relaxapp.bottomnavigationbar.Routes
 
 val MintGreen = Color(26, 204, 181, 255) // #B9DAD4
 val CarolinaBlue = Color(139, 172, 205) // #8BACCD
@@ -90,7 +92,7 @@ val CustomTypography = Typography(
 )
 
 @Composable
-fun LogInView(viewModel: LogInViewModel) {
+fun LogInView(viewModel: LogInViewModel, navController: NavController) {
     val username by viewModel.username.observeAsState("")
     val password by viewModel.password.observeAsState("")
     var checked by remember { mutableStateOf(true) }
@@ -173,7 +175,8 @@ fun LogInView(viewModel: LogInViewModel) {
 
         // Botón Registro
         Button(
-            onClick = { viewModel.onRegisterClicked() },
+            onClick = { //viewModel.onRegisterClicked()
+                 navController.navigate(Routes.MainMenuView)},
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth(),
@@ -223,5 +226,12 @@ fun LogInView(viewModel: LogInViewModel) {
             Spacer(modifier = Modifier.width(8.dp))
             Text(text = stringResource(id = R.string.continue_facebook), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
         }
+        Column {
+            Button(onClick = {navController.navigate(Routes.SignUpView)},
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
+                Text("¿No tienes cuenta? Regístrate")
+            }
+        }
     }
+
 }

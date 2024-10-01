@@ -7,4 +7,8 @@ object Routes {
     const val CalendarView= "CalendarView"
     //const val ProfileView = "ProfileView"
     const val NotificationsView= "NotificationsView"
+    const val OnboardingView = "Onboarding"
+    const val SignUpView = "SignUpView"
+    const val LoginView = "LoginView"
+    const val ProfileView = "ProfileView"
 }

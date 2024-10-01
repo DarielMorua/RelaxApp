@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
+import com.example.relaxapp.bottomnavigationbar.Routes
 
 val MintGreen = Color(26, 204, 181, 255) // #B9DAD4
 val CarolinaBlue = Color(139, 172, 205) // #8BACCD
@@ -106,6 +107,7 @@ fun ProfileView(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .background(Color.White)
         ) {
             // Top section
             Spacer(modifier = Modifier.height(16.dp))
@@ -313,7 +315,7 @@ fun ProfileView(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(
-                    onClick = { /* Acción */ },
+                    onClick = { navController.navigate(Routes.LoginView) },
                     modifier = Modifier
                         //.fillMaxWidth()
                         .padding(start = 8.dp)
