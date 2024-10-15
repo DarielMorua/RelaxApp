@@ -11,4 +11,5 @@ object Routes {
     const val SignUpView = "SignUpView"
     const val LoginView = "LoginView"
     const val ProfileView = "ProfileView"
+    const val PersonalDataView = "PersonalDataView"
 }
