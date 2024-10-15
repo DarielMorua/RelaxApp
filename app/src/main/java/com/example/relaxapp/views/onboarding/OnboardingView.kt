@@ -33,8 +33,6 @@ fun OnboardingView(navController: NavController, onboardingViewModel: Onboarding
     LaunchedEffect(isOnboardingCompleted) {
         if (isOnboardingCompleted) {
             navController.navigate(Routes.LoginView)
-        } else {
-            navController.navigate(Routes.OnboardingView)
         }
     }
 
@@ -84,4 +82,5 @@ fun OnboardingView(navController: NavController, onboardingViewModel: Onboarding
             }
         }
     }
+
 }
