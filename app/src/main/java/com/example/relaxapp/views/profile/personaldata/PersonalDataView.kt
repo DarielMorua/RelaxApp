@@ -114,13 +114,6 @@ fun PersonalDataView(navController: NavController) {
                     Text(text = "Correo", fontWeight = FontWeight.Bold)
                     Text(text = "venucag@gmail.com")
                 }
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit Icon",
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable {  }
-                )
             }
 
             Row(
@@ -135,13 +128,6 @@ fun PersonalDataView(navController: NavController) {
                     Text(text = "Número", fontWeight = FontWeight.Bold)
                     Text(text = "614 258 6458")
                 }
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit Icon",
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable {  }
-                )
             }
 
             Row(
