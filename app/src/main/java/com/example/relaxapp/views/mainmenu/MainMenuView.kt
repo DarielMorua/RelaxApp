@@ -2,6 +2,7 @@ package com.example.relaxapp.views.mainmenu
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,8 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
+import com.example.relaxapp.bottomnavigationbar.Routes
 import com.example.relaxapp.views.signup.AshGray
 import com.example.relaxapp.views.signup.CambridgeBlue
 import com.example.relaxapp.views.signup.CarolinaBlue
@@ -113,10 +118,11 @@ fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                Image(
-                    painter = painterResource(id = R.drawable.ic_logo),
-                    contentDescription = "Imagen derecha",
-                    modifier = Modifier.size(70.dp)
+                Icon(
+                    imageVector = Icons.Filled.Person,
+                    contentDescription = "Profile Icon",
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp).clickable { navController.navigate(Routes.ProfileView) }
                 )
             }
 

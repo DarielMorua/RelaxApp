@@ -15,11 +15,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.relaxapp.bottomnavigationbar.Routes
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingView() {
+fun OnboardingView(navController: NavController) {
     val pagerState = rememberPagerState (pageCount = { 3 })
     val coroutineScope = rememberCoroutineScope()
 
@@ -34,7 +36,9 @@ fun OnboardingView() {
                 2 -> OnboardingScreenView3()
             }
         }
-        Row (modifier = Modifier.align(Alignment.CenterHorizontally).padding(16.dp)) {
+        Row (modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .padding(16.dp)) {
             Button(onClick = {
                 if (pagerState.currentPage > 0) {
                     coroutineScope.launch {
@@ -50,12 +54,16 @@ fun OnboardingView() {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 }
-         else if (pagerState.currentPage == pagerState.pageCount - 1) {
-                    //cambiar
-                }
             }) {
                 Text(text = "Siguiente")
             }
+            if (pagerState.currentPage == pagerState.pageCount - 1) {
+            //cambiar
+                Button(onClick = { navController.navigate(Routes.LoginView) }) {
+                    Text(text = "Empezar")
+                }
+
+        }
 
         }
 
