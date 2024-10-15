@@ -14,13 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.relaxapp.R
 
 @Composable
-
 fun OnboardingScreenView1() {
     Column(
         modifier = Modifier
@@ -34,7 +34,8 @@ fun OnboardingScreenView1() {
             contentDescription = "Imagen de fondo",
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
+                .weight(1f),  // Ocupa el mismo peso vertical
+            contentScale = ContentScale.Crop  // Ajusta la imagen para llenar su contenedor
         )
 
         Column(
@@ -45,10 +46,10 @@ fun OnboardingScreenView1() {
             verticalArrangement = Arrangement.Bottom
         ) {
             Text(
-                text ="¡Mejora tu Salud Mental!",
+                text = "¡Mejora tu Salud Mental!",
                 color = Color.Black,
                 style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp, top = 17.dp)
             )
 
             Text(
@@ -57,9 +58,7 @@ fun OnboardingScreenView1() {
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 32.dp)
             )
-
-
-            }
         }
     }
+}
 
