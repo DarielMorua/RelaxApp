@@ -45,17 +45,18 @@ fun OnboardingScreenView2() {
             verticalArrangement = Arrangement.Bottom
         ) {
             Text(
-                text = "¡Chatea con Profesionales en tu entorno!",
+                text = "¡Chatea con Profesionales!",
                 color = Color.Black,
                 style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.padding(bottom = 8.dp)
+                textAlign = TextAlign.Center,
+
             )
 
             Text(
                 text = "Conéctate con expertos en salud mental",
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 32.dp)
+               modifier = Modifier.padding(horizontal = 2.dp)
             )
         }
     }

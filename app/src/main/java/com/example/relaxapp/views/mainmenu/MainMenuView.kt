@@ -79,8 +79,6 @@ val CustomTypography = Typography(
 
 val emojis = listOf("\uD83D\uDE04", "\uD83D\uDE42", "😐", "☹\uFE0F", "\uD83D\uDE22","😭")
 
-
-
 @Composable
 fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
     Scaffold(
@@ -163,41 +161,12 @@ fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
-                onClick = { /* Acción */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .height(50.dp),
-                shape = RoundedCornerShape(24.dp),
-                colors = ButtonDefaults.buttonColors(Color(26, 204, 181, 255))
-            ) {
-                Text(
-                    text = "¡Hazmelo saber!",
-                    color = Color.White,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-            }
+
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botón "Chatea con un Profesional"
-            Button(
-                onClick = { /* Acción */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .height(50.dp),
-                shape = RoundedCornerShape(24.dp),
-                colors = ButtonDefaults.buttonColors(Color(57, 211, 187, 255))
-            ) {
-                Text(
-                    text = "Chatea con un Profesional",
-                    color = Color.White,
-                    style = MaterialTheme.typography.headlineMedium
-                )
+
             }
-        }
     }
 }
 

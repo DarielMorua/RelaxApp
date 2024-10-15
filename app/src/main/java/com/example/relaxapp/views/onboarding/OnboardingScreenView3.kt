@@ -50,7 +50,8 @@ fun OnboardingScreenView3() {
                 text ="Encuentra la Calma que Necesitas",
                 color = Color.Black,
                 style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp),
+                        textAlign = TextAlign.Center,
             )
 
             Text(
