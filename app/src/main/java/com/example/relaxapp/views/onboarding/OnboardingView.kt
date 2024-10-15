@@ -48,14 +48,14 @@ fun OnboardingView(navController: NavController) {
             }, modifier = Modifier.padding(end=8.dp)) {
                 Text(text = "Anterior")
             }
-            Button(onClick = {
-                if (pagerState.currentPage < pagerState.pageCount - 1) {
+            if (pagerState.currentPage < pagerState.pageCount - 1) {
+                Button(onClick = {
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
+                }) {
+                    Text(text = "Siguiente")
                 }
-            }) {
-                Text(text = "Siguiente")
             }
             if (pagerState.currentPage == pagerState.pageCount - 1) {
             //cambiar
