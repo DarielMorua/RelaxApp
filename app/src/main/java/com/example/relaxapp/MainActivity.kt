@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.ui.theme.RelaxAppTheme
+import com.example.relaxapp.views.onboarding.OnboardingView
 
 
 //Prueba dev commit
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
 
             RelaxAppTheme {
                 val navController = rememberNavController()
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                OnboardingView()
 
                 //    SignUpView(SignUpViewModel())
 
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
