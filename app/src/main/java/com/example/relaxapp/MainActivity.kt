@@ -14,9 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.ui.theme.RelaxAppTheme
-import com.example.relaxapp.views.MyAppNavigationView
-import com.example.relaxapp.views.profile.ProfileView
-import com.example.relaxapp.views.profile.personaldata.PersonalDataView
 
 
 //Prueba dev commit
@@ -38,8 +35,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-//}
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(

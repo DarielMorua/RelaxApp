@@ -44,7 +44,7 @@ fun OnboardingScreenView2() {
             verticalArrangement = Arrangement.Bottom
         ) {
             Text(
-                text ="¡Chatea con Profesionales!",
+                text ="¡Chatea con Profesionales en tu entorno!",
                 color = Color.Black,
                 style = MaterialTheme.typography.headlineLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
