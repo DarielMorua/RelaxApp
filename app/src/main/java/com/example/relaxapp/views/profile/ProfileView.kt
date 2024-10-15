@@ -180,7 +180,7 @@ fun ProfileView(navController: NavController) {
             // Buttons section
             Column {
                 Button(
-                    onClick = { /* Acción */ },
+                    onClick = { navController.navigate(Routes.PersonalDataView) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)

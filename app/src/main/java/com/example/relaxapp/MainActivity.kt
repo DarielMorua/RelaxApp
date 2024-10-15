@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.ui.theme.RelaxAppTheme
 import com.example.relaxapp.views.MyAppNavigationView
 import com.example.relaxapp.views.profile.ProfileView
+import com.example.relaxapp.views.profile.personaldata.PersonalDataView
 
 
 //Prueba dev commit
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 val navContoller = rememberNavController()
                 MyAppNavigationView()
                     //ProfileView(NavController(context = this))
-
+                    //PersonalDataView(navContoller)
                 }
             }
         }
