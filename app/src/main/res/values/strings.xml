@@ -17,5 +17,20 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="phone_number">Phone Number</string>
     <string name="sign_up_confirm_password">Confirm Password</string>
+    <string name="sign_in_dont_have_account">Don\'t have an account? Sign up</string>
+    <string name="remember_me">Remember me</string>
+    <string name="home">Home</string>
+    <string name="drchat">Dr. Chat</string>
+    <string name="calendar">Calendar</string>
+    <string name="notificaciones">Notifications</string>
+    <string name ="empty"> </string>
+    <string name="Relax">RelaxApp</string>
+    <string name="how_are_you">How are you feeling today?</string>
+    <string name="improve">Improve your mental health</string>
+    <string name="explore">Explore tools to improve your emotional well-being</string>
+    <string name="chatw">Chat with professionals</string>
+    <string name="connectw">Connect with mental health experts</string>
+    <string name="findcalm">Find the calm you need</string>
+    <string name="discovercalm">Discover a new way to relax and take care of your well-being</string>
 
 </resources>

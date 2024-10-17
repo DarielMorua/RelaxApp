@@ -11,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -39,21 +41,21 @@ fun BottomNavigationBar(navController: NavController) {
                         is ImageVector -> {
                             Icon(
                                 imageVector = image,
-                                contentDescription = navItem.title,
+                                contentDescription = "",
                                 tint = Color.White
                             )
                         }
                         is Int -> {
                             Image(
                                 painter = painterResource(id = image),
-                                contentDescription = navItem.title
+                                contentDescription = ""
                             )
                         }
                     }
                 },
                 label = {
-                    Text(text = navItem.title,
-                        color = Color.White
+                    Text(text = stringResource(navItem.title),
+                        color = Color.White, fontSize = 10.sp
                     )
                 }
             )
