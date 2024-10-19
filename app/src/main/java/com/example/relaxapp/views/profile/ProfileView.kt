@@ -214,7 +214,7 @@ fun ProfileView(navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
-                    onClick = { /* Acción */ },
+                    onClick = { navController.navigate(Routes.FavoriteView) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)

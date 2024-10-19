@@ -18,4 +18,5 @@ object Routes {
     const val FAQView = "FAQView"
     const val ChatView = "ChatView"
     const val HelpView = "HelpView"
+    const val FavoriteView = "FavoriteView"
 }
