@@ -11,7 +11,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.example.relaxapp.R
 
-
 val NavBarItems = listOf(
     BarItem(
         title =  R.string.home,
@@ -21,7 +20,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.drchat,
         image = Icons.Filled.Face,
-        route = Routes.DoctorChatView
+        route = Routes.ChatView
     ),
     BarItem(
         title = R.string.empty,
