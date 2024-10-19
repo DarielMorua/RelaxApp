@@ -24,11 +24,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 
@@ -64,7 +66,7 @@ fun PersonalDataView(navController: NavController) {
                 )
 
                 Text(
-                    text = "Datos Personales",
+                    text =  stringResource(id= R.string.personaldata),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
                     fontSize = 28.sp,
@@ -83,7 +85,7 @@ fun PersonalDataView(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Text(text = "Nombre", fontWeight = FontWeight.Bold)
+                    Text(text =  stringResource(id=R.string.name), fontWeight = FontWeight.Bold)
                     Text(text = "Venustiano")
                 }
             }
@@ -97,7 +99,7 @@ fun PersonalDataView(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Text(text = "Apellidos", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(id=R.string.lastname), fontWeight = FontWeight.Bold)
                     Text(text = "Carranza De la Garza")
                 }
             }
@@ -111,7 +113,7 @@ fun PersonalDataView(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Text(text = "Correo", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(id=R.string.email), fontWeight = FontWeight.Bold)
                     Text(text = "venucag@gmail.com")
                 }
             }
@@ -125,7 +127,7 @@ fun PersonalDataView(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Text(text = "Número", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(id=R.string.phone_number), fontWeight = FontWeight.Bold)
                     Text(text = "614 258 6458")
                 }
             }
@@ -139,7 +141,7 @@ fun PersonalDataView(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Text(text = "País", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(id=R.string.country), fontWeight = FontWeight.Bold)
                     Text(text = "México")
                 }
             }
@@ -147,7 +149,7 @@ fun PersonalDataView(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Eliminar Cuenta",
+                text = stringResource(id=R.string.delete_account),
                 color = Color.Red,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier

@@ -163,7 +163,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween ) {
-            Text("Recuerdame", style = MaterialTheme.typography.labelSmall, color = BlueGray, fontSize = 16.sp,
+            Text( stringResource(id = R.string.remember_me), style = MaterialTheme.typography.labelSmall, color = BlueGray, fontSize = 16.sp,
                 modifier = Modifier.padding(start = 16.dp).align(Alignment.CenterVertically))
             Switch(
                 checked = checked,
@@ -232,7 +232,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         Column {
             Button(onClick = {navController.navigate(Routes.SignUpView)},
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
-                Text("¿No tienes cuenta? Regístrate")
+                Text( stringResource(id = R.string.sign_in_dont_have_account))
             }
         }
     }
