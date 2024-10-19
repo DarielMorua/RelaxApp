@@ -25,6 +25,7 @@ import com.example.relaxapp.views.FAQ.FAQView
 import com.example.relaxapp.views.calendar.CalendarView
 
 import com.example.relaxapp.views.chat.ChatView
+import com.example.relaxapp.views.exercises.ExerciseView
 import com.example.relaxapp.views.login.LogInView
 import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.mainmenu.MainMenu
@@ -74,6 +75,9 @@ fun MyAppNavigationView() {
         }
         composable(Routes.FavoriteView){
             FavoriteView(navContoller)
+        }
+        composable(Routes.ExerciseView){
+            ExerciseView(navContoller)
         }
     })
 }

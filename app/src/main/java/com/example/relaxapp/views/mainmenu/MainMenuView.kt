@@ -193,7 +193,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         Button(
                             onClick = {
                                 viewModel.onImageSelected(imageResId)
-                                navController.navigate(Routes.PersonalDataView)
+                                navController.navigate(Routes.ExerciseView)
                             },
                             shape = RoundedCornerShape(percent = 45),
                             modifier = Modifier.size(250.dp),
