@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -80,8 +81,14 @@ val CustomTypography = Typography(
 
 val emojis = listOf("\uD83D\uDE04", "\uD83D\uDE42", "😐", "☹\uFE0F", "\uD83D\uDE22","😭")
 
+val imagenes = listOf(
+    R.drawable.resp1,  // Primera imagen
+    R.drawable.esti2,  // Segunda imagen
+    R.drawable.medi1    // Tercera imagen
+)
+
 @Composable
-fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
+fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
@@ -90,6 +97,7 @@ fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFFF7F7F7))
+                .padding(innerPadding)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -98,12 +106,13 @@ fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_logo),
                     contentDescription = "Logo",
-                    modifier = Modifier.size(90.dp)
+                    modifier = Modifier.size(60.dp)
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -121,7 +130,9 @@ fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
                     imageVector = Icons.Filled.Person,
                     contentDescription = "Profile Icon",
                     tint = Color.Black,
-                    modifier = Modifier.size(50.dp).clickable { navController.navigate(Routes.ProfileView) }
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable { navController.navigate(Routes.ProfileView) }
                 )
             }
 
@@ -162,12 +173,44 @@ fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            Column {
+                Text(
+                    text = stringResource(id = R.string.recommendedExercises),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    fontSize = 25.sp
+                )
 
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    imagenes.forEach { imageResId ->
+                        Button(
+                            onClick = {
+                                viewModel.onImageSelected(imageResId)
+                                navController.navigate(Routes.PersonalDataView)
+                            },
+                            shape = RoundedCornerShape(percent = 45),
+                            modifier = Modifier.size(250.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+                        ) {
+                            Image(
+                                painter = painterResource(id = imageResId),
+                                contentDescription = "Imagen recomendada",
+                                modifier = Modifier.fillMaxSize()  // Llenar el espacio dentro del botón
+                            )
+                        }
+                    }
+                }
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
-
-
-            }
+        }
     }
 }
 

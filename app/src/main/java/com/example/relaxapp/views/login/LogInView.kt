@@ -22,6 +22,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +45,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.navigation.NavController
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.Routes
+import com.example.relaxapp.views.onboarding.OnboardingViewModel
 
 val MintGreen = Color(26, 204, 181, 255) // #B9DAD4
 val CarolinaBlue = Color(139, 172, 205) // #8BACCD
@@ -122,7 +125,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         TextField(
             value = username,
             onValueChange = { viewModel.onUsernameChange(it) },
-            label = { Text(text = stringResource(id = R.string.username), style = MaterialTheme.typography.headlineSmall)},
+            label = { Text(text = stringResource(id = R.string.email), style = MaterialTheme.typography.headlineSmall)},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)

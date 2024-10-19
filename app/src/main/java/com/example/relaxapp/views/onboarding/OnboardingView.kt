@@ -11,21 +11,32 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.relaxapp.bottomnavigationbar.Routes
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingView(navController: NavController) {
-    val pagerState = rememberPagerState (pageCount = { 3 })
+fun OnboardingView(navController: NavController, onboardingViewModel: OnboardingViewModel = viewModel()) {
+    val pagerState = rememberPagerState(pageCount = { 3 })
     val coroutineScope = rememberCoroutineScope()
+    val isOnboardingCompleted by onboardingViewModel.isOnboardingCompleted.collectAsState()
 
-    Column (modifier =  Modifier.fillMaxSize()) {
+    LaunchedEffect(isOnboardingCompleted) {
+        if (isOnboardingCompleted) {
+            navController.navigate(Routes.LoginView)
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.weight(1f)
@@ -36,18 +47,21 @@ fun OnboardingView(navController: NavController) {
                 2 -> OnboardingScreenView3()
             }
         }
-        Row (modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .padding(16.dp)) {
+        Row(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(16.dp)
+        ) {
             Button(onClick = {
                 if (pagerState.currentPage > 0) {
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage - 1)
                     }
                 }
-            }, modifier = Modifier.padding(end=8.dp)) {
+            }, modifier = Modifier.padding(end = 8.dp)) {
                 Text(text = "Anterior")
             }
+
             if (pagerState.currentPage < pagerState.pageCount - 1) {
                 Button(onClick = {
                     coroutineScope.launch {
@@ -57,16 +71,16 @@ fun OnboardingView(navController: NavController) {
                     Text(text = "Siguiente")
                 }
             }
+
             if (pagerState.currentPage == pagerState.pageCount - 1) {
-            //cambiar
-                Button(onClick = { navController.navigate(Routes.LoginView) }) {
+                Button(onClick = {
+                    onboardingViewModel.completeOnboarding()
+                    navController.navigate(Routes.LoginView)
+                }) {
                     Text(text = "Empezar")
                 }
-
+            }
         }
-
-        }
-
     }
 
 }

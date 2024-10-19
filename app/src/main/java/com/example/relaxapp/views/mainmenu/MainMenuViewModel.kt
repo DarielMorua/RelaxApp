@@ -10,7 +10,14 @@ class MainMenuViewModel : ViewModel() {
     var selectedEmoji by mutableStateOf<String?>(null)
         private set
 
+    var selectedImage by mutableStateOf<Int?>(null)
+        private set
+
     fun onEmojiSelected(emoji: String) {
         selectedEmoji = emoji
+    }
+
+    fun onImageSelected(imageResId: Int) {
+        selectedImage =  imageResId
     }
 }

@@ -11,8 +11,11 @@ class SignUpViewModel : ViewModel() {
     private val _email = MutableLiveData("")
     val email: LiveData<String> = _email
 
-    private val _username = MutableLiveData("")
-    val username: LiveData<String> = _username
+    private val _name = MutableLiveData("")
+    val name: LiveData<String> = _name
+
+    private val _lastname = MutableLiveData("")
+    val lastname: LiveData<String> = _lastname
 
     private val _password = MutableLiveData("")
     val password: LiveData<String> = _password
@@ -32,7 +35,11 @@ class SignUpViewModel : ViewModel() {
     }
 
     fun onUsernameChange(newUsername: String) {
-        _username.value = newUsername
+        _name.value = newUsername
+    }
+
+    fun onLastnameChange(newUsername: String) {
+        _lastname.value = newUsername
     }
 
     fun onPasswordChange(newPassword: String) {

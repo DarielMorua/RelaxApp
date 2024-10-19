@@ -27,7 +27,7 @@ fun BottomNavigationBar(navController: NavController) {
             NavigationBarItem(
                 selected = currentRoute == navItem.route,
                 onClick = {
-                    navController.navigate(navItem.route) {
+                   navController.navigate(navItem.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }

@@ -15,11 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.bottomnavigationbar.Routes
+import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.login.LogInView
 import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.mainmenu.MainMenu
@@ -36,7 +38,7 @@ fun MyAppNavigationView() {
     NavHost(navController = navContoller, startDestination = Routes.OnboardingView, builder =  {
 
         composable(Routes.OnboardingView) {
-            OnboardingView(navContoller)
+            OnboardingView(navContoller, onboardingViewModel = viewModel())
         }
         composable(Routes.SignUpView) {
             SignUpView(SignUpViewModel(), navContoller)
@@ -52,6 +54,9 @@ fun MyAppNavigationView() {
         }
         composable(Routes.PersonalDataView){
             PersonalDataView(navContoller)
+        }
+        composable(Routes.ChatView){
+            ChatView(navContoller)
         }
 
     })
