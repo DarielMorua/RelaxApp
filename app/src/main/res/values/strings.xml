@@ -45,5 +45,9 @@
     <string name="need_help">Need help?</string>
     <string name="faqs">FAQs</string>
     <string name="recommendedExercises">Recommended Exercises</string>
+    <string name="chatprofessional">Professional Chat</string>
+    <string name="exercises">Exercises</string>
+    <string name="exercisesMed">Meditation Exercises</string>
+    <string name="exercisesBre">Breathing Exercises</string>
 
 </resources>

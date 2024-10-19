@@ -73,7 +73,7 @@ fun ExerciseView(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Ejercicios",
+                    text = stringResource(id = R.string.exercises),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
                     fontSize = 50.sp,
@@ -96,7 +96,7 @@ fun ExerciseView(navController: NavController) {
 
             Column {
                 Text(
-                    text = "Ejercicios de Respiracion",
+                    text = stringResource(id = R.string.exercisesBre),
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.Gray,
                     modifier = Modifier.padding(bottom = 16.dp),
@@ -131,7 +131,7 @@ fun ExerciseView(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
             Column {
                 Text(
-                    text = "Ejercicios de Meditacion",
+                    text = stringResource(id = R.string.exercisesMed),
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.Gray,
                     modifier = Modifier.padding(bottom = 16.dp),

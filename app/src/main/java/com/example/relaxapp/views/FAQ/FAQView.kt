@@ -21,10 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 
@@ -59,7 +61,7 @@ fun FAQView(navController: NavController) {
                         }
                 )
                 Text(
-                    text = "Preguntas Frecuentes",
+                    text = stringResource(id = R.string.faqs),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
                     fontSize = 50.sp,
