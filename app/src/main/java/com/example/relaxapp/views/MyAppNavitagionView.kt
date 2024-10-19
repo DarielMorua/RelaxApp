@@ -63,6 +63,6 @@ fun MyAppNavigationView() {
           composable(Routes.ChatView){
             ChatView(navContoller)
         }
-
+    }
     })
 }
