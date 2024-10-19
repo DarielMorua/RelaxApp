@@ -20,4 +20,5 @@ object Routes {
     const val HelpView = "HelpView"
     const val FavoriteView = "FavoriteView"
     const val ExerciseView = "ExerciseView"
+    const val NotificationView = "NotificationView"
 }

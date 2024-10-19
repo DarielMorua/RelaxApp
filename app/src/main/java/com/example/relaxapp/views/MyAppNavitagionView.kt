@@ -31,6 +31,7 @@ import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 import com.example.relaxapp.views.needhelp.HelpView
+import com.example.relaxapp.views.notifications.NotificationView
 import com.example.relaxapp.views.onboarding.OnboardingView
 import com.example.relaxapp.views.profile.ProfileView
 import com.example.relaxapp.views.profile.favorites.FavoriteView
@@ -78,6 +79,9 @@ fun MyAppNavigationView() {
         }
         composable(Routes.ExerciseView){
             ExerciseView(navContoller)
+        }
+        composable(Routes.NotificationView){
+            NotificationView(navContoller)
         }
     })
 }

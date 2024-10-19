@@ -50,6 +50,9 @@
     <string name="exercises">Ejercicios</string>
     <string name="exercisesMed">Ejercicios de Meditacion</string>
     <string name="exercisesBre">Ejercicios de Respiracion</string>
+    <string name="appointment_reminder">Tu cita es hoy a las 2 PM</string>
+    <string name="recommended_exercises">¡Tenemos nuevos ejercicios recomendados, dales un vistazo!</string>
+
 
 </resources>
 
