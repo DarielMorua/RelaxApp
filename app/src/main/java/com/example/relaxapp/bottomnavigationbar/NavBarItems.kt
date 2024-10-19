@@ -35,7 +35,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.notificaciones,
         image = Icons.Filled.Notifications,
-        route = Routes.NotificationsView
+        route = Routes.NotificationView
     ),
 
 )

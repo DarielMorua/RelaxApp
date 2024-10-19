@@ -49,5 +49,7 @@
     <string name="exercises">Exercises</string>
     <string name="exercisesMed">Meditation Exercises</string>
     <string name="exercisesBre">Breathing Exercises</string>
+    <string name="appointment_reminder">Your appointment is today at 2 PM</string>
+    <string name="recommended_exercises">We have new recommended exercises, check them out!</string>
 
 </resources>
