@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.bottomnavigationbar.Routes
+import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.login.LogInView
 import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.mainmenu.MainMenu
@@ -53,6 +54,9 @@ fun MyAppNavigationView() {
         }
         composable(Routes.PersonalDataView){
             PersonalDataView(navContoller)
+        }
+        composable(Routes.ChatView){
+            ChatView(navContoller)
         }
 
     })
