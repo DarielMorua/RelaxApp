@@ -4,8 +4,11 @@
     <string name="sign_up_title">Sign Up</string>
     <string name="log_in_title">Welcome</string>
     <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="lastname">Lastname</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="country">Country</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="log_in_button">Log In</string>
     <string name="continue_google">Continue with Google</string>
@@ -32,5 +35,14 @@
     <string name="connectw">Connect with mental health experts</string>
     <string name="findcalm">Find the calm you need</string>
     <string name="discovercalm">Discover a new way to relax and take care of your well-being</string>
+    <string name="personaldata">Personal Data</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="greeting">Hello!</string>
+    <string name="favoritedr">Favorite Doctors</string>
+    <string name="appoinments">Appointments</string>
+    <string name="need_help">Need help?</string>
+    <string name="faqs">FAQs</string>
 
 </resources>

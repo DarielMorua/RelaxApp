@@ -33,6 +33,18 @@
     <string name="connectw">Conéctate con expertos en salud mental</string>
     <string name="findcalm">Encuentra la calma que necesitas</string>
     <string name="discovercalm">Descubre una nueva forma de relajarte y cuidar tu bienestar</string>
+    <string name="personaldata">Datos Personales</string>
+    <string name="name">Nombre</string>
+    <string name="lastname">Apellido</string>
+    <string name="country">País</string>
+    <string name="delete_account">Eliminar Cuenta</string>
+    <string name="profile">Perfil</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="greeting">¡Hola!</string>
+    <string name="favoritedr">Doctores Favoritos</string>
+    <string name="appoinments">Citas</string>
+    <string name="need_help">¿Necesitas ayuda?</string>
+    <string name="faqs">Preguntas Frecuentes</string>
 
 
 </resources>

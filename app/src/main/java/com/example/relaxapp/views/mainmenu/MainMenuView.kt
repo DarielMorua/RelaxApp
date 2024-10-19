@@ -109,7 +109,7 @@ fun MainMenu(viewModel: MainMenuViewModel,navController: NavController) {
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = "Relax",
+                    text =  stringResource(id = R.string.app_name),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color.Black,
                     modifier = Modifier.align(Alignment.CenterVertically)

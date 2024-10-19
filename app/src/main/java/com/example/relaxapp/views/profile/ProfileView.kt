@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -126,7 +127,7 @@ fun ProfileView(navController: NavController) {
                     modifier = Modifier.size(50.dp)
                 )
                 Text(
-                    text = "Perfil",
+                    text = stringResource(id = R.string.profile),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
                     fontSize = 50.sp,
@@ -162,7 +163,7 @@ fun ProfileView(navController: NavController) {
                             modifier = Modifier.padding(16.dp)
                         ) {
                             Text(
-                                text = "Hola!",
+                                text = stringResource(id = R.string.greeting),
                                 style = MaterialTheme.typography.headlineSmall,
                                 color = Color.Black
                             )
@@ -200,7 +201,7 @@ fun ProfileView(navController: NavController) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Datos Personales",
+                            text = stringResource(id = R.string.personaldata),
                             color = Color.Black,
                             fontSize = 18.sp
                         )
@@ -229,7 +230,7 @@ fun ProfileView(navController: NavController) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Drs. Favoritos",
+                            text = stringResource(id = R.string.favoritedr),
                             color = Color.Black,
                             fontSize = 18.sp
                         )
@@ -253,12 +254,12 @@ fun ProfileView(navController: NavController) {
                     ) {
                         Icon(
                             imageVector = Icons.Filled.DateRange,
-                            contentDescription = "Calendar",
+                            contentDescription = stringResource(id = R.string.calendar),
                             tint = Color.Black
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Citas",
+                            text = stringResource(id = R.string.appoinments),
                             color = Color.Black,
                             fontSize = 18.sp
                         )
@@ -284,7 +285,7 @@ fun ProfileView(navController: NavController) {
                     colors = ButtonDefaults.buttonColors(Color.Transparent)
                 ) {
                     Text(
-                        text = "¿Necesitas ayuda?",
+                        text = stringResource(id = R.string.need_help),
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color.Black,
                         textDecoration = TextDecoration.Underline,
@@ -304,7 +305,7 @@ fun ProfileView(navController: NavController) {
                     colors = ButtonDefaults.buttonColors(Color.Transparent)
                 ) {
                     Text(
-                        text = "Preguntas Frecuentes",
+                        text = stringResource(id = R.string.faqs),
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color.Black,
                         textDecoration = TextDecoration.Underline,
@@ -324,7 +325,7 @@ fun ProfileView(navController: NavController) {
                     colors = ButtonDefaults.buttonColors(Color.Transparent)
                 ) {
                     Text(
-                        text = "Cerrar Sesion",
+                        text = stringResource(id = R.string.logout),
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color(255, 116, 104, 255),
                         fontWeight = FontWeight.ExtraBold,
