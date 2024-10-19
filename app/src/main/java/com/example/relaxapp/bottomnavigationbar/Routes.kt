@@ -15,4 +15,6 @@ object Routes {
     const val ProfileView = "ProfileView"
     const val PersonalDataView = "PersonalDataView"
     const val CalendarDataView = "CalendarView"
+  
+    const val ChatView = "ChatView"
 }
