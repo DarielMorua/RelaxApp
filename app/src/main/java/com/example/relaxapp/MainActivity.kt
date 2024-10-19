@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.ui.theme.RelaxAppTheme
 import com.example.relaxapp.views.MyAppNavigationView
+import com.example.relaxapp.views.calendar.CalendarView
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     //ProfileView(NavController(context = this))
                     //PersonalDataView(navContoller)
                 //MainMenu(viewModel = MainMenuViewModel(), navContoller)
-
+                    //CalendarView(navContoller)
                 }
             }
         }
