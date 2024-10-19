@@ -175,7 +175,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
 
             Column {
                 Text(
-                    text = "Ejercicios Remomendados",
+                    text = "Ejercicios Recomendados",
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.Gray,
                     modifier = Modifier.padding(bottom = 16.dp),
@@ -193,6 +193,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         Button(
                             onClick = {
                                 viewModel.onImageSelected(imageResId)
+                                navController.navigate(Routes.PersonalDataView)
                             },
                             shape = RoundedCornerShape(percent = 45),
                             modifier = Modifier.size(250.dp),

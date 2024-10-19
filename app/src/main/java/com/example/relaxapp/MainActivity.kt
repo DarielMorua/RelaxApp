@@ -31,10 +31,11 @@ class MainActivity : ComponentActivity() {
 
                 //    SignUpView(SignUpViewModel())
                 val navContoller = rememberNavController()
-                //MyAppNavigationView()
+                MyAppNavigationView()
                     //ProfileView(NavController(context = this))
                     //PersonalDataView(navContoller)
-                MainMenu(viewModel = MainMenuViewModel(), navContoller)
+                //MainMenu(viewModel = MainMenuViewModel(), navContoller)
+
                 }
             }
         }
