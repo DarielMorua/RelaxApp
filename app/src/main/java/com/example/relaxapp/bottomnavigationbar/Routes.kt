@@ -1,5 +1,7 @@
 package com.example.relaxapp.bottomnavigationbar
 
+import android.widget.CalendarView
+
 object Routes {
     const val MainMenuView = "MainMenuView"
     const val DoctorChatView = "DoctorChatView"
@@ -12,5 +14,7 @@ object Routes {
     const val LoginView = "LoginView"
     const val ProfileView = "ProfileView"
     const val PersonalDataView = "PersonalDataView"
+    const val CalendarDataView = "CalendarView"
+  
     const val ChatView = "ChatView"
 }
