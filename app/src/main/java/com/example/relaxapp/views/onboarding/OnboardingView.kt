@@ -17,9 +17,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.Routes
 import kotlinx.coroutines.launch
 
@@ -59,7 +61,7 @@ fun OnboardingView(navController: NavController, onboardingViewModel: Onboarding
                     }
                 }
             }, modifier = Modifier.padding(end = 8.dp)) {
-                Text(text = "Anterior")
+                Text(stringResource(id = R.string.backbutton))
             }
 
             if (pagerState.currentPage < pagerState.pageCount - 1) {
@@ -68,7 +70,7 @@ fun OnboardingView(navController: NavController, onboardingViewModel: Onboarding
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 }) {
-                    Text(text = "Siguiente")
+                    Text(stringResource(id = R.string.nextbutton))
                 }
             }
 
@@ -77,7 +79,7 @@ fun OnboardingView(navController: NavController, onboardingViewModel: Onboarding
                     onboardingViewModel.completeOnboarding()
                     navController.navigate(Routes.LoginView)
                 }) {
-                    Text(text = "Empezar")
+                    Text(stringResource(id = R.string.beginbutton))
                 }
             }
         }
