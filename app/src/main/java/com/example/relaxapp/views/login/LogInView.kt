@@ -125,7 +125,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         TextField(
             value = username,
             onValueChange = { viewModel.onUsernameChange(it) },
-            label = { Text(text = stringResource(id = R.string.username), style = MaterialTheme.typography.headlineSmall)},
+            label = { Text(text = stringResource(id = R.string.email), style = MaterialTheme.typography.headlineSmall)},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)

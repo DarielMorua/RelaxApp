@@ -96,7 +96,8 @@ val CustomTypography = Typography(
 fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
     val email by signUpViewModel.email.observeAsState("")
     val telephone by signUpViewModel.telephone.observeAsState("")
-    val username by signUpViewModel.username.observeAsState("")
+    val name by signUpViewModel.name.observeAsState("")
+    val lastname by signUpViewModel.name.observeAsState("")
     val password by signUpViewModel.password.observeAsState("")
     val passwordConf by signUpViewModel.passwordConf.observeAsState("")
     val termsAccepted by signUpViewModel.termsAccepted.observeAsState(false)
@@ -151,11 +152,24 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // usuario
+        // nombre
         TextField(
-            value = username,
+            value = name,
             onValueChange = { signUpViewModel.onUsernameChange(it) },
             label = { Text(text = stringResource(id = R.string.name) , style = MaterialTheme.typography.headlineSmall) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // apellido
+        TextField(
+            value = lastname,
+            onValueChange = { signUpViewModel.onLastnameChange(it) },
+            label = { Text(text = stringResource(id = R.string.lastname) , style = MaterialTheme.typography.headlineSmall) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier
                 .fillMaxWidth()

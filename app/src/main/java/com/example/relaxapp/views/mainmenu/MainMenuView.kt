@@ -175,7 +175,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
 
             Column {
                 Text(
-                    text = "Ejercicios Recomendados",
+                    text = stringResource(id = R.string.recommendedExercises),
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.Gray,
                     modifier = Modifier.padding(bottom = 16.dp),
