@@ -57,9 +57,9 @@ fun MyAppNavigationView() {
         composable(Routes.PersonalDataView){
             PersonalDataView(navContoller)
         }
-        composable(Routes.CalendarDataView){
+        composable(Routes.CalendarDataView) {
             CalendarView(navContoller)
-
+        }
           composable(Routes.ChatView){
             ChatView(navContoller)
         }
