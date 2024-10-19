@@ -280,7 +280,7 @@ fun ProfileView(navController: NavController) {
                     .padding(horizontal = 16.dp)
             ) {
                 Button(
-                    onClick = { /* Acción */ },
+                    onClick = { navController.navigate(Routes.HelpView) },
                     modifier = Modifier
                         //.fillMaxWidth()
                         .padding(start = 8.dp)
