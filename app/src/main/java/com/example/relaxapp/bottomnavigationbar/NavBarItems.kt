@@ -30,7 +30,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.calendar,
         image = Icons.Filled.DateRange,
-        route = Routes.CalendarView
+        route = Routes.CalendarDataView
     ),
     BarItem(
         title = R.string.notificaciones,

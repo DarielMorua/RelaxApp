@@ -3,6 +3,7 @@ package com.example.relaxapp.views.profile
 import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -125,6 +126,9 @@ fun ProfileView(navController: NavController) {
                     contentDescription = "ArrowBack Icon",
                     tint = Color.Black,
                     modifier = Modifier.size(50.dp)
+                        .clickable {
+                            navController.popBackStack()
+                        }
                 )
                 Text(
                     text = stringResource(id = R.string.profile),

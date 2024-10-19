@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     //ProfileView(NavController(context = this))
                     //PersonalDataView(navContoller)
                 //MainMenu(viewModel = MainMenuViewModel(), navContoller)
-
+                    //CalendarView(navContoller)
                 }
             }
         }
