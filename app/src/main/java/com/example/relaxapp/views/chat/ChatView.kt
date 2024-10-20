@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,7 +68,7 @@ fun ChatView(navController: NavController) {
                         .align(Alignment.CenterStart)
                 )
                 Text(
-                    text = "CHAT Profesional",
+                    text = stringResource(R.string.chatprofessional),
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.Center).padding(30.dp),
                     fontSize = 20.sp
@@ -103,7 +104,7 @@ fun ChatView(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                label = { Text("Escribe un mensaje...") },
+                label = { Text(text = stringResource(id = R.string.writemessage)) },
                 shape = RoundedCornerShape(24.dp),
                 trailingIcon = {
                     IconButton(onClick = { /* Send message */ }) {

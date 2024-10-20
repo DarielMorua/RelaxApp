@@ -45,5 +45,15 @@
     <string name="need_help">Need help?</string>
     <string name="faqs">FAQs</string>
     <string name="recommendedExercises">Recommended Exercises</string>
+    <string name="chatprofessional">Professional Chat</string>
+    <string name="exercises">Exercises</string>
+    <string name="exercisesMed">Meditation Exercises</string>
+    <string name="exercisesBre">Breathing Exercises</string>
+    <string name="appointment_reminder">Your appointment is today at 2 PM</string>
+    <string name="recommended_exercises">We have new recommended exercises, check them out!</string>
+    <string name="nextbutton">Next</string>
+    <string name="backbutton">Back</string>
+    <string name="beginbutton">Begin</string>
+    <string name="writemessage">Write a message</string>
 
 </resources>

@@ -232,7 +232,9 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         Column {
             Button(onClick = {navController.navigate(Routes.SignUpView)},
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
-                Text( stringResource(id = R.string.sign_in_dont_have_account))
+                Text( stringResource(id = R.string.sign_in_dont_have_account),
+                    color = Color.Black)
+
             }
         }
     }

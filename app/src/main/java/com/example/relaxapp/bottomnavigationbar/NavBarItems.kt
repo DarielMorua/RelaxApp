@@ -25,7 +25,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.empty,
         image = R.drawable.ic_logo,
-        route = Routes.IAChatView
+        route = Routes.ExerciseView
     ),
     BarItem(
         title = R.string.calendar,
@@ -35,7 +35,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.notificaciones,
         image = Icons.Filled.Notifications,
-        route = Routes.NotificationsView
+        route = Routes.NotificationView
     ),
 
 )

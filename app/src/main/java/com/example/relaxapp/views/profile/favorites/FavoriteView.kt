@@ -1,4 +1,4 @@
-package com.example.relaxapp.views.calendar
+package com.example.relaxapp.views.profile.favorites
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,7 +30,7 @@ import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 
 @Composable
-fun CalendarView(navController: NavController) {
+fun FavoriteView(navController: NavController) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
@@ -51,8 +50,17 @@ fun CalendarView(navController: NavController) {
                     .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "ArrowBack Icon",
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp)
+                        .clickable {
+                            navController.navigate(Routes.ProfileView)
+                        }
+                )
                 Text(
-                    text = stringResource(id = R.string.calendar),
+                    text = stringResource(id = R.string.favoritedr),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
                     fontSize = 50.sp,
@@ -60,27 +68,6 @@ fun CalendarView(navController: NavController) {
                         .weight(1f)
                         .padding(horizontal = 16.dp),
                     textAlign = TextAlign.Center
-                )
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "Profile Icon",
-                    tint = Color.Black,
-                    modifier = Modifier.size(50.dp)
-                        .clickable {
-                            navController.navigate(Routes.ProfileView)
-                        }
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Column {
-                // Calendar
-                Text(
-                    text = stringResource(id = R.string.calendar),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = Color.Gray,
-                    modifier = Modifier.padding(bottom = 16.dp),
-                    fontSize = 25.sp
                 )
             }
         }

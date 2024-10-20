@@ -21,15 +21,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.bottomnavigationbar.Routes
+import com.example.relaxapp.views.FAQ.FAQView
 import com.example.relaxapp.views.calendar.CalendarView
 
 import com.example.relaxapp.views.chat.ChatView
+import com.example.relaxapp.views.exercises.ExerciseView
 import com.example.relaxapp.views.login.LogInView
 import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
+import com.example.relaxapp.views.needhelp.HelpView
+import com.example.relaxapp.views.notifications.NotificationView
 import com.example.relaxapp.views.onboarding.OnboardingView
 import com.example.relaxapp.views.profile.ProfileView
+import com.example.relaxapp.views.profile.favorites.FavoriteView
 import com.example.relaxapp.views.profile.personaldata.PersonalDataView
 import com.example.relaxapp.views.signup.SignUpView
 import com.example.relaxapp.views.signup.SignUpViewModel
@@ -57,12 +62,26 @@ fun MyAppNavigationView() {
         composable(Routes.PersonalDataView){
             PersonalDataView(navContoller)
         }
-        composable(Routes.CalendarDataView){
+        composable(Routes.CalendarDataView) {
             CalendarView(navContoller)
-
+        }
           composable(Routes.ChatView){
             ChatView(navContoller)
         }
-    }
+        composable(Routes.FAQView){
+            FAQView(navContoller)
+        }
+        composable(Routes.HelpView){
+            HelpView(navContoller)
+        }
+        composable(Routes.FavoriteView){
+            FavoriteView(navContoller)
+        }
+        composable(Routes.ExerciseView){
+            ExerciseView(navContoller)
+        }
+        composable(Routes.NotificationView){
+            NotificationView(navContoller)
+        }
     })
 }

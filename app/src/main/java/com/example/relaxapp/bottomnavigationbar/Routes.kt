@@ -15,6 +15,10 @@ object Routes {
     const val ProfileView = "ProfileView"
     const val PersonalDataView = "PersonalDataView"
     const val CalendarDataView = "CalendarView"
-  
+    const val FAQView = "FAQView"
     const val ChatView = "ChatView"
+    const val HelpView = "HelpView"
+    const val FavoriteView = "FavoriteView"
+    const val ExerciseView = "ExerciseView"
+    const val NotificationView = "NotificationView"
 }

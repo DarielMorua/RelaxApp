@@ -156,6 +156,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                     Button(
                         onClick = {
                             viewModel.onEmojiSelected(emoji)
+                            navController.navigate(Routes.CalendarView)
                         },
                         shape = RoundedCornerShape(percent = 50),
                         modifier = Modifier.size(50.dp),
@@ -193,7 +194,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         Button(
                             onClick = {
                                 viewModel.onImageSelected(imageResId)
-                                navController.navigate(Routes.PersonalDataView)
+                                navController.navigate(Routes.ExerciseView)
                             },
                             shape = RoundedCornerShape(percent = 45),
                             modifier = Modifier.size(250.dp),
