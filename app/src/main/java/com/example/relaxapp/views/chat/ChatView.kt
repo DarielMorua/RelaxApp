@@ -104,7 +104,7 @@ fun ChatView(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                label = { Text("Escribe un mensaje...") },
+                label = { Text(text = stringResource(id = R.string.writemessage)) },
                 shape = RoundedCornerShape(24.dp),
                 trailingIcon = {
                     IconButton(onClick = { /* Send message */ }) {
