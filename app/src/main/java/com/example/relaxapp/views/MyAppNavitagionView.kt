@@ -28,6 +28,7 @@ import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.exercises.ExerciseView
 import com.example.relaxapp.views.login.LogInView
 import com.example.relaxapp.views.login.LogInViewModel
+import com.example.relaxapp.views.login.UserRepository
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 import com.example.relaxapp.views.needhelp.HelpView
@@ -51,7 +52,7 @@ fun MyAppNavigationView() {
             SignUpView(SignUpViewModel(), navContoller)
         }
         composable(Routes.LoginView) {
-            LogInView(LogInViewModel(), navContoller)
+            LogInView(LogInViewModel(userRepository = UserRepository), navContoller)
         }
         composable(Routes.MainMenuView) {
             MainMenu(MainMenuViewModel(), navContoller)

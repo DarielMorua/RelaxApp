@@ -13,8 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -32,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,6 +47,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.Routes
@@ -96,9 +103,12 @@ val CustomTypography = Typography(
 
 @Composable
 fun LogInView(viewModel: LogInViewModel, navController: NavController) {
-    val username by viewModel.username.observeAsState("")
-    val password by viewModel.password.observeAsState("")
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     var checked by remember { mutableStateOf(true) }
+    var passwordVisible by remember { mutableStateOf(false) }
+    val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory())
+
 
     Column(
         modifier = Modifier
@@ -124,7 +134,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         // Usuario
         TextField(
             value = username,
-            onValueChange = { viewModel.onUsernameChange(it) },
+            onValueChange = { username = it },
             label = { Text(text = stringResource(id = R.string.email), style = MaterialTheme.typography.headlineSmall)},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier
@@ -142,9 +152,14 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         // Contraseña
         TextField(
             value = password,
-            onValueChange = { viewModel.onPasswordChange(it) },
+            onValueChange = { password = it },
             label = { Text(text = stringResource(id = R.string.password), style = MaterialTheme.typography.headlineSmall) },
-            visualTransformation = PasswordVisualTransformation(),
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(imageVector = Icons.Filled.Edit, contentDescription = null)
+                }
+            },
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
@@ -178,8 +193,9 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
 
         // Botón Registro
         Button(
-            onClick = { //viewModel.onRegisterClicked()
-                 navController.navigate(Routes.MainMenuView)},
+            onClick = {
+                 loginViewModel.doLogin(username, password)
+                      },
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth(),
@@ -193,7 +209,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
 
         // Registro con Google
         Button(
-            onClick = { viewModel.onGoogleSignUp() },
+            onClick = { },
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth(),
@@ -214,7 +230,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
 
         // Registro con Facebook
         Button(
-            onClick = { viewModel.onFacebookSignUp() },
+            onClick = {  },
             modifier = Modifier
                 .padding(start = 8.dp, end = 8.dp)
                 .fillMaxWidth(),
