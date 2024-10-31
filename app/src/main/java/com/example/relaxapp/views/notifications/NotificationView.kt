@@ -60,7 +60,7 @@ fun NotificationView(navController: NavController) {
                     text = stringResource(id = R.string.notificaciones),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
-                    fontSize = 50.sp,
+                    fontSize = 46.sp,
                     modifier = Modifier
                         .weight(1f)
                         .padding(horizontal = 16.dp),

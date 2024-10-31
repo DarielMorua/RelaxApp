@@ -242,38 +242,12 @@ fun ProfileView(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
 
-                Button(
-                    onClick = { /* Acción */ },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .height(50.dp),
-                    shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.buttonColors(Color(145, 255, 218, 255))
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.DateRange,
-                            contentDescription = stringResource(id = R.string.calendar),
-                            tint = Color.Black
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = stringResource(id = R.string.appoinments),
-                            color = Color.Black,
-                            fontSize = 18.sp
-                        )
-                    }
-                }
+
             }
 
-            Spacer(modifier = Modifier.weight(1f)) // This pushes the following content to the bottom
+            Spacer(modifier = Modifier.weight(1f))
 
-            // Help section
+            // Ayuda
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
