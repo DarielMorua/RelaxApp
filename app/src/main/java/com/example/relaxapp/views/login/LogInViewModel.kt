@@ -9,11 +9,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LogInViewModel(val userRepository: UserRepository) : ViewModel() {
 
-    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("","","",""))  )
+    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("","","",""), false)  )
     var isLoading: Boolean by mutableStateOf(false)
     var state: Int by mutableStateOf(0)
 
@@ -24,12 +25,14 @@ class LogInViewModel(val userRepository: UserRepository) : ViewModel() {
                 loginResponse = userRepository.doLogin(User(email, password))
                 state = 1
                 loginResponse.message = "Login exitoso"
+                loginResponse.isSuccess = true
                 isLoading = false
+
             }
             catch (exception: Exception){
-                state = 1
+                state = -1
                 loginResponse.message = "Error en el login"
-                loginResponse.message = "ocurrio error"
+                loginResponse.isSuccess = false
                 isLoading = false
             }
         }
