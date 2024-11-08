@@ -148,16 +148,6 @@ fun PersonalDataView(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = stringResource(id=R.string.delete_account),
-                color = Color.Red,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .clickable {
-
-                    }
-            )
         }
     }
 }
