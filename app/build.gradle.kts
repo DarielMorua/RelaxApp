@@ -59,7 +59,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.5")
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
@@ -77,4 +77,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation(libs.lottie.compose)
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
 }

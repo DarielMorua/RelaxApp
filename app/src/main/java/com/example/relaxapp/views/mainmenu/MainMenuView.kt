@@ -26,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,10 +37,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
+import com.example.relaxapp.views.login.LogInViewModel
+import com.example.relaxapp.views.login.LoginViewModelFactory
 import com.example.relaxapp.views.signup.AshGray
 import com.example.relaxapp.views.signup.CambridgeBlue
 import com.example.relaxapp.views.signup.CarolinaBlue
@@ -89,6 +93,12 @@ val imagenes = listOf(
 
 @Composable
 fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
+    val mainMenuViewModel: MainMenuViewModel = viewModel(factory = MainMenuViewModel.MainMenuViewModelFactory())
+
+    LaunchedEffect(key1 = true) {
+        mainMenuViewModel.getRecommendedExercises()
+    }
+
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
@@ -194,7 +204,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         Button(
                             onClick = {
                                 viewModel.onImageSelected(imageResId)
-                                navController.navigate(Routes.ExerciseView)
+                                navController.navigate(Routes.ExerciseDetailView)
                             },
                             shape = RoundedCornerShape(percent = 45),
                             modifier = Modifier.size(250.dp),

@@ -17,6 +17,7 @@ import com.example.relaxapp.ui.theme.RelaxAppTheme
 import com.example.relaxapp.views.MyAppNavigationView
 import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.exercises.ExerciseView
+import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailView
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                 //MainMenu(viewModel = MainMenuViewModel(), navContoller)
                     //CalendarView(navContoller)
                 //ExerciseView(navContoller)
+                //ExerciseDetailView(navContoller)
                 }
             }
         }
