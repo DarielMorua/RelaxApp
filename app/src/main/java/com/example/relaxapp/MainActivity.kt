@@ -19,6 +19,8 @@ import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.exercises.ExerciseView
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.messaging.messaging
 
 
 //Prueba dev commit
@@ -26,6 +28,8 @@ import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Firebase.messaging.isAutoInitEnabled = true
+
         enableEdgeToEdge()
         setContent {
 

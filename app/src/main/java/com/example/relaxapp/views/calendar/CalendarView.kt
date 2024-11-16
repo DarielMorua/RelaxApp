@@ -42,7 +42,7 @@ fun CalendarView(navController: NavController) {
                 .padding(innerPadding)
                 .background(Color.White)
         ) {
-            // Top section
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
