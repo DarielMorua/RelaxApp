@@ -26,9 +26,11 @@ import com.example.relaxapp.views.calendar.CalendarView
 
 import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.exercises.ExerciseView
+import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailView
 import com.example.relaxapp.views.login.LogInView
 import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.login.UserRepository
+import com.example.relaxapp.views.mainmenu.ExcerciseRepository
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 import com.example.relaxapp.views.needhelp.HelpView
@@ -55,7 +57,7 @@ fun MyAppNavigationView() {
             LogInView(LogInViewModel(userRepository = UserRepository), navContoller)
         }
         composable(Routes.MainMenuView) {
-            MainMenu(MainMenuViewModel(), navContoller)
+            MainMenu(MainMenuViewModel(excerciseRepository = ExcerciseRepository), navContoller)
         }
         composable(Routes.ProfileView) {
             ProfileView(navContoller)
@@ -83,6 +85,9 @@ fun MyAppNavigationView() {
         }
         composable(Routes.NotificationView){
             NotificationView(navContoller)
+        }
+        composable(Routes.ExerciseDetailView){
+            ExerciseDetailView(navContoller)
         }
     })
 }
