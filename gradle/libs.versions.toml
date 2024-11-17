@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.0"
+coilCompose = "2.3.0"
 composeBomVersion = "<latest-version>"
 coreKtxVersion = "1.15.0"
 kotlin = "1.9.0"
@@ -21,6 +22,7 @@ ui = "<latest-version>"
 androidx-compose-bom-vlatestversion = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-ktx-v1150 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
