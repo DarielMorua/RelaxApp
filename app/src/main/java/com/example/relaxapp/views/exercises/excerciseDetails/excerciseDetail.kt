@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -41,15 +42,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
+import com.example.relaxapp.views.mainmenu.ExcerciseResponse
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun ExerciseDetailView(navController: NavController) {
+fun ExerciseDetailView(navController: NavController, exercise: ExcerciseResponse) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
@@ -76,7 +79,8 @@ fun ExerciseDetailView(navController: NavController) {
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "ArrowBack Icon",
                         tint = Color.Black,
-                        modifier = Modifier.size(50.dp)
+                        modifier = Modifier
+                            .size(50.dp)
                             .clickable {
                                 navController.popBackStack()
                             }
@@ -86,7 +90,9 @@ fun ExerciseDetailView(navController: NavController) {
                         style = MaterialTheme.typography.headlineLarge,
                         color = Color(26, 204, 181, 255),
                         fontSize = 30.sp,
-                        modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 16.dp),
                         textAlign = TextAlign.Center
                     )
                     Icon(
@@ -102,7 +108,7 @@ fun ExerciseDetailView(navController: NavController) {
             // Exercise details
             item {
                 Text(
-                    text = "Ejercicio Meditación 1",
+                    text = exercise.title, // Usar el título del ejercicio
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
                     fontSize = 20.sp,
@@ -112,40 +118,27 @@ fun ExerciseDetailView(navController: NavController) {
             }
 
             item {
-                Image(
-                    painter = painterResource(id = R.drawable.medit2),
-                    contentDescription = "Meditation 1",
-                    modifier = Modifier.size(300.dp)
+                AsyncImage(
+                    model = exercise.image, // Mostrar la imagen del ejercicio
+                    contentDescription = exercise.title,
+                    modifier = Modifier.size(300.dp),
+                    contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
-            // Descripcion del Ejercicio con pasos
+            // Descripción del Ejercicio
             item {
                 Text(
-                    text = "Pasos para realizar el ejercicio:",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = Color.Gray,
-                    fontSize = 18.sp,
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
-            }
-
-            items(listOf(
-                "1. Mesa Invertida: Siéntate con pies en el suelo y manos detrás. Levanta la cadera hacia el techo. Mantén el cuerpo alineado y respira.",
-                "2. Media Luna: Arrodíllate, lleva una pierna al frente. Extiende la otra pierna atrás. Levanta brazos y estira hacia atrás.",
-                "3. Cobra: Acuéstate boca abajo, manos junto a los hombros. Levanta el pecho al inhalar. Mantén los codos cerca y hombros relajados.",
-                "4. Flor de Loto: Siéntate con las piernas cruzadas. Coloca manos en las rodillas. Cierra los ojos y respira profundamente."
-            )) { step ->
-                Text(
-                    text = step,
+                    text = exercise.longDescription, // Mostrar descripción larga
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.DarkGray,
                     fontSize = 15.sp,
-                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp)
+                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
                 )
             }
-            // Video de YouTube usando WebView
+
+            // Video de YouTube
             item {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
@@ -161,7 +154,11 @@ fun ExerciseDetailView(navController: NavController) {
                         YouTubePlayerView(context).apply {
                             addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                                 override fun onReady(youTubePlayer: YouTubePlayer) {
-                                    youTubePlayer.loadVideo("AUTqIj21X7g", 0f)
+                                    // Usar el URL del video del ejercicio
+                                    val videoId = extractYouTubeVideoId(exercise.urlVideo)
+                                    if (videoId != null) {
+                                        youTubePlayer.loadVideo(videoId, 0f)
+                                    }
                                 }
                             })
                         }
@@ -174,4 +171,9 @@ fun ExerciseDetailView(navController: NavController) {
             }
         }
     }
+}
+
+// Función para extraer el ID de un video de YouTube
+fun extractYouTubeVideoId(url: String): String? {
+    return Regex("v=([a-zA-Z0-9_-]+)").find(url)?.groupValues?.get(1)
 }

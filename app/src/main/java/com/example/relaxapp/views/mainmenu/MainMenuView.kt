@@ -1,11 +1,13 @@
 package com.example.relaxapp.views.mainmenu
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,12 +16,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -30,6 +35,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -42,6 +48,7 @@ import androidx.navigation.NavController
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
+import com.example.relaxapp.bottomnavigationbar.Routes.ExerciseDetailView
 import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.login.LoginViewModelFactory
 import com.example.relaxapp.views.signup.AshGray
@@ -93,9 +100,12 @@ val imagenes = listOf(
 
 @Composable
 fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
-    val mainMenuViewModel: MainMenuViewModel = viewModel(factory = MainMenuViewModel.MainMenuViewModelFactory())
+    val context = LocalContext.current
+    val mainMenuViewModel: MainMenuViewModel = viewModel(factory = MainMenuViewModel.MainMenuViewModelFactory(context))
+    val exercises = mainMenuViewModel.exercises
+    val isLoading = mainMenuViewModel.isLoading
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(Unit) {
         mainMenuViewModel.getRecommendedExercises()
     }
 
@@ -193,29 +203,35 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                     fontSize = 25.sp
                 )
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState())
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    imagenes.forEach { imageResId ->
-                        Button(
-                            onClick = {
-                                viewModel.onImageSelected(imageResId)
-                                navController.navigate(Routes.ExerciseDetailView)
-                            },
-                            shape = RoundedCornerShape(percent = 45),
-                            modifier = Modifier.size(250.dp),
-                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                } else {
+                    if (exercises.isNotEmpty()) {
+                        LazyRow(
+                            contentPadding = PaddingValues(horizontal = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            Image(
-                                painter = painterResource(id = imageResId),
-                                contentDescription = "Imagen recomendada",
-                                modifier = Modifier.fillMaxSize()  // Llenar el espacio dentro del botón
-                            )
+                            items(exercises) { exercise ->
+                                ExerciseCard(
+                                    title = exercise.title,
+                                    imageUrl = exercise.image,
+                                    shortDescription = exercise.shortDescription,
+                                    modifier = Modifier
+                                        .size(250.dp)
+                                        .clickable {
+                                            Log.d("MainMenu", "Navegando a: exerciseDetail/${exercise.id}")
+                                            navController.navigate("exerciseDetail/${exercise.id}")
+                                        }
+                                )
+                            }
                         }
+                    } else {
+                        Text(
+                            text = "No exercises available",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Gray,
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
                     }
                 }
             }

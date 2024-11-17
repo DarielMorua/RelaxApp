@@ -2,11 +2,10 @@ package com.example.relaxapp.views.mainmenu
 
 import com.example.relaxapp.views.RetrofitClientInstance
 
-object ExcerciseRepository {
+object ExerciseRepository {
+    private val apiService = RetrofitClientInstance.apiService
 
-    val apiService = RetrofitClientInstance.apiService
-
-    suspend fun  getRecommendedExercises(): ExcerciseResponse {
-        return apiService.getRecommendedExercises()
+    suspend fun getRecommendedExercises(authHeader: String): List<ExcerciseResponse> {
+        return apiService.getRecommendedExercises(authHeader)
     }
 }

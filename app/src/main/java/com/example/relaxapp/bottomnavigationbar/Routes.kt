@@ -21,5 +21,5 @@ object Routes {
     const val FavoriteView = "FavoriteView"
     const val ExerciseView = "ExerciseView"
     const val NotificationView = "NotificationView"
-    const val ExerciseDetailView = "ExerciseDetailView"
+    const val ExerciseDetailView = "exerciseDetail/{exerciseId}"
 }

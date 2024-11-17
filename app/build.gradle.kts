@@ -78,4 +78,5 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation(libs.lottie.compose)
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
+    implementation(libs.coil.compose)
 }
