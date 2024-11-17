@@ -25,6 +25,8 @@ import com.example.relaxapp.views.FAQ.FAQView
 import com.example.relaxapp.views.calendar.CalendarView
 
 import com.example.relaxapp.views.chat.ChatView
+import com.example.relaxapp.views.doctordetails.DoctorDetailView
+import com.example.relaxapp.views.doctorschedule.DoctorScheduleView
 import com.example.relaxapp.views.exercises.ExerciseView
 import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailView
 import com.example.relaxapp.views.login.LogInView
@@ -36,6 +38,7 @@ import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 import com.example.relaxapp.views.needhelp.HelpView
 import com.example.relaxapp.views.notifications.NotificationView
 import com.example.relaxapp.views.onboarding.OnboardingView
+import com.example.relaxapp.views.profesionales.ProfessionalView
 import com.example.relaxapp.views.profile.ProfileView
 import com.example.relaxapp.views.profile.favorites.FavoriteView
 import com.example.relaxapp.views.profile.personaldata.PersonalDataView
@@ -89,5 +92,15 @@ fun MyAppNavigationView() {
         composable(Routes.ExerciseDetailView){
             ExerciseDetailView(navContoller)
         }
+        composable(Routes.ProfessionalView){
+            ProfessionalView(navContoller)
+        }
+        composable(Routes.DoctorScheduleView){
+            DoctorScheduleView(navContoller)
+        }
+        composable(Routes.DoctorDetailView){
+            DoctorDetailView(navContoller)
+        }
+
     })
 }

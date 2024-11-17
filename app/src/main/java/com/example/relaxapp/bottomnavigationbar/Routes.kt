@@ -22,4 +22,7 @@ object Routes {
     const val ExerciseView = "ExerciseView"
     const val NotificationView = "NotificationView"
     const val ExerciseDetailView = "ExerciseDetailView"
+    const val ProfessionalView = "ProfessionalView"
+    const val DoctorDetailView = "DoctorDetailView"
+    const val DoctorScheduleView = "DoctorScheduleView"
 }
