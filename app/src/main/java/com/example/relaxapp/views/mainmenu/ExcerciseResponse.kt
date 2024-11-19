@@ -1,7 +1,9 @@
 package com.example.relaxapp.views.mainmenu
 
+import com.google.gson.annotations.SerializedName
+
 data class ExcerciseResponse(
-    val id: String,
+    @SerializedName("_id") val id: String,
     val title: String,
     val category: String,
     val image: String,

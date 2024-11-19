@@ -134,7 +134,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
     var password by remember { mutableStateOf("") }
     var checked by remember { mutableStateOf(true) }
     var passwordVisible by remember { mutableStateOf(false) }
-    val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory())
+    val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory(context = LocalContext.current))
     val context = LocalContext.current
 
     if (loginViewModel.state != 0) {
