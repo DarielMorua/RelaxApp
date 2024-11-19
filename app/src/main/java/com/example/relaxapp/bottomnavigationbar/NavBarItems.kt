@@ -20,7 +20,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.drchat,
         image = Icons.Filled.Face,
-        route = Routes.ChatView
+        route = Routes.ProfessionalView
     ),
     BarItem(
         title = R.string.empty,

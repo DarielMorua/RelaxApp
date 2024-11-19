@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -78,5 +79,10 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation(libs.lottie.compose)
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
-    implementation(libs.coil.compose)
+    implementation("com.google.firebase:firebase-messaging:23.0.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2")) // BOM de Firebase
+    implementation("com.google.firebase:firebase-messaging-ktx") // Firebase Messaging
+    implementation ("org.osmdroid:osmdroid-android:6.1.10")
+
+implementation(libs.coil.compose)
 }
