@@ -48,9 +48,6 @@ import androidx.navigation.NavController
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
-import com.example.relaxapp.bottomnavigationbar.Routes.ExerciseDetailView
-import com.example.relaxapp.views.login.LogInViewModel
-import com.example.relaxapp.views.login.LoginViewModelFactory
 import com.example.relaxapp.views.signup.AshGray
 import com.example.relaxapp.views.signup.CambridgeBlue
 import com.example.relaxapp.views.signup.CarolinaBlue
