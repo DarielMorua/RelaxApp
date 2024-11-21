@@ -124,17 +124,16 @@ fun MyAppNavigationView() {
         }
 
       composable(Routes.ProfessionalView){
-            ProfessionalView(navContoller)
+            ProfessionalView(navController)
         }
         composable(Routes.DoctorScheduleView){
-            DoctorScheduleView(navContoller)
+            DoctorScheduleView(navController)
         }
         composable(Routes.DoctorDetailView){
-            DoctorDetailView(navContoller)
+            DoctorDetailView(navController)
         }
 
-    })
+    }
 
 }
 
-}

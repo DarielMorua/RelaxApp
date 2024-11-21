@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -56,45 +58,51 @@ fun ExerciseView(navController: NavController) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
-
-        Column(
+        LazyColumn(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(Color.White)
         ) {
-            // Top section
-            Spacer(modifier = Modifier.height(16.dp))
+            // Sección superior
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(id = R.string.exercises),
-                    style = MaterialTheme.typography.headlineLarge,
-                    color = Color(26, 204, 181, 255),
-                    fontSize = 50.sp,
+                Row(
                     modifier = Modifier
-                        .weight(1f)
+                        .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    textAlign = TextAlign.Center
-                )
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "Profile Icon",
-                    tint = Color.Black,
-                    modifier = Modifier.size(50.dp)
-                        .clickable {
-                            navController.navigate(Routes.ProfileView)
-                        }
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.exercises),
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = Color(26, 204, 181, 255),
+                        fontSize = 50.sp,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 16.dp),
+                        textAlign = TextAlign.Center
+                    )
+                    Icon(
+                        imageVector = Icons.Filled.Person,
+                        contentDescription = "Profile Icon",
+                        tint = Color.Black,
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clickable {
+                                navController.navigate(Routes.ProfileView)
+                            }
+                    )
+                }
 
-            Column {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            // Ejercicios de respiración
+            item {
                 Text(
                     text = stringResource(id = R.string.exercisesBre),
                     style = MaterialTheme.typography.headlineMedium,
@@ -102,7 +110,8 @@ fun ExerciseView(navController: NavController) {
                     modifier = Modifier.padding(bottom = 16.dp),
                     fontSize = 25.sp
                 )
-
+            }
+            item {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -113,7 +122,7 @@ fun ExerciseView(navController: NavController) {
                     imagenesRespiracion.forEach { imageResId ->
                         Button(
                             onClick = {
-
+                                // Manejo del clic en la imagen
                             },
                             shape = RoundedCornerShape(percent = 45),
                             modifier = Modifier.size(250.dp),
@@ -122,14 +131,15 @@ fun ExerciseView(navController: NavController) {
                             Image(
                                 painter = painterResource(id = imageResId),
                                 contentDescription = "Imagen respiracion",
-                                modifier = Modifier.fillMaxSize()  // Llenar el espacio dentro del botón
+                                modifier = Modifier.fillMaxSize() // Llenar el espacio dentro del botón
                             )
                         }
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Column {
+
+            // Ejercicios de meditación
+            item {
                 Text(
                     text = stringResource(id = R.string.exercisesMed),
                     style = MaterialTheme.typography.headlineMedium,
@@ -137,7 +147,8 @@ fun ExerciseView(navController: NavController) {
                     modifier = Modifier.padding(bottom = 16.dp),
                     fontSize = 25.sp
                 )
-
+            }
+            item {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -148,7 +159,7 @@ fun ExerciseView(navController: NavController) {
                     imagenesMeditacion.forEach { imageResId ->
                         Button(
                             onClick = {
-
+                                // Manejo del clic en la imagen
                             },
                             shape = RoundedCornerShape(percent = 45),
                             modifier = Modifier.size(250.dp),
@@ -156,8 +167,155 @@ fun ExerciseView(navController: NavController) {
                         ) {
                             Image(
                                 painter = painterResource(id = imageResId),
-                                contentDescription = "Imagen meditacion",
-                                modifier = Modifier.fillMaxSize()  // Llenar el espacio dentro del botón
+                                contentDescription = "Imagen meditación",
+                                modifier = Modifier.fillMaxSize() // Llenar el espacio dentro del botón
+                            )
+                        }
+                    }
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Ejercicio de Estiramiento",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    fontSize = 25.sp
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    imagenesMeditacion.forEach { imageResId ->
+                        Button(
+                            onClick = {
+                                // Manejo del clic en la imagen
+                            },
+                            shape = RoundedCornerShape(percent = 45),
+                            modifier = Modifier.size(250.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+                        ) {
+                            Image(
+                                painter = painterResource(id = imageResId),
+                                contentDescription = "Imagen relajación",
+                                modifier = Modifier.fillMaxSize() // Llenar el espacio dentro del botón
+                            )
+                        }
+                    }
+                }
+            }
+
+            // Ejemplo para una nueva sección:
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Ejercicio de relajación guiada con música o sonidos",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    fontSize = 25.sp
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    imagenesMeditacion.forEach { imageResId ->
+                        Button(
+                            onClick = {
+                                // Manejo del clic en la imagen
+                            },
+                            shape = RoundedCornerShape(percent = 45),
+                            modifier = Modifier.size(250.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+                        ) {
+                            Image(
+                                painter = painterResource(id = imageResId),
+                                contentDescription = "Imagen relajación",
+                                modifier = Modifier.fillMaxSize() // Llenar el espacio dentro del botón
+                            )
+                        }
+                    }
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Ejercicio para reduciar la ansiedad",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    fontSize = 25.sp
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    imagenesMeditacion.forEach { imageResId ->
+                        Button(
+                            onClick = {
+                                // Manejo del clic en la imagen
+                            },
+                            shape = RoundedCornerShape(percent = 45),
+                            modifier = Modifier.size(250.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+                        ) {
+                            Image(
+                                painter = painterResource(id = imageResId),
+                                contentDescription = "Imagen relajación",
+                                modifier = Modifier.fillMaxSize() // Llenar el espacio dentro del botón
+                            )
+                        }
+                    }
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Ejercicios para relajar la mente",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    fontSize = 25.sp
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    imagenesMeditacion.forEach { imageResId ->
+                        Button(
+                            onClick = {
+                                // Manejo del clic en la imagen
+                            },
+                            shape = RoundedCornerShape(percent = 45),
+                            modifier = Modifier.size(250.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+                        ) {
+                            Image(
+                                painter = painterResource(id = imageResId),
+                                contentDescription = "Imagen relajación",
+                                modifier = Modifier.fillMaxSize() // Llenar el espacio dentro del botón
                             )
                         }
                     }
@@ -165,5 +323,5 @@ fun ExerciseView(navController: NavController) {
             }
         }
     }
-
 }
+
