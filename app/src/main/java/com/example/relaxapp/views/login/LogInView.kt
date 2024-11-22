@@ -1,8 +1,10 @@
 package com.example.relaxapp.views.login
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,12 +16,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,8 +31,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -40,7 +40,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -60,7 +66,10 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.Routes
-import com.example.relaxapp.views.onboarding.OnboardingViewModel
+import androidx.compose.ui.input.key.*
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+
 
 val MintGreen = Color(26, 204, 181, 255) // #B9DAD4
 val CarolinaBlue = Color(139, 172, 205) // #8BACCD
@@ -136,6 +145,10 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
     var passwordVisible by remember { mutableStateOf(false) }
     val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory(context = LocalContext.current))
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+
 
     if (loginViewModel.state != 0) {
         if (loginViewModel.loginResponse.isSuccess) { // Estado de éxito
@@ -149,17 +162,17 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
 
 
 
-
-
-
-
-
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+        detectTapGestures(onTap = {
+            focusManager.clearFocus()
+        })
+    })
+     {
         Spacer(modifier = Modifier.height(16.dp))
         // Logo
         Image(
@@ -178,25 +191,35 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         Spacer(modifier = Modifier.height(8.dp))
 
         // Usuario
-        TextField(
-            value = username,
-            onValueChange = { username = it },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.email),
-                    style = MaterialTheme.typography.headlineSmall
-                )
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-                .fillMaxWidth()
-                .background(Color.White, shape = MaterialTheme.shapes.small),
-            colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.Transparent,
-                focusedContainerColor = Color.Transparent,
-            )
-        )
+         TextField(
+             value = username,
+             onValueChange = { username = it },
+             modifier = Modifier
+                 .padding(start = 16.dp, end = 16.dp)
+                 .fillMaxWidth()
+                 .background(Color.White, shape = MaterialTheme.shapes.small),
+             label = {
+                 Text(
+                     text = stringResource(id = R.string.email),
+                     style = MaterialTheme.typography.headlineSmall
+                 )
+             },
+             keyboardOptions = KeyboardOptions(
+                 keyboardType = KeyboardType.Text,
+                 imeAction = ImeAction.Done
+             ),
+             maxLines = 1,
+             singleLine = true,
+             keyboardActions = KeyboardActions(
+                 onDone = {
+                     keyboardController?.hide()
+                 }
+             ),
+             colors = TextFieldDefaults.colors(
+                 unfocusedContainerColor = Color.Transparent,
+                 focusedContainerColor = Color.Transparent,
+             )
+         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -216,7 +239,15 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
                 }
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    keyboardController?.hide()
+                }
+            ),
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
