@@ -139,8 +139,8 @@ fun loadingOverlay(isLoading: Boolean, content: @Composable () -> Unit) {
 
 @Composable
 fun LogInView(viewModel: LogInViewModel, navController: NavController) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("nzubia@gmail.com") }
+    var password by remember { mutableStateOf("nzubia") }
     var checked by remember { mutableStateOf(true) }
     var passwordVisible by remember { mutableStateOf(false) }
     val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory(context = LocalContext.current))

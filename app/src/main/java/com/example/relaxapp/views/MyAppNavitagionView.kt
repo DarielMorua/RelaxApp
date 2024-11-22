@@ -37,7 +37,10 @@ import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.doctordetails.DoctorDetailView
 import com.example.relaxapp.views.doctorschedule.DoctorScheduleView
 import com.example.relaxapp.views.exercises.ExerciseView
+import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseCategoriesRepository
+import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailCategoryView
 import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailView
+import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseViewModel
 import com.example.relaxapp.views.login.LogInView
 import com.example.relaxapp.views.login.LogInViewModel
 import com.example.relaxapp.views.login.UserRepository
@@ -71,7 +74,10 @@ fun MyAppNavigationView() {
             LogInView(LogInViewModel(userRepository = UserRepository, context), navController)
         }
         composable(Routes.MainMenuView) {
-            MainMenu(MainMenuViewModel(excerciseRepository = ExerciseRepository, context), navController)
+            MainMenu(
+                MainMenuViewModel(excerciseRepository = ExerciseRepository, context),
+                navController
+            )
         }
         composable(Routes.ProfileView) {
             ProfileView(navController)
@@ -95,7 +101,12 @@ fun MyAppNavigationView() {
             FavoriteView(navController)
         }
         composable(Routes.ExerciseView) {
-            ExerciseView(navController)
+            ExerciseView(
+                ExerciseViewModel(
+                    exerciseCategory = ExerciseCategoriesRepository,
+                    context
+                ), navController
+            )
         }
         composable(Routes.NotificationView) {
             NotificationView(navController)
@@ -109,8 +120,9 @@ fun MyAppNavigationView() {
             val exerciseId = backStackEntry.arguments?.getString("exerciseId")
             Log.d("ExerciseDetail", "Recibido exerciseId: $exerciseId")
 
-            val mainMenuViewModel: MainMenuViewModel = navController.getBackStackEntry("MainMenuView")
-                .let { ViewModelProvider(it)[MainMenuViewModel::class.java] }
+            val mainMenuViewModel: MainMenuViewModel =
+                navController.getBackStackEntry("MainMenuView")
+                    .let { ViewModelProvider(it)[MainMenuViewModel::class.java] }
             if (mainMenuViewModel.exercises.isEmpty()) {
                 CircularProgressIndicator(modifier = Modifier.fillMaxSize().padding(16.dp))
             } else {
@@ -123,17 +135,47 @@ fun MyAppNavigationView() {
             }
         }
 
-      composable(Routes.ProfessionalView){
-            ProfessionalView(navController)
-        }
-        composable(Routes.DoctorScheduleView){
-            DoctorScheduleView(navController)
-        }
-        composable(Routes.DoctorDetailView){
-            DoctorDetailView(navController)
+        composable(
+            route = "exerciseDetailCategory/{exerciseId}",
+            arguments = listOf(navArgument("exerciseId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getString("exerciseId")
+            Log.d("ExerciseDetail", "Recibido exerciseId: $exerciseId")
+
+            // Usar ExerciseViewModel
+            val exerciseViewModel: ExerciseViewModel = navController.getBackStackEntry("ExerciseView")
+                .let { ViewModelProvider(it)[ExerciseViewModel::class.java] }
+
+            if (exerciseViewModel.categories.isEmpty()) {
+                CircularProgressIndicator(modifier = Modifier.fillMaxSize().padding(16.dp))
+            } else {
+                val selectedExerciseCategory = exerciseViewModel.categories
+                    .flatMap { it.exercises }
+                    .find { it.id == exerciseId }
+
+                if (selectedExerciseCategory != null) {
+                    ExerciseDetailCategoryView(
+                        navController = navController,
+                        exercise = selectedExerciseCategory
+                    )
+                } else {
+                    Text("Exercise not found", style = MaterialTheme.typography.bodyLarge)
+                }
+            }
+
+            composable(Routes.ProfessionalView) {
+                ProfessionalView(navController)
+            }
+            composable(Routes.DoctorScheduleView) {
+                DoctorScheduleView(navController)
+            }
+            composable(Routes.DoctorDetailView) {
+                DoctorDetailView(navController)
+            }
+
         }
 
     }
-
 }
+
 
