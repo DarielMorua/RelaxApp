@@ -1,5 +1,6 @@
 package com.example.relaxapp.views
 
+import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
 import com.example.relaxapp.views.mainmenu.ExcerciseResponse
 import com.example.relaxapp.views.login.LoginResponse
 import com.example.relaxapp.views.login.User
@@ -12,6 +13,8 @@ private const val END_URL_LOGIN_WITH_EMAIL = "users/login"
 // variable para mostrar la ruta de ejercicios recomendados
 private const val END_URL_RECOMMENDED_EXERCISES = "exercises/mostrar-ejercicios-recomendados"
 
+private const val END_URL_EXERCISES_CATEGORIES = "exercises/mostrar-ejercicios-por-categoria"
+
 
 
 interface ApiService {
@@ -22,4 +25,9 @@ interface ApiService {
     suspend fun getRecommendedExercises(
         @Header("Authorization") authHeader: String
     ): List<ExcerciseResponse>
+
+    @POST(END_URL_EXERCISES_CATEGORIES)
+    suspend fun getExercisesCategories(
+        @Header("Authorization") authHeader: String
+    ): CategoriesResponse
 }
