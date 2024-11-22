@@ -130,12 +130,12 @@ fun loadingOverlay(isLoading: Boolean, content: @Composable () -> Unit) {
 
 @Composable
 fun LogInView(viewModel: LogInViewModel, navController: NavController) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var checked by remember { mutableStateOf(true) }
     var passwordVisible by remember { mutableStateOf(false) }
     val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory(context = LocalContext.current))
     val context = LocalContext.current
+    val username by viewModel::email
+    val password by viewModel::password
+    val isChecked by remember { mutableStateOf(viewModel.isChecked) }
 
     if (loginViewModel.state != 0) {
         if (loginViewModel.loginResponse.isSuccess) { // Estado de éxito
@@ -147,12 +147,9 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         }
     }
 
-
-
-
-
-
-
+    LaunchedEffect(Unit) {
+        loginViewModel.loadSavedCredentials()
+    }
 
     Column(
         modifier = Modifier
@@ -180,7 +177,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         // Usuario
         TextField(
             value = username,
-            onValueChange = { username = it },
+            onValueChange = { viewModel.email = it },
             label = {
                 Text(
                     text = stringResource(id = R.string.email),
@@ -203,7 +200,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         // Contraseña
         TextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = { viewModel.password = it },
             label = {
                 Text(
                     text = stringResource(id = R.string.password),
@@ -243,9 +240,9 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
                 modifier = Modifier.padding(start = 16.dp).align(Alignment.CenterVertically)
             )
             Switch(
-                checked = checked,
-                onCheckedChange = {
-                    checked = it
+                checked = isChecked,
+                onCheckedChange = { checked ->
+                    viewModel.updateRememberMeState(checked)
                 },
                 modifier = Modifier.align(Alignment.CenterVertically)
             )

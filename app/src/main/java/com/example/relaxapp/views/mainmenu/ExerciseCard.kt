@@ -35,7 +35,6 @@ fun ExerciseCard(
             modifier = Modifier.padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Usar Coil para cargar la imagen
             AsyncImage(
                 model = imageUrl,
                 contentDescription = title,
@@ -47,7 +46,7 @@ fun ExerciseCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Mostrar el título
+            // título
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
@@ -57,7 +56,7 @@ fun ExerciseCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Mostrar la descripción corta
+            // descripción corta
             Text(
                 text = shortDescription,
                 style = MaterialTheme.typography.bodySmall,

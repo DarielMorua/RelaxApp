@@ -108,7 +108,7 @@ fun ExerciseDetailView(navController: NavController, exercise: ExcerciseResponse
             // Exercise details
             item {
                 Text(
-                    text = exercise.title, // Usar el título del ejercicio
+                    text = exercise.title,
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color(26, 204, 181, 255),
                     fontSize = 20.sp,
@@ -119,7 +119,7 @@ fun ExerciseDetailView(navController: NavController, exercise: ExcerciseResponse
 
             item {
                 AsyncImage(
-                    model = exercise.image, // Mostrar la imagen del ejercicio
+                    model = exercise.image,
                     contentDescription = exercise.title,
                     modifier = Modifier.size(300.dp),
                     contentScale = ContentScale.Crop
@@ -130,7 +130,7 @@ fun ExerciseDetailView(navController: NavController, exercise: ExcerciseResponse
             // Descripción del Ejercicio
             item {
                 Text(
-                    text = exercise.longDescription, // Mostrar descripción larga
+                    text = exercise.longDescription,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.DarkGray,
                     fontSize = 15.sp,

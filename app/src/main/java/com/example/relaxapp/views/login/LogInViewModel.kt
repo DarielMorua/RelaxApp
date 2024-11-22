@@ -16,34 +16,67 @@ import kotlinx.coroutines.launch
 
 class LogInViewModel(val userRepository: UserRepository, private val context: Context,) : ViewModel() {
 
-    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("","","",""), false)  )
-    var isLoading: Boolean by mutableStateOf(false)
-    var state: Int by mutableStateOf(0)
     private val tokenManager = TokenManager(context)
+    private val preferenceHelper = PreferenceHelper(context)
 
+    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("", "", "", ""), false))
+    var isLoading by mutableStateOf(false)
+    var state by mutableStateOf(0)
+    var isChecked by mutableStateOf(false)
+    var email by mutableStateOf("")
+    var password by mutableStateOf("")
+
+    init {
+        loadSavedCredentials()
+    }
 
     fun doLogin(email: String, password: String) {
         isLoading = true
         viewModelScope.launch {
             try {
                 loginResponse = userRepository.doLogin(User(email, password))
-                tokenManager.saveToken(loginResponse.token)
-                state = 1
-                loginResponse.message = "Login exitoso"
-                loginResponse.isSuccess = true
-                isLoading = false
-
-            }
-            catch (exception: Exception){
+                if (loginResponse.isSuccess) {
+                    // Guarda credenciales si el switch está activado
+                    if (isChecked) {
+                        preferenceHelper.saveCredentials(email, password)
+                    } else {
+                        preferenceHelper.clearCredentials()
+                    }
+                    tokenManager.saveToken(loginResponse.token)
+                    state = 1 // Indica que el login fue exitoso
+                    isLoading = false
+                } else {
+                    state = -1
+                    isLoading = false
+                }
+            } catch (exception: Exception) {
                 state = -1
-                loginResponse.message = "Error en el login"
-                loginResponse.isSuccess = false
                 isLoading = false
             }
         }
     }
+
+    fun updateRememberMeState(checked: Boolean) {
+        isChecked = checked
+        if (!checked) {
+            // Borra credenciales si se desactiva el switch
+            preferenceHelper.clearCredentials()
+            email = ""
+            password = ""
+        }
+    }
+
+    fun loadSavedCredentials() {
+        val (savedEmail, savedPassword) = preferenceHelper.getCredentials()
+        if (savedEmail != null && savedPassword != null) {
+            email = savedEmail
+            password = savedPassword
+            isChecked = true
+        }
+    }
+
     fun getToken(): String? {
-        return tokenManager.getToken() // Método para recuperar el token
+        return tokenManager.getToken()
     }
 }
 

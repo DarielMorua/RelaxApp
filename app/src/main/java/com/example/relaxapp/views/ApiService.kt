@@ -12,6 +12,8 @@ private const val END_URL_LOGIN_WITH_EMAIL = "users/login"
 // variable para mostrar la ruta de ejercicios recomendados
 private const val END_URL_RECOMMENDED_EXERCISES = "exercises/mostrar-ejercicios-recomendados"
 
+//  private val END_URL_CATEGORY_EXERCISE
+
 
 
 interface ApiService {
