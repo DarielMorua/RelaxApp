@@ -2,6 +2,7 @@ package com.example.relaxapp.views.login
 
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -139,14 +140,17 @@ fun loadingOverlay(isLoading: Boolean, content: @Composable () -> Unit) {
 
 @Composable
 fun LogInView(viewModel: LogInViewModel, navController: NavController) {
-    var username by remember { mutableStateOf("nzubia@gmail.com") }
-    var password by remember { mutableStateOf("nzubia") }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     var checked by remember { mutableStateOf(true) }
     var passwordVisible by remember { mutableStateOf(false) }
     val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory(context = LocalContext.current))
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    var backButtonEnabled by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = !backButtonEnabled) {}
 
 
 
