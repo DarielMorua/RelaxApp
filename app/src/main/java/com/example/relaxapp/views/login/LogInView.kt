@@ -21,6 +21,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -142,7 +143,7 @@ fun loadingOverlay(isLoading: Boolean, content: @Composable () -> Unit) {
 fun LogInView(viewModel: LogInViewModel, navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var checked by remember { mutableStateOf(true) }
+    var checked by remember { mutableStateOf(false) }
     var passwordVisible by remember { mutableStateOf(false) }
     val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory(context = LocalContext.current))
     val context = LocalContext.current
@@ -239,7 +240,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
             },
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = Icons.Filled.Edit, contentDescription = null)
+                    Icon(imageVector = Icons.Filled.Info, contentDescription = null)
                 }
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -336,28 +337,6 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Registro con Facebook
-        Button(
-            onClick = { },
-            modifier = Modifier
-                .padding(start = 8.dp, end = 8.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White
-            )
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.facebooklogo),
-                contentDescription = stringResource(id = R.string.continue_facebook),
-                modifier = Modifier.size(30.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = stringResource(id = R.string.continue_facebook),
-                style = MaterialTheme.typography.headlineMedium,
-                color = Color.Black
-            )
-        }
         Column {
             Button(
                 onClick = { navController.navigate(Routes.SignUpView) },

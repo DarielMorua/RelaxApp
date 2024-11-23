@@ -25,16 +25,16 @@ fun ExerciseCard(
     shortDescription: String,
     modifier: Modifier = Modifier
 ) {
-    Card(
-        modifier = modifier
-            .width(200.dp)
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Card(
+            modifier = modifier
+                .width(200.dp)
+                .padding(8.dp),
+            elevation = CardDefaults.cardElevation(4.dp)
         ) {
+            Column(
+                modifier = Modifier.padding(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
             // Usar Coil para cargar la imagen
             AsyncImage(
                 model = imageUrl,

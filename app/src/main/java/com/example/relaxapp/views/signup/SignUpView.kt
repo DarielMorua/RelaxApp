@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
 import androidx.navigation.NavController
 import com.example.relaxapp.bottomnavigationbar.Routes
+import com.example.relaxapp.views.login.LogInView
 
 //colores
     val MintGreen = Color(185, 218, 212) // #B9DAD4
@@ -125,33 +126,6 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
-        // ccorreo
-        TextField(
-            value = email,
-            onValueChange = { signUpViewModel.onEmailChange(it) },
-            label = { Text(text = stringResource(id = R.string.email), style = MaterialTheme.typography.headlineSmall) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White, shape = MaterialTheme.shapes.small)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // num telefono
-        TextField(
-            value = telephone,
-            onValueChange = { signUpViewModel.onTelephoneChange(it) },
-            label = { Text(text = stringResource(id = R.string.phone_number), style = MaterialTheme.typography.headlineSmall) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White, shape = MaterialTheme.shapes.small)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
         // nombre
         TextField(
             value = name,
@@ -171,6 +145,43 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
             onValueChange = { signUpViewModel.onLastnameChange(it) },
             label = { Text(text = stringResource(id = R.string.lastname) , style = MaterialTheme.typography.headlineSmall) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // ccorreo
+        TextField(
+            value = email,
+            onValueChange = { signUpViewModel.onEmailChange(it) },
+            label = { Text(text = stringResource(id = R.string.email), style = MaterialTheme.typography.headlineSmall) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // ccorreo
+        TextField(
+            value = email,
+            onValueChange = {  },
+            label = { Text(text = stringResource(id = R.string.country), style = MaterialTheme.typography.headlineSmall) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = MaterialTheme.shapes.small)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // num telefono
+        TextField(
+            value = telephone,
+            onValueChange = { signUpViewModel.onTelephoneChange(it) },
+            label = { Text(text = stringResource(id = R.string.phone_number), style = MaterialTheme.typography.headlineSmall) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White, shape = MaterialTheme.shapes.small)
@@ -206,16 +217,6 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // terminos y condiciones
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Checkbox(checked = termsAccepted, onCheckedChange = { signUpViewModel.onTermsAcceptedChange(it) })
-            Text(text = stringResource(id = R.string.sign_up_accept_terms), style = MaterialTheme.typography.labelSmall)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         // boton registro
         Button(
@@ -242,21 +243,12 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // continuar con fb
-        Button(
-            onClick = { signUpViewModel.onFacebookSignUp() },
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(text = stringResource(id = R.string.continue_facebook), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
 
         // volver sign in
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.sign_up_already_have_account)),
-            onClick = { /* TODO */ },
+            onClick = { navController.navigate(Routes.LoginView) },
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = MaterialTheme.typography.labelSmall
         )
