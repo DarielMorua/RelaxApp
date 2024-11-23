@@ -172,8 +172,8 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                 emojis.forEach { emoji ->
                     Button(
                         onClick = {
-                            viewModel.onEmojiSelected(emoji)
-                            navController.navigate(Routes.CalendarView)
+                            mainMenuViewModel.onEmojiSelected(emoji)
+                            mainMenuViewModel.submitEmotion(emoji)
                         },
                         shape = RoundedCornerShape(percent = 50),
                         modifier = Modifier.size(50.dp),
