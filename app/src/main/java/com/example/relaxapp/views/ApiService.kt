@@ -4,8 +4,13 @@ import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
 import com.example.relaxapp.views.mainmenu.ExcerciseResponse
 import com.example.relaxapp.views.login.LoginResponse
 import com.example.relaxapp.views.login.User
+
+import com.example.relaxapp.views.notifications.NotificationResponse
+
+
 import com.example.relaxapp.views.mainmenu.EmotionRequest
 import retrofit2.Response
+
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -17,7 +22,11 @@ private const val END_URL_RECOMMENDED_EXERCISES = "exercises/mostrar-ejercicios-
 
 private const val END_URL_EXERCISES_CATEGORIES = "exercises/mostrar-ejercicios-por-categoria"
 
+
+private const val END_URL_NOTIFICATION_GET="notifications/mostrar-notificaciones"
+
 private const val END_URL_SUBMIT_EMOTION = "emotion/submit-emotion"
+
 
 
 
@@ -35,9 +44,16 @@ interface ApiService {
         @Header("Authorization") authHeader: String
     ): CategoriesResponse
 
-    @POST(END_URL_SUBMIT_EMOTION)
+
+  @POST(END_URL_NOTIFICATION_GET)
+    suspend fun getNotifications(
+        @Header("Authorization") authHeader: String
+    ): List<NotificationResponse>
+
+  @POST(END_URL_SUBMIT_EMOTION)
     suspend fun submitEmotion(
         @Header("Authorization") authHeader: String,
         @Body emotionRequest: EmotionRequest
     ): Response<Unit>
+
 }

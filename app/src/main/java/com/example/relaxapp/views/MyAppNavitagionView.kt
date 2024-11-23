@@ -48,7 +48,9 @@ import com.example.relaxapp.views.mainmenu.ExerciseRepository
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 import com.example.relaxapp.views.needhelp.HelpView
+import com.example.relaxapp.views.notifications.NotificationRepository
 import com.example.relaxapp.views.notifications.NotificationView
+import com.example.relaxapp.views.notifications.NotificationViewModel
 import com.example.relaxapp.views.onboarding.OnboardingView
 import com.example.relaxapp.views.profesionales.ProfessionalView
 import com.example.relaxapp.views.profile.ProfileView
@@ -109,7 +111,7 @@ fun MyAppNavigationView() {
             )
         }
         composable(Routes.NotificationView) {
-            NotificationView(navController)
+            NotificationView(navController, NotificationViewModel(notificationRepository = NotificationRepository, context))
         }
 
         // Ruta para ExerciseDetailView con el parámetro exerciseId
@@ -163,19 +165,21 @@ fun MyAppNavigationView() {
                 }
             }
 
-            composable(Routes.ProfessionalView) {
-                ProfessionalView(navController)
-            }
-            composable(Routes.DoctorScheduleView) {
-                DoctorScheduleView(navController)
-            }
-            composable(Routes.DoctorDetailView) {
-                DoctorDetailView(navController)
-            }
+
 
         }
 
+        composable(Routes.ProfessionalView) {
+            ProfessionalView(navController)
+        }
+        composable(Routes.DoctorScheduleView) {
+            DoctorScheduleView(navController)
+        }
+        composable(Routes.DoctorDetailView) {
+            DoctorDetailView(navController)
+        }
     }
+
 }
 
 

@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RelaxApp"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBvxYlxzuM39YZ_cIfV_Fs1oO-M8SHBSDY" />
 
         <service
             android:name=".MyFirebaseMessagingService"

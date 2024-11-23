@@ -44,7 +44,6 @@ import com.example.relaxapp.views.doctordetails.DoctorDetailView
 @Composable
 
 fun ProfessionalView(navController: NavController) {
-    // Lista de profesionales de ejemplo
     val professionals = listOf(
         Professional("Dr. Simi", R.drawable.dummy),
         Professional("Dr. Amigo", R.drawable.dummy),
@@ -90,9 +89,8 @@ fun ProfessionalView(navController: NavController) {
             LazyColumn(
                 contentPadding = innerPadding,
                 modifier = Modifier
-                    .fillMaxSize() // Asegura que la lista ocupe todo el espacio disponible
+                    .fillMaxSize()
             ) {
-                // Itera sobre la lista de profesionales
                 items(professionals) { professional ->
                     Row(
                         modifier = Modifier
