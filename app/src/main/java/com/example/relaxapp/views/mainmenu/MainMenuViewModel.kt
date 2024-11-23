@@ -9,7 +9,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.relaxapp.TokenManager
+import com.example.relaxapp.views.RetrofitClientInstance.apiService
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainMenuViewModel(val excerciseRepository: ExerciseRepository, private val context: Context) : ViewModel() {
 
@@ -51,6 +55,37 @@ class MainMenuViewModel(val excerciseRepository: ExerciseRepository, private val
             catch (exception: Exception){
                 exercises = emptyList()
                 state = -1
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    fun submitEmotion(emotion: String) {
+        isLoading = true
+        viewModelScope.launch {
+            try {
+                val token = tokenManager.getToken()
+                if (token != null) {
+                    val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+                    val formattedDate = isoDateFormat.format(Date(System.currentTimeMillis()))
+
+                    val request = EmotionRequest(
+                        emotion = emotion,
+                        date = formattedDate // Formato ISO 8601
+                    )
+
+                    val response = apiService.submitEmotion("Bearer $token" ,request)
+                    if (response.isSuccessful) {
+                        Log.d("MainMenuViewModel", "Emoción enviada con éxito: $emotion")
+                    } else {
+                        Log.d("MainMenuViewModel", "Error al enviar la emoción: ${response.errorBody()}")
+                    }
+                } else {
+                    Log.d("MainMenuViewModel", "Token no disponible")
+                }
+            } catch (e: Exception) {
+                Log.d("MainMenuViewModel", "Error al enviar la emoción: ${e.message}")
             } finally {
                 isLoading = false
             }
