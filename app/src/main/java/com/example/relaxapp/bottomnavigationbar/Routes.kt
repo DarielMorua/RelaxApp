@@ -12,7 +12,6 @@ object Routes {
     const val OnboardingView = "Onboarding"
     const val SignUpView = "SignUpView"
     const val LoginView = "LoginView"
-    const val ProfileView = "ProfileView"
     const val PersonalDataView = "PersonalDataView"
     const val CalendarDataView = "CalendarView"
     const val FAQView = "FAQView"
@@ -22,8 +21,10 @@ object Routes {
     const val ExerciseView = "ExerciseView"
     const val NotificationView = "NotificationView"
     const val ProfessionalView = "ProfessionalView"
-    const val DoctorDetailView = "DoctorDetailView"
     const val DoctorScheduleView = "DoctorScheduleView"
     const val ExerciseDetailView = "exerciseDetail/{exerciseId}"
 
+    const val ProfileView = "profileView"
+    const val FavoritesView = "favorites/{userId}"
+    const val DoctorDetailView = "doctor_detail/{professionalId}"
 }

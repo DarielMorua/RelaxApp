@@ -19,4 +19,23 @@ class TokenManager(context: Context) {
     fun clearToken() {
         sharedPreferences.edit().remove("auth_token").apply()
     }
+    // Guardar el userId
+    fun saveUserId(userId: String) {
+        sharedPreferences.edit().putString("user_id", userId).apply()
+    }
+
+    // Recuperar el userId
+    fun getUserId(): String? {
+        return sharedPreferences.getString("user_id", null)
+    }
+
+    // Limpiar el userId
+    fun clearUserId() {
+        sharedPreferences.edit().remove("user_id").apply()
+    }
+
+    // Método para limpiar todos los datos del usuario (token y userId)
+    fun clearAll() {
+        sharedPreferences.edit().clear().apply()
+    }
 }
