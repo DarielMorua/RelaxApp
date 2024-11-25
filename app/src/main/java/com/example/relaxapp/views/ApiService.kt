@@ -9,6 +9,8 @@ import com.example.relaxapp.views.notifications.NotificationResponse
 
 
 import com.example.relaxapp.views.mainmenu.EmotionRequest
+import com.example.relaxapp.views.profesionales.Professional
+import com.example.relaxapp.views.profesionales.Review
 import retrofit2.Response
 
 import retrofit2.http.Body
@@ -27,6 +29,7 @@ private const val END_URL_NOTIFICATION_GET="notifications/mostrar-notificaciones
 
 private const val END_URL_SUBMIT_EMOTION = "emotion/submit-emotion"
 
+private const val END_URL_PROFFESIONALS_GET = "professionals/mostrar-profesionales"
 
 
 
@@ -55,5 +58,38 @@ interface ApiService {
         @Header("Authorization") authHeader: String,
         @Body emotionRequest: EmotionRequest
     ): Response<Unit>
+
+    @POST(END_URL_PROFFESIONALS_GET)
+    suspend fun getProfessionals(
+        @Header("Authorization") authHeader: String
+    ): List<Professional>
+
+    @POST("professionals/mostrar-profesional")
+    suspend fun getProfessionalDetails(
+        @Header("Authorization") authHeader: String,
+        @Body request: Map<String, String>
+    ): Professional
+
+
+
+    @POST("professionals/mostrar-reviews")
+    suspend fun getReviews(
+        @Header("Authorization") authHeader: String,
+        @Body request: Map<String, String>
+    ): List<Review>
+
+    @POST("users/mostrar-favoritos")
+    suspend fun getFavorites(
+        @Header("Authorization") authHeader: String,
+        @Body request: Map<String, String>
+    ): List<Professional>
+    @POST("favorite/crear-favorito")
+    suspend fun createFavorite(
+        @Header("Authorization") authHeader: String,
+        @Body body: Map<String, String>
+    )
+
+
+
 
 }

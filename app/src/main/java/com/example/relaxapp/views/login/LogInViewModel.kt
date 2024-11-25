@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class LogInViewModel(val userRepository: UserRepository, private val context: Context,) : ViewModel() {
 
-    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("","","",""), false)  )
+    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("","","","",""), false)  )
     var isLoading: Boolean by mutableStateOf(false)
     var state: Int by mutableStateOf(0)
     private val tokenManager = TokenManager(context)
@@ -28,6 +28,9 @@ class LogInViewModel(val userRepository: UserRepository, private val context: Co
             try {
                 loginResponse = userRepository.doLogin(User(email, password))
                 tokenManager.saveToken(loginResponse.token)
+                val userId = loginResponse.user.id // Asegúrate de que esta propiedad existe
+                tokenManager.saveUserId(userId)
+
                 state = 1
                 loginResponse.message = "Login exitoso"
                 loginResponse.isSuccess = true

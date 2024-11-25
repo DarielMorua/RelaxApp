@@ -32,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.relaxapp.R
+import com.example.relaxapp.TokenManager
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 import com.example.relaxapp.views.signup.AshGray
@@ -101,7 +103,8 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
     val mainMenuViewModel: MainMenuViewModel = viewModel(factory = MainMenuViewModel.MainMenuViewModelFactory(context))
     val exercises = mainMenuViewModel.exercises
     val isLoading = mainMenuViewModel.isLoading
-
+    val tokenManager = remember { TokenManager(context) }
+    val userId = tokenManager.getUserId()
     LaunchedEffect(Unit) {
         mainMenuViewModel.getRecommendedExercises()
     }
@@ -149,7 +152,13 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                     tint = Color.Black,
                     modifier = Modifier
                         .size(50.dp)
-                        .clickable { navController.navigate(Routes.ProfileView) }
+                        .clickable {
+                            if (!userId.isNullOrEmpty()) {
+                                navController.navigate("profileView/$userId")
+                            } else {
+                                Log.e("MainMenu", "User ID is missing")
+                            }
+                        }
                 )
             }
 

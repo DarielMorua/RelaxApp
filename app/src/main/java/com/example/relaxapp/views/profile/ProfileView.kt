@@ -98,11 +98,10 @@ val CustomTypography = Typography(
 )
 
 @Composable
-fun ProfileView(navController: NavController) {
+fun ProfileView(navController: NavController, userId: String) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
@@ -125,7 +124,8 @@ fun ProfileView(navController: NavController) {
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "ArrowBack Icon",
                     tint = Color.Black,
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier
+                        .size(50.dp)
                         .clickable {
                             navController.popBackStack()
                         }
@@ -133,9 +133,11 @@ fun ProfileView(navController: NavController) {
                 Text(
                     text = stringResource(id = R.string.profile),
                     style = MaterialTheme.typography.headlineLarge,
-                    color = Color(26, 204, 181, 255),
+                    color = MintGreen,
                     fontSize = 50.sp,
-                    modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp),
                     textAlign = TextAlign.Center
                 )
                 Icon(
@@ -148,7 +150,7 @@ fun ProfileView(navController: NavController) {
 
             Card(
                 shape = RoundedCornerShape(32.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(26, 204, 181, 255)),
+                colors = CardDefaults.cardColors(containerColor = MintGreen),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -163,9 +165,7 @@ fun ProfileView(navController: NavController) {
                             .fillMaxWidth(0.9f)
                             .padding(8.dp)
                     ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp)
-                        ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
                             Text(
                                 text = stringResource(id = R.string.greeting),
                                 style = MaterialTheme.typography.headlineSmall,
@@ -214,8 +214,7 @@ fun ProfileView(navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
-                    onClick = { navController.navigate(Routes.FavoriteView) },
-                    modifier = Modifier
+                    onClick = { navController.navigate("favorites/$userId") },                    modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
                         .height(50.dp),
@@ -241,8 +240,6 @@ fun ProfileView(navController: NavController) {
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-
-
             }
 
             Spacer(modifier = Modifier.weight(1f))
@@ -256,7 +253,6 @@ fun ProfileView(navController: NavController) {
                 Button(
                     onClick = { navController.navigate(Routes.HelpView) },
                     modifier = Modifier
-                        //.fillMaxWidth()
                         .padding(start = 8.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
@@ -268,7 +264,6 @@ fun ProfileView(navController: NavController) {
                         color = Color.Black,
                         textDecoration = TextDecoration.Underline,
                         fontWeight = FontWeight.Bold,
-                        //modifier = Modifier.align(Alignment.Start),
                         fontSize = 16.sp
                     )
                 }
@@ -276,7 +271,6 @@ fun ProfileView(navController: NavController) {
                 Button(
                     onClick = { navController.navigate(Routes.FAQView) },
                     modifier = Modifier
-                        //.fillMaxWidth()
                         .padding(start = 8.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
@@ -288,7 +282,6 @@ fun ProfileView(navController: NavController) {
                         color = Color.Black,
                         textDecoration = TextDecoration.Underline,
                         fontWeight = FontWeight.Bold,
-                        //modifier = Modifier.align(Alignment.Start),
                         fontSize = 16.sp
                     )
                 }
@@ -296,7 +289,6 @@ fun ProfileView(navController: NavController) {
                 Button(
                     onClick = { navController.navigate(Routes.LoginView) },
                     modifier = Modifier
-                        //.fillMaxWidth()
                         .padding(start = 8.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
@@ -307,7 +299,6 @@ fun ProfileView(navController: NavController) {
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color(255, 116, 104, 255),
                         fontWeight = FontWeight.ExtraBold,
-                        //modifier = Modifier.align(Alignment.Start),
                         fontSize = 16.sp
                     )
                 }
@@ -316,6 +307,3 @@ fun ProfileView(navController: NavController) {
         }
     }
 }
-
-
-

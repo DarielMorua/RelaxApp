@@ -15,6 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,6 +38,7 @@ import com.example.relaxapp.views.calendar.CalendarView
 
 import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.doctordetails.DoctorDetailView
+import com.example.relaxapp.views.doctordetails.DoctorDetailViewModel
 import com.example.relaxapp.views.doctorschedule.DoctorScheduleView
 import com.example.relaxapp.views.exercises.ExerciseView
 import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseCategoriesRepository
@@ -52,7 +56,12 @@ import com.example.relaxapp.views.notifications.NotificationRepository
 import com.example.relaxapp.views.notifications.NotificationView
 import com.example.relaxapp.views.notifications.NotificationViewModel
 import com.example.relaxapp.views.onboarding.OnboardingView
+import com.example.relaxapp.views.profesionales.Professional
+import com.example.relaxapp.views.profesionales.ProfessionalRepository
 import com.example.relaxapp.views.profesionales.ProfessionalView
+import com.example.relaxapp.views.profesionales.ProfessionalViewModel
+import com.example.relaxapp.views.profesionales.Review
+import com.example.relaxapp.views.profesionalesfav.FavoriteProfessionalsView
 import com.example.relaxapp.views.profile.ProfileView
 import com.example.relaxapp.views.profile.favorites.FavoriteView
 import com.example.relaxapp.views.profile.personaldata.PersonalDataView
@@ -63,6 +72,7 @@ import com.example.relaxapp.views.signup.SignUpViewModel
 fun MyAppNavigationView() {
     val context = LocalContext.current
     val navController = rememberNavController()
+
 
     NavHost(navController = navController, startDestination = Routes.OnboardingView) {
 
@@ -81,9 +91,15 @@ fun MyAppNavigationView() {
                 navController
             )
         }
-        composable(Routes.ProfileView) {
-            ProfileView(navController)
+        composable(
+            route = "profileView/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getString("userId") ?: ""
+            ProfileView(navController = navController, userId = userId)
         }
+
+
         composable(Routes.PersonalDataView) {
             PersonalDataView(navController)
         }
@@ -168,16 +184,49 @@ fun MyAppNavigationView() {
 
 
         }
-
+//(navController, NotificationViewModel(notificationRepository = NotificationRepository, context
         composable(Routes.ProfessionalView) {
-            ProfessionalView(navController)
+            ProfessionalView(navController, ProfessionalViewModel(professionalRepository=ProfessionalRepository,context))
         }
         composable(Routes.DoctorScheduleView) {
             DoctorScheduleView(navController)
         }
-        composable(Routes.DoctorDetailView) {
-            DoctorDetailView(navController)
+
+        composable("doctor_detail/{professionalId}") { backStackEntry ->
+            val professionalId = backStackEntry.arguments?.getString("professionalId") ?: ""
+            val viewModel: DoctorDetailViewModel = viewModel(factory = DoctorDetailViewModel.DoctorDetailViewModelFactory(context))
+
+            DoctorDetailView(
+                navController = navController,
+                viewModel = viewModel,
+                professionalId = professionalId
+            )
         }
+
+        composable(
+            route = "favorites/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getString("userId") ?: ""
+            if (userId.isNotEmpty()) {
+                val viewModel: ProfessionalViewModel = viewModel(
+                    factory = ProfessionalViewModel.ProfessionalViewModelFactory(LocalContext.current)
+                )
+                FavoriteProfessionalsView(
+                    navController = navController,
+                    viewModel = viewModel,
+                    userId = userId
+                )
+            } else {
+                Text("Error: User ID is missing", color = Color.Red)
+            }
+        }
+
+
+
+
+
+
     }
 
 }
