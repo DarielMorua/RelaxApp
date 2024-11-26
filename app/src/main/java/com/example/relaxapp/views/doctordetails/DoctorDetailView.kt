@@ -1,7 +1,6 @@
 package com.example.relaxapp.views.doctordetails
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +19,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,23 +31,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
-import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
-import com.example.relaxapp.bottomnavigationbar.Routes
-import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.Review
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import com.example.relaxapp.views.doctordetails.viewmodels.DoctorDetailViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)

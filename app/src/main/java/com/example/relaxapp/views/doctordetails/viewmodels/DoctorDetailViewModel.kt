@@ -1,4 +1,4 @@
-package com.example.relaxapp.views.doctordetails
+package com.example.relaxapp.views.doctordetails.viewmodels
 
 import android.content.Context
 import android.util.Log
@@ -12,11 +12,7 @@ import com.example.relaxapp.TokenManager
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.ProfessionalRepository
 import com.example.relaxapp.views.profesionales.Review
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DoctorDetailViewModel(
     private val repository: ProfessionalRepository,

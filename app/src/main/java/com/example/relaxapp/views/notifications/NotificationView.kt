@@ -1,5 +1,6 @@
 package com.example.relaxapp.views.notifications
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -38,21 +40,27 @@ import com.example.relaxapp.bottomnavigationbar.Routes
 
 
 @Composable
-fun NotificationView(navController: NavController, viewModel: NotificationViewModel) {
+fun NotificationView(navController: NavController, notificationRepository: NotificationRepository) {
+    val context = LocalContext.current
+
+    // Crear la instancia del ViewModel usando la fábrica personalizada
+    val viewModel: NotificationViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+        factory = NotificationViewModelFactory(notificationRepository, context)
+    )
+
     val isLoading by viewModel.isLoading.collectAsState()
     val notifications by viewModel.notifications.collectAsState()
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(Color.White)
         ) {
-            // Título de la sección
+            // Tu lógica existente para mostrar notificaciones
             Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier
@@ -80,7 +88,6 @@ fun NotificationView(navController: NavController, viewModel: NotificationViewMo
                 )
             }
 
-            // Lista de notificaciones o indicador de carga
             Spacer(modifier = Modifier.height(32.dp))
             if (isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -93,10 +100,14 @@ fun NotificationView(navController: NavController, viewModel: NotificationViewMo
                     ) {
                         items(notifications) { notification ->
                             NotificationCard(
+                                id = notification.id,
                                 title = notification.title,
                                 message = notification.message,
                                 date = notification.date,
-                                seen = notification.seen
+                                seen = notification.seen,
+                                onDismiss = {
+                                    viewModel.deleteNotification(notificationId = notification.id)
+                                }
                             )
                         }
                     }
