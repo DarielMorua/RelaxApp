@@ -1,32 +1,19 @@
 package com.example.relaxapp.views
 
 
-import android.content.Context
 import android.util.Log
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,7 +25,7 @@ import com.example.relaxapp.views.calendar.CalendarView
 
 import com.example.relaxapp.views.chat.ChatView
 import com.example.relaxapp.views.doctordetails.DoctorDetailView
-import com.example.relaxapp.views.doctordetails.DoctorDetailViewModel
+import com.example.relaxapp.views.doctordetails.viewmodels.DoctorDetailViewModel
 import com.example.relaxapp.views.doctorschedule.DoctorScheduleView
 import com.example.relaxapp.views.exercises.ExerciseView
 import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseCategoriesRepository
@@ -56,11 +43,9 @@ import com.example.relaxapp.views.notifications.NotificationRepository
 import com.example.relaxapp.views.notifications.NotificationView
 import com.example.relaxapp.views.notifications.NotificationViewModel
 import com.example.relaxapp.views.onboarding.OnboardingView
-import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.ProfessionalRepository
 import com.example.relaxapp.views.profesionales.ProfessionalView
 import com.example.relaxapp.views.profesionales.ProfessionalViewModel
-import com.example.relaxapp.views.profesionales.Review
 import com.example.relaxapp.views.profesionalesfav.FavoriteProfessionalsView
 import com.example.relaxapp.views.profile.ProfileView
 import com.example.relaxapp.views.profile.favorites.FavoriteView
@@ -127,7 +112,7 @@ fun MyAppNavigationView() {
             )
         }
         composable(Routes.NotificationView) {
-            NotificationView(navController, NotificationViewModel(notificationRepository = NotificationRepository, context))
+            NotificationView(navController, NotificationRepository)
         }
 
         // Ruta para ExerciseDetailView con el parámetro exerciseId

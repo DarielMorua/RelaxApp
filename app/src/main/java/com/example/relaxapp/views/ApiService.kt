@@ -9,6 +9,7 @@ import com.example.relaxapp.views.notifications.NotificationResponse
 
 
 import com.example.relaxapp.views.mainmenu.EmotionRequest
+import com.example.relaxapp.views.notifications.deleteNotification
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.Review
 import retrofit2.Response
@@ -24,12 +25,13 @@ private const val END_URL_RECOMMENDED_EXERCISES = "exercises/mostrar-ejercicios-
 
 private const val END_URL_EXERCISES_CATEGORIES = "exercises/mostrar-ejercicios-por-categoria"
 
-
 private const val END_URL_NOTIFICATION_GET="notifications/mostrar-notificaciones"
 
 private const val END_URL_SUBMIT_EMOTION = "emotion/submit-emotion"
 
 private const val END_URL_PROFFESIONALS_GET = "professionals/mostrar-profesionales"
+
+private const val END_URL_NOTIFICATION_DELETE = "notifications/borrar-notificacion"
 
 
 
@@ -89,6 +91,11 @@ interface ApiService {
         @Body body: Map<String, String>
     )
 
+    @POST(END_URL_NOTIFICATION_DELETE)
+    suspend fun deleteNotification(
+        @Header("Authorization") authHeader: String,
+        @Body notificationRequest: deleteNotification
+    ): Response<Unit>
 
 
 
