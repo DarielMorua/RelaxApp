@@ -1,28 +1,127 @@
+# Nombre del Proyecto
 
-# RelaxULSA
-
-RelaxULSA es una aplicación de Android diseñada para promover la relajación y la salud mental. Ofrece una variedad de herramientas y recursos para ayudar a los usuarios a manejar el estrés y la ansiedad y un chat en tiempo real con psicólogos y psiquiatras profesionales.
-
-## Características ✨
-
-- **🛠️ Herramientas de Salud Mental:** Herramientas y recursos para ayudar a manejar el estrés, la ansiedad y otros problemas de salud mental.
-- **💬 Chat en Tiempo Real:** Conexión directa con psicólogos y psiquiatras certificados para apoyo profesional.
-- **📊 Seguimiento de Progreso:** Registro y seguimiento de las actividades de relajación y sesiones de chat.
-- **⏰ Recordatorios Personalizados:** Configuración de recordatorios para cuidado personal.
-
-### Prerrequisitos 📋
-
-- Android Studio 4.0 o superior
-- JDK 8 o superior
-- Gradle 6.0 o superior
-
-## Tecnologías Utilizadas 🛠️
-
-- **Kotlin:** Lenguaje principal para la lógica de la aplicación.
-- **Jetpack Compose:** Para la construcción de interfaces de usuario modernas y reactivas.
+## **Objetivo del Proyecto**
+Describe el objetivo principal de la aplicación. 
 
 
-## Licencia 📄
+---
+
+## **¿Quién lo utilizaría?**
+Define el público objetivo de la aplicación. 
+
+---
+
+## **¿Cómo monetizar la aplicación?**
+Explica las posibles estrategias para generar ingresos. 
 
 
-## Contacto 📧
+---
+
+## **Impacto en los Usuarios**
+
+
+---
+
+## **Lenguaje de Programación**
+Indica el lenguaje utilizado y una breve descripción. 
+
+---
+
+## **Versión Mínima de Android**
+Indica la versión más antigua de Android que soportará la aplicación. 
+
+
+---
+
+## **Estructura Organizacional del Proyecto**
+Explica cómo está organizado el proyecto. Ejemplo:  
+- Carpeta `models/` para las clases de datos.  
+- Carpeta `views/` para las interfaces de usuario.  
+- Carpeta `viewModels/` para la lógica de negocio.
+
+---
+
+## **Patrón de Diseño**
+Especifica el patrón de diseño implementado. 
+
+---
+
+## **Herramienta para la Creación de Vistas**
+Indica la tecnología utilizada.   
+
+---
+
+## **Arquitectura Cliente-Servidor**
+Describe cómo interactúa la aplicación con un servidor. 
+
+---
+
+## **Verbos Comunes del Protocolo HTTP**
+Menciona ejemplos. Ejemplo:  
+- **GET**: 
+- **POST**: 
+- **DELETE**:
+
+---
+
+## **Estatus de Respuesta del Servidor**
+Ejemplo:  
+- **200 OK**:   
+- **400 Bad Request**: 
+- **401 Unauthorized**: 
+- **404 Not Found**:
+- **500 Internal Server Error**: 
+---
+
+## **Características Técnicas**
+
+### Base64
+- **¿Para qué sirve?**  
+    
+
+### Data Class  
+- **¿Qué es?**  
+  
+
+### Navegación
+- **¿Cómo funciona?**  
+  
+### SharedPreferences
+- **¿Qué es?**  
+- **¿Cómo se usa?**  
+
+
+### Permisos de la aplicación 
+- **¿Cómo se agregan?**  
+
+---
+
+## **Generación del APK**
+Explica el proceso. 
+
+---
+
+## **Librerías Utilizadas**
+Lista las librerías clave del proyecto. Ejemplo:  
+- Retrofit: Para manejo de solicitudes HTTP.  
+  
+
+---
+
+## **Debugging y Logs**
+Describe cómo manejar errores. Ejemplo:  
+- Utiliza `Log.d("TAG", "Mensaje")` para depuración en tiempo de ejecución.  
+
+
+---
+
+## **Firebase Cloud Messaging**
+- **¿Qué es y cómo funciona?**  
+
+
+---
+
+## **Archivo Scratch**
+Describe el propósito de un archivo Scratch.   
+
+---
