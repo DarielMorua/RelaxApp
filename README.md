@@ -1,4 +1,4 @@
-# Nombre del Proyecto
+# Relax App
 
 ## **Objetivo del Proyecto**
 Describe el objetivo principal de la aplicación. 
