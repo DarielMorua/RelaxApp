@@ -1,6 +1,9 @@
 package com.example.relaxapp.views.mainmenu
 
 import android.util.Log
+import android.widget.Toast
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,10 +35,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -108,8 +115,11 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
     val isLoading = mainMenuViewModel.isLoading
     val tokenManager = remember { TokenManager(context) }
     val userId = tokenManager.getUserId()
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
-
+    
+     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
+     
+     var selectedEmoji by remember { mutableStateOf<String?>(null) }
+ 
     LaunchedEffect(Unit) {
         mainMenuViewModel.getRecommendedExercises()
     }
@@ -146,8 +156,11 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         modifier = Modifier.size(60.dp)
                     )
 
-                    Spacer(modifier = Modifier.weight(1f))
 
+                    
+                  Spacer(modifier = Modifier.weight(1f))
+
+                  
                     Text(
                         text = stringResource(id = R.string.app_name),
                         style = MaterialTheme.typography.headlineLarge,
@@ -174,15 +187,117 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                 }
 
                 // Emociones
+
+              
+              Text(
+                    text = stringResource(id = R.string.app_name),
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.Black,
+                    modifier = Modifier.weight(1f)
+                )
+
+                Icon(
+                    imageVector = Icons.Filled.Person,
+                    contentDescription = "Profile Icon",
+                    tint = Color.Black,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            if (!userId.isNullOrEmpty()) {
+                                navController.navigate("profileView/$userId")
+                            } else {
+                                Log.e("MainMenu", "User ID is missing")
+                            }
+                        }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Emociones
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Start
+            ) {
                 Text(
                     text = stringResource(id = R.string.how_are_you),
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.Gray,
-                    modifier = Modifier.padding(bottom = 16.dp),
                     fontSize = 25.sp
                 )
 
+                Spacer(modifier = Modifier.height(8.dp))
+
                 Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    emojis.forEach { emoji ->
+                        val targetSize = if (selectedEmoji == emoji) 70.dp else 50.dp
+                        val animatedSize by animateDpAsState(
+                            targetValue = targetSize,
+                            animationSpec = androidx.compose.animation.core.spring(
+                                dampingRatio = 0.4f,
+                                stiffness = 200f
+                            )
+                        )
+
+                        val scale by animateFloatAsState(
+                            targetValue = if (selectedEmoji == emoji) 1.2f else 1f,
+                            animationSpec = androidx.compose.animation.core.spring(
+                                dampingRatio = 0.4f,
+                                stiffness = 200f
+                            )
+                        )
+
+                        Button(
+                            onClick = {
+                                selectedEmoji = emoji
+                                mainMenuViewModel.onEmojiSelected(emoji)
+                                mainMenuViewModel.submitEmotion(emoji)
+                                Toast.makeText(context, "Emoción guardada.", Toast.LENGTH_LONG).show()
+                            },
+                            shape = RoundedCornerShape(percent = 50),
+                            modifier = Modifier
+                                .size(animatedSize)
+                                .graphicsLayer(scaleX = scale, scaleY = scale),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+                        ) {
+                            Text(
+                                text = emoji,
+                                fontSize = if (selectedEmoji == emoji) 30.sp else 24.sp,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Ejercicios recomendados
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+              
+              
+              
+              Text(
+                    text = stringResource(id = R.string.how_are_you),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.Gray,
+                    fontSize = 25.sp
+                )
+
+
+              
+              
+              
+              
+              Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .horizontalScroll(rememberScrollState())
@@ -198,6 +313,22 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                             shape = RoundedCornerShape(percent = 50),
                             modifier = Modifier.size(50.dp),
                             colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+
+                          
+                          
+                          Spacer(modifier = Modifier.height(8.dp))
+
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                } else {
+                    if (exercises.isNotEmpty()) {
+                        LazyRow(
+                            contentPadding = PaddingValues(horizontal = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+
+                        
+                        
+                        
                         ) {
                             Text(
                                 text = emoji,
@@ -257,9 +388,18 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+
+                          
+                          
+                          Spacer(modifier = Modifier.height(16.dp))
             }
-        }
+
+                          
+                          
+                          Spacer(modifier = Modifier.height(24.dp))
+
+                          
+                          
+                          }
     }
 }
-
