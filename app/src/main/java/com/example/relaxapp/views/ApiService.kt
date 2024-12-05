@@ -12,6 +12,7 @@ import com.example.relaxapp.views.mainmenu.EmotionRequest
 import com.example.relaxapp.views.notifications.deleteNotification
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.Review
+import com.example.relaxapp.views.signup.SignUpUser
 import retrofit2.Response
 
 import retrofit2.http.Body
@@ -97,6 +98,10 @@ interface ApiService {
         @Body notificationRequest: deleteNotification
     ): Response<Unit>
 
+    @POST("users/crear")
+    suspend fun SignUp(
+        @Body signUpUser: SignUpUser
+    ): Response<Unit>
 
 
 }
