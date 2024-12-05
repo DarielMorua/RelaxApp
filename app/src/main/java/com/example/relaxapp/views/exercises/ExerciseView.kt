@@ -46,6 +46,8 @@ import com.example.relaxapp.bottomnavigationbar.Routes
 import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseViewModel
 import com.example.relaxapp.views.mainmenu.ExerciseCard
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 val imagenesRespiracion = listOf(
     R.drawable.resp2,  // Primera imagen
@@ -64,9 +66,12 @@ val imagenesMeditacion = listOf(
 @Composable
 fun ExerciseView(viewModel: ExerciseViewModel, navController: NavController) {
     val context = LocalContext.current
-    val exerciseViewModel: ExerciseViewModel = viewModel(factory = ExerciseViewModel.ExerciseViewModelFactory(context))
+    val exerciseViewModel: ExerciseViewModel =
+        viewModel(factory = ExerciseViewModel.ExerciseViewModelFactory(context))
     val categories = exerciseViewModel.categories
     val isLoading = exerciseViewModel.isLoading
+
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
 
     LaunchedEffect(Unit) {
         Log.d("ExerciseView", "Obteniendo ejercicios por categoría")
@@ -76,58 +81,68 @@ fun ExerciseView(viewModel: ExerciseViewModel, navController: NavController) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
-        if (isLoading) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator()
+        SwipeRefresh(
+            state = swipeRefreshState,
+            onRefresh = {
+                exerciseViewModel.getExercisesByCategory() // Función para refrescar los ejercicios
             }
-        } else {
-            LazyColumn(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .background(Color.White)
-            ) {
-                categories.forEach { category ->
-                    // Título de la categoría
-                    item {
-                        Text(
-                            text = category.name,
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = Color.Gray,
-                            modifier = Modifier.padding(16.dp),
-                            fontSize = 25.sp
-                        )
-                    }
+        ) {
+            if (isLoading) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                LazyColumn(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Top,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .background(Color.White)
+                ) {
+                    categories.forEach { category ->
+                        // Título de la categoría
+                        item {
+                            Text(
+                                text = category.name,
+                                style = MaterialTheme.typography.headlineMedium,
+                                color = Color.Gray,
+                                modifier = Modifier.padding(16.dp),
+                                fontSize = 25.sp
+                            )
+                        }
 
-                    // Ejercicios de la categoría
-                    item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .horizontalScroll(rememberScrollState())
-                                .padding(horizontal = 16.dp),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            category.exercises.take(5).forEach { exercise ->
-                                ExerciseCard(
-                                    title = exercise.title,
-                                    imageUrl = exercise.image,
-                                    shortDescription = exercise.shortDescription,
-                                    modifier = Modifier
-                                        .clickable {
-                                            // Navegar a la vista de detalle del ejercicio
-                                            Log.d("ExerciseView", "Navegando a la vista de detalle del ejercicio ${exercise.id}")
-                                            navController.navigate("exerciseDetailCategory/${exercise.id}")
-                                        }
-                                )
+                        // Ejercicios de la categoría
+                        item {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState())
+                                    .padding(horizontal = 16.dp),
+                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                category.exercises.take(5).forEach { exercise ->
+                                    ExerciseCard(
+                                        title = exercise.title,
+                                        imageUrl = exercise.image,
+                                        shortDescription = exercise.shortDescription,
+                                        modifier = Modifier
+                                            .clickable {
+                                                // Navegar a la vista de detalle del ejercicio
+                                                Log.d(
+                                                    "ExerciseView",
+                                                    "Navegando a la vista de detalle del ejercicio ${exercise.id}"
+                                                )
+                                                navController.navigate("exerciseDetailCategory/${exercise.id}")
+                                            }
+                                    )
+                                }
                             }
                         }
                     }

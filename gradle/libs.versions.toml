@@ -1,4 +1,5 @@
 [versions]
+accompanistSwiperefresh = "0.24.13-rc"
 agp = "8.6.0"
 coilCompose = "2.3.0"
 composeBomVersion = "<latest-version>"
@@ -20,6 +21,7 @@ ui = "<latest-version>"
 firebaseMessagingKtx = "24.0.3"
 
 [libraries]
+accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefresh" }
 androidx-compose-bom-vlatestversion = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-ktx-v1150 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
