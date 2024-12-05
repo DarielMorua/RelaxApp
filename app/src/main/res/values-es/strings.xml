@@ -40,7 +40,8 @@
     <string name="delete_account">Eliminar Cuenta</string>
     <string name="profile">Perfil</string>
     <string name="logout">Cerrar Sesión</string>
-    <string name="greeting">¡Hola!</string>
+    <string name="greeting_user">¡Hola Usuario!</string>
+    <string name="greeting_professional">¡Hola Profesional!</string>
     <string name="favoritedr">Doctores Favoritos</string>
     <string name="appoinments">Citas</string>
     <string name="need_help">¿Necesitas ayuda?</string>

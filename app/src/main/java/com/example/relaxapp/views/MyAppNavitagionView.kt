@@ -83,10 +83,12 @@ fun MyAppNavigationView() {
             val userId = backStackEntry.arguments?.getString("userId") ?: ""
             ProfileView(navController = navController, userId = userId)
         }
-
-
-        composable(Routes.PersonalDataView) {
-            PersonalDataView(navController)
+        composable(
+            route = "personalDataView/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getString("userId") ?: ""
+            PersonalDataView(navController = navController, userId = userId)
         }
         composable(Routes.CalendarDataView) {
             CalendarView(navController)

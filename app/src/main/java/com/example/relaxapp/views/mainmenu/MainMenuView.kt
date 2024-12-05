@@ -62,6 +62,8 @@ import com.example.relaxapp.views.signup.CambridgeBlue
 import com.example.relaxapp.views.signup.CarolinaBlue
 import com.example.relaxapp.views.signup.Nunito
 import com.example.relaxapp.views.signup.Oxygen
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 
 val CustomTypography = Typography(
@@ -113,8 +115,11 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
     val isLoading = mainMenuViewModel.isLoading
     val tokenManager = remember { TokenManager(context) }
     val userId = tokenManager.getUserId()
-    var selectedEmoji by remember { mutableStateOf<String?>(null) }
-
+    
+     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
+     
+     var selectedEmoji by remember { mutableStateOf<String?>(null) }
+ 
     LaunchedEffect(Unit) {
         mainMenuViewModel.getRecommendedExercises()
     }
@@ -122,30 +127,69 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFF7F7F7))
-                .padding(innerPadding)
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        SwipeRefresh(
+            state = swipeRefreshState,
+            onRefresh = {
+                Log.d("MainMenu", "Refresh triggered")
+                mainMenuViewModel.getRecommendedExercises() // Llamada para refrescar los ejercicios
+            }
         ) {
-            // Logo y nombre de la app
-            Row(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
+                    .background(Color(0xFFF7F7F7))
+                    .padding(innerPadding)
                     .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_logo),
-                    contentDescription = "Logo",
-                    modifier = Modifier.size(60.dp)
-                )
+                // Logo y nombre de la app
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_logo),
+                        contentDescription = "Logo",
+                        modifier = Modifier.size(60.dp)
+                    )
 
-                Text(
+
+                    
+                  Spacer(modifier = Modifier.weight(1f))
+
+                  
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = Color.Black,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Icon(
+                        imageVector = Icons.Filled.Person,
+                        contentDescription = "Profile Icon",
+                        tint = Color.Black,
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clickable {
+                                if (!userId.isNullOrEmpty()) {
+                                    navController.navigate("profileView/$userId")
+                                } else {
+                                    Log.e("MainMenu", "User ID is missing")
+                                }
+                            }
+                    )
+                }
+
+                // Emociones
+
+              
+              Text(
                     text = stringResource(id = R.string.app_name),
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color.Black,
@@ -237,14 +281,42 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = stringResource(id = R.string.recommendedExercises),
+
+              
+              
+              
+              Text(
+                    text = stringResource(id = R.string.how_are_you),
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.Gray,
                     fontSize = 25.sp
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+
+              
+              
+              
+              
+              Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    emojis.forEach { emoji ->
+                        Button(
+                            onClick = {
+                                mainMenuViewModel.onEmojiSelected(emoji)
+                                mainMenuViewModel.submitEmotion(emoji)
+                            },
+                            shape = RoundedCornerShape(percent = 50),
+                            modifier = Modifier.size(50.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
+
+                          
+                          
+                          Spacer(modifier = Modifier.height(8.dp))
 
                 if (isLoading) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -253,33 +325,81 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         LazyRow(
                             contentPadding = PaddingValues(horizontal = 16.dp),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
+
+                        
+                        
+                        
                         ) {
-                            items(exercises) { exercise ->
-                                ExerciseCard(
-                                    title = exercise.title,
-                                    imageUrl = exercise.image,
-                                    shortDescription = exercise.shortDescription,
-                                    modifier = Modifier
-                                        .size(250.dp)
-                                        .clickable {
-                                            Log.d("MainMenu", "Navegando a: exerciseDetail/${exercise.id}")
-                                            navController.navigate("exerciseDetail/${exercise.id}")
-                                        }
-                                )
-                            }
+                            Text(
+                                text = emoji,
+                                fontSize = 24.sp,
+                                modifier = Modifier.align(Alignment.CenterVertically),
+                                textAlign = TextAlign.Center
+                            )
                         }
-                    } else {
-                        Text(
-                            text = "No exercises available",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Color.Gray,
-                            modifier = Modifier.align(Alignment.CenterHorizontally)
-                        )
                     }
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.recommendedExercises),
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(bottom = 16.dp),
+                        fontSize = 25.sp
+                    )
+
+                    // Mostrar indicador de carga si isLoading es verdadero
+                    if (isLoading) {
+                        CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                    } else {
+                        if (exercises.isNotEmpty()) {
+                            LazyRow(
+                                contentPadding = PaddingValues(horizontal = 16.dp),
+                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                items(exercises) { exercise ->
+                                    ExerciseCard(
+                                        title = exercise.title,
+                                        imageUrl = exercise.image,
+                                        shortDescription = exercise.shortDescription,
+                                        modifier = Modifier
+                                            .size(250.dp)
+                                            .clickable {
+                                                Log.d(
+                                                    "MainMenu",
+                                                    "Navegando a: exerciseDetail/${exercise.id}"
+                                                )
+                                                navController.navigate("exerciseDetail/${exercise.id}")
+                                            }
+                                    )
+                                }
+                            }
+                        } else {
+                            Text(
+                                text = "No exercises available",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.Gray,
+                                modifier = Modifier.align(Alignment.CenterHorizontally)
+                            )
+                        }
+                    }
+                }
+
+
+                          
+                          
+                          Spacer(modifier = Modifier.height(16.dp))
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-        }
+                          
+                          
+                          Spacer(modifier = Modifier.height(24.dp))
+
+                          
+                          
+                          }
     }
 }
