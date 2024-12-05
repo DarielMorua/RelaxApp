@@ -115,11 +115,11 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
     val isLoading = mainMenuViewModel.isLoading
     val tokenManager = remember { TokenManager(context) }
     val userId = tokenManager.getUserId()
-    
-     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
-     
-     var selectedEmoji by remember { mutableStateOf<String?>(null) }
- 
+
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
+
+    var selectedEmoji by remember { mutableStateOf<String?>(null) }
+
     LaunchedEffect(Unit) {
         mainMenuViewModel.getRecommendedExercises()
     }
@@ -156,11 +156,8 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         modifier = Modifier.size(60.dp)
                     )
 
+                    Spacer(modifier = Modifier.weight(1f))
 
-                    
-                  Spacer(modifier = Modifier.weight(1f))
-
-                  
                     Text(
                         text = stringResource(id = R.string.app_name),
                         style = MaterialTheme.typography.headlineLarge,
@@ -187,38 +184,6 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                 }
 
                 // Emociones
-
-              
-              Text(
-                    text = stringResource(id = R.string.app_name),
-                    style = MaterialTheme.typography.headlineLarge,
-                    color = Color.Black,
-                    modifier = Modifier.weight(1f)
-                )
-
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "Profile Icon",
-                    tint = Color.Black,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clickable {
-                            if (!userId.isNullOrEmpty()) {
-                                navController.navigate("profileView/$userId")
-                            } else {
-                                Log.e("MainMenu", "User ID is missing")
-                            }
-                        }
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Emociones
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.Start
-            ) {
                 Text(
                     text = stringResource(id = R.string.how_are_you),
                     style = MaterialTheme.typography.headlineMedium,
@@ -257,7 +222,8 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                                 selectedEmoji = emoji
                                 mainMenuViewModel.onEmojiSelected(emoji)
                                 mainMenuViewModel.submitEmotion(emoji)
-                                Toast.makeText(context, "Emoción guardada.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(context, "Emoción guardada.", Toast.LENGTH_LONG)
+                                    .show()
                             },
                             shape = RoundedCornerShape(percent = 50),
                             modifier = Modifier
@@ -273,76 +239,13 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            // Ejercicios recomendados
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-
-              
-              
-              
-              Text(
-                    text = stringResource(id = R.string.how_are_you),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = Color.Gray,
-                    fontSize = 25.sp
-                )
-
-
-              
-              
-              
-              
-              Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState())
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                // Ejercicios recomendados
+                Column(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    emojis.forEach { emoji ->
-                        Button(
-                            onClick = {
-                                mainMenuViewModel.onEmojiSelected(emoji)
-                                mainMenuViewModel.submitEmotion(emoji)
-                            },
-                            shape = RoundedCornerShape(percent = 50),
-                            modifier = Modifier.size(50.dp),
-                            colors = ButtonDefaults.buttonColors(Color(0, 0, 0, 0))
-
-                          
-                          
-                          Spacer(modifier = Modifier.height(8.dp))
-
-                if (isLoading) {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-                } else {
-                    if (exercises.isNotEmpty()) {
-                        LazyRow(
-                            contentPadding = PaddingValues(horizontal = 16.dp),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-
-                        
-                        
-                        
-                        ) {
-                            Text(
-                                text = emoji,
-                                fontSize = 24.sp,
-                                modifier = Modifier.align(Alignment.CenterVertically),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Column {
                     Text(
                         text = stringResource(id = R.string.recommendedExercises),
                         style = MaterialTheme.typography.headlineMedium,
@@ -351,7 +254,6 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         fontSize = 25.sp
                     )
 
-                    // Mostrar indicador de carga si isLoading es verdadero
                     if (isLoading) {
                         CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
                     } else {
@@ -368,10 +270,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                                         modifier = Modifier
                                             .size(250.dp)
                                             .clickable {
-                                                Log.d(
-                                                    "MainMenu",
-                                                    "Navegando a: exerciseDetail/${exercise.id}"
-                                                )
+                                                Log.d("MainMenu", "Navegando a: exerciseDetail/${exercise.id}")
                                                 navController.navigate("exerciseDetail/${exercise.id}")
                                             }
                                     )
@@ -387,19 +286,7 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
                         }
                     }
                 }
-
-
-                          
-                          
-                          Spacer(modifier = Modifier.height(16.dp))
             }
-
-                          
-                          
-                          Spacer(modifier = Modifier.height(24.dp))
-
-                          
-                          
-                          }
+        }
     }
 }
