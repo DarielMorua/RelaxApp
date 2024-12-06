@@ -333,7 +333,6 @@ fun ProfileView(navController: NavController, userId: String) {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(
-                    onClick = { navController.navigate(Routes.LoginView) },
 
                   
                   onClick = {
