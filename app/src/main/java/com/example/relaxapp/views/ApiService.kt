@@ -5,6 +5,7 @@ import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
 import com.example.relaxapp.views.mainmenu.ExcerciseResponse
 import com.example.relaxapp.views.login.LoginResponse
 import com.example.relaxapp.views.login.User
+import com.example.relaxapp.views.login.UserResponse
 
 import com.example.relaxapp.views.notifications.NotificationResponse
 
@@ -13,12 +14,20 @@ import com.example.relaxapp.views.mainmenu.EmotionRequest
 import com.example.relaxapp.views.notifications.deleteNotification
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.Review
+
+
 import com.example.relaxapp.views.signup.SignUpUser
+
+
+import com.example.relaxapp.views.profile.UserRequest
+
+
 import retrofit2.Response
 
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 private const val END_URL_LOGIN_WITH_EMAIL = "users/login"
 
@@ -34,6 +43,8 @@ private const val END_URL_SUBMIT_EMOTION = "emotion/submit-emotion"
 private const val END_URL_PROFFESIONALS_GET = "professionals/mostrar-profesionales"
 
 private const val END_URL_NOTIFICATION_DELETE = "notifications/borrar-notificacion"
+
+private const val END_URL_USER_GET = "users/obtener/"
 
 
 
@@ -99,11 +110,26 @@ interface ApiService {
         @Body notificationRequest: deleteNotification
     ): Response<Unit>
 
-    @POST("users/crear")
+  
+  
+
+  @POST("users/crear")
     suspend fun SignUp(
         @Body signUpUser: SignUpUser
     ): Response<Unit>
 
+  
+  
+  @POST(END_URL_USER_GET)
+    suspend fun getUserDetails(
+        @Header("Authorization") token: String, 
+        @Body request: UserRequest 
+    ): UserResponse
+
+
+  
+  
+  
     @POST("aboutus/obtener-info")
     suspend fun getAboutUsInfo(): Response<List<AboutUsInfo>>
 

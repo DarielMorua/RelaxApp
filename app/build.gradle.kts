@@ -84,6 +84,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.2.2")) // BOM de Firebase
     implementation("com.google.firebase:firebase-messaging-ktx") // Firebase Messaging
     implementation ("org.osmdroid:osmdroid-android:6.1.10")
+    implementation(libs.accompanist.swiperefresh)
 
 
 implementation(libs.coil.compose)

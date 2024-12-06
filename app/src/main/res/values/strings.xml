@@ -28,7 +28,7 @@
     <string name="notificaciones">Notifications</string>
     <string name ="empty"> </string>
     <string name="Relax">RelaxApp</string>
-    <string name="how_are_you">How are you feeling today?</string>
+    <string name="how_are_you">How are you feeling now?</string>
     <string name="improve">Improve your mental health</string>
     <string name="explore">Explore tools to improve your emotional well-being</string>
     <string name="chatw">Chat with professionals</string>
@@ -39,7 +39,8 @@
     <string name="delete_account">Delete Account</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
-    <string name="greeting">Hello!</string>
+    <string name="greeting_user">Hello User</string>
+    <string name="greeting_professional">Hello Professional</string>
     <string name="favoritedr">Favorite Doctors</string>
     <string name="appoinments">Appointments</string>
     <string name="need_help">Need help?</string>
