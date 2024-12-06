@@ -314,8 +314,30 @@ fun ProfileView(navController: NavController, userId: String) {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(
-                    onClick = {
-                        // Limpiar el token y el userId cuando el usuario cierre sesión
+
+                  onClick = { navController.navigate(Routes.AboutUsView) },
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    colors = ButtonDefaults.buttonColors(Color.Transparent)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.aboutus),
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = Color.Black,
+                        textDecoration = TextDecoration.Underline,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+                Button(
+                    onClick = { navController.navigate(Routes.LoginView) },
+
+                  
+                  onClick = {
+                        // Limpiar el token y el userId cuando el usuario cierre sesion
                         val tokenManager = TokenManager(context)
                         tokenManager.clearToken()
                         tokenManager.clearUserId()
@@ -323,7 +345,9 @@ fun ProfileView(navController: NavController, userId: String) {
                             popUpTo(Routes.ProfileView) { inclusive = true }
                         }
                     },
-                    modifier = Modifier
+
+                  
+                  modifier = Modifier
                         .padding(start = 8.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),

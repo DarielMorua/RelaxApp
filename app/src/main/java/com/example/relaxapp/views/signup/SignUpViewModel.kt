@@ -1,13 +1,13 @@
 package com.example.relaxapp.views.signup
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class SignUpViewModel : ViewModel() {
 
-    // variables para hacer el registro
     private val _email = MutableLiveData("")
     val email: LiveData<String> = _email
 
@@ -23,13 +23,17 @@ class SignUpViewModel : ViewModel() {
     private val _passwordConf = MutableLiveData("")
     val passwordConf: LiveData<String> = _passwordConf
 
-    private val _termsAccepted = MutableLiveData(false)
-    val termsAccepted: LiveData<Boolean> = _termsAccepted
+    private val _country = MutableLiveData("")
+    val country: LiveData<String> = _country
+
 
     private val _telephone = MutableLiveData("")
     val telephone: LiveData<String> = _telephone
 
-    // funciones para actualizar
+    private val _registerStatus = MutableLiveData<String>()
+    val registerStatus: LiveData<String> = _registerStatus
+
+    // Funciones para actualizar los campos
     fun onEmailChange(newEmail: String) {
         _email.value = newEmail
     }
@@ -38,8 +42,8 @@ class SignUpViewModel : ViewModel() {
         _name.value = newUsername
     }
 
-    fun onLastnameChange(newUsername: String) {
-        _lastname.value = newUsername
+    fun onLastnameChange(newLastname: String) {
+        _lastname.value = newLastname
     }
 
     fun onPasswordChange(newPassword: String) {
@@ -54,22 +58,36 @@ class SignUpViewModel : ViewModel() {
         _telephone.value = newTelephone
     }
 
-    fun onTermsAcceptedChange(accepted: Boolean) {
-        _termsAccepted.value = accepted
+    fun onCountryChange(newCountry: String) {
+        _country.value = newCountry
     }
 
+    // Funcipon que se llama cuando el usuario hace clic en el registro
     fun onRegisterClicked() {
-        TODO("Not yet implemented")
+        if (validateInput()) {
+            // Llamar al repositorio para hacer el registro
+            viewModelScope.launch {
+                val response = SignUpRepository.createUser(
+                    _name.value.orEmpty(),
+                    _lastname.value.orEmpty(),
+                    _email.value.orEmpty(),
+                    _password.value.orEmpty(),
+                    _telephone.value.orEmpty(),
+                    _country.value.orEmpty()
+                )
+
+
+            }
+        }
     }
 
-    fun onGoogleSignUp() {
-        TODO("Not yet implemented")
+    // Validar que los campos no esten vacios
+    private fun validateInput(): Boolean {
+        return _name.value?.isNotEmpty() == true &&
+                _lastname.value?.isNotEmpty() == true &&
+                _email.value?.isNotEmpty() == true &&
+                _password.value?.isNotEmpty() == true &&
+                _passwordConf.value == _password.value &&
+                _telephone.value?.isNotEmpty() == true
     }
-
-    fun onFacebookSignUp() {
-        TODO("Not yet implemented")
-    }
-
-
-
 }

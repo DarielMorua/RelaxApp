@@ -1,5 +1,6 @@
 package com.example.relaxapp.views
 
+import com.example.relaxapp.views.aboutus.AboutUsInfo
 import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
 import com.example.relaxapp.views.mainmenu.ExcerciseResponse
 import com.example.relaxapp.views.login.LoginResponse
@@ -13,7 +14,14 @@ import com.example.relaxapp.views.mainmenu.EmotionRequest
 import com.example.relaxapp.views.notifications.deleteNotification
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.Review
+
+
+import com.example.relaxapp.views.signup.SignUpUser
+
+
 import com.example.relaxapp.views.profile.UserRequest
+
+
 import retrofit2.Response
 
 import retrofit2.http.Body
@@ -102,12 +110,27 @@ interface ApiService {
         @Body notificationRequest: deleteNotification
     ): Response<Unit>
 
-    @POST(END_URL_USER_GET)
+  
+  
+
+  @POST("users/crear")
+    suspend fun SignUp(
+        @Body signUpUser: SignUpUser
+    ): Response<Unit>
+
+  
+  
+  @POST(END_URL_USER_GET)
     suspend fun getUserDetails(
-        @Header("Authorization") token: String,  // Token de autorización
-        @Body request: UserRequest // Aquí UserRequest será una clase que tenga el campo userId
+        @Header("Authorization") token: String, 
+        @Body request: UserRequest 
     ): UserResponse
 
 
+  
+  
+  
+    @POST("aboutus/obtener-info")
+    suspend fun getAboutUsInfo(): Response<List<AboutUsInfo>>
 
 }

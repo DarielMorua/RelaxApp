@@ -21,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.relaxapp.bottomnavigationbar.Routes
 import com.example.relaxapp.views.FAQ.FAQView
+import com.example.relaxapp.views.aboutus.AboutUsView
 import com.example.relaxapp.views.calendar.CalendarView
 
 import com.example.relaxapp.views.chat.ChatView
@@ -104,6 +105,9 @@ fun MyAppNavigationView() {
         }
         composable(Routes.FavoriteView) {
             FavoriteView(navController)
+        }
+        composable(Routes.AboutUsView){
+            AboutUsView(navController)
         }
         composable(Routes.ExerciseView) {
             ExerciseView(
