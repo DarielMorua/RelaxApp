@@ -1,5 +1,6 @@
 package com.example.relaxapp.views.doctordetails
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -112,7 +115,8 @@ fun DoctorDetailView(
                             Column {
                                 Text(text = prof.name, style = MaterialTheme.typography.titleLarge)
                                 Text(
-                                    text = "Valoración: ${"%.1f".format(prof.score)}⭐",                                    style = MaterialTheme.typography.bodyMedium,
+                                    text = "Valoración: ${"%.1f".format(prof.score)}⭐",
+                                    style = MaterialTheme.typography.bodyMedium,
                                     color = Color.Gray
                                 )
                                 Text(
@@ -150,6 +154,60 @@ fun DoctorDetailView(
                             items(reviews) { review ->
                                 ReviewCard(review)
                             }
+                        }
+                    }
+
+                    // Botón para crear un nuevo chat
+                    item {
+                        Spacer(modifier = Modifier.height(16.dp)) // Espacio antes del botón
+                        Button(
+                            onClick = {
+                                // Llamamos a createChat y pasamos el ID del profesional
+                                viewModel.createChat(professionalId) { chatId ->
+                                    // Aquí recibimos el chatId y podemos navegar a la vista de ChatView
+                                    Log.d("Chat", "Chat creado con ID: $chatId")
+
+                                    // Asumimos que 'userRole' es "User" para este ejemplo
+                                    val userRole = "User" // o usa una variable o ViewModel para obtener el rol
+
+                                    // Navegar al ChatView pasando chatId y userRole
+                                    navController.navigate("chatView/$chatId/$userRole")
+                                }
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0xFF6200EE))
+                        ) {
+                            Text(
+                                text = "¡Chatea Conmigo!",
+                                color = Color.White,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
+
+                    // Botón para navegar directamente al ChatView (sin crear un nuevo chat)
+                    item {
+                        Spacer(modifier = Modifier.height(16.dp)) // Espacio antes del botón
+                        Button(
+                            onClick = {
+                                // Navegar al ChatView directamente
+                                // En este caso, estamos pasando un chatId de ejemplo (puedes modificar esto según tu lógica)
+                                val chatId = "someChatId" // Aquí deberías usar un ID de chat existente
+                                val userRole = "User" // El rol del usuario
+                                navController.navigate("chatView/$chatId/$userRole")
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0xFF6200EE))
+                        ) {
+                            Text(
+                                text = "Ir al Chat",
+                                color = Color.White,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
                         }
                     }
                 }

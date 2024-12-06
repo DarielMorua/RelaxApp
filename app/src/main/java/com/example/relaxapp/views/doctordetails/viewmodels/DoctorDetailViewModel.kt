@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.relaxapp.TokenManager
+import com.example.relaxapp.views.chat.CreateChatRequest
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.ProfessionalRepository
 import com.example.relaxapp.views.profesionales.Review
@@ -21,7 +22,6 @@ class DoctorDetailViewModel(
 
     var professional by mutableStateOf<Professional?>(null)
         private set
-
 
     var reviews by mutableStateOf<List<Review>>(emptyList())
         private set
@@ -63,29 +63,53 @@ class DoctorDetailViewModel(
         }
     }
 
-
-
-    fun loadProfessionalReviews(professionalId: String) {
-        isLoading = true
+    // Función para crear el chat
+    fun createChat(professionalId: String, onChatCreated: (chatId: String) -> Unit) {
         viewModelScope.launch {
+            isLoading = true
             try {
-                val token = tokenManager.getToken()
+                val token = tokenManager.getToken() // Obtener el token de autenticación
                 if (!token.isNullOrEmpty()) {
-                    val reviewsResponse = repository.getReviews("Bearer $token", professionalId)
-                    reviews = reviewsResponse
+                    // Asumiendo que tienes el userId disponible en alguna parte
+                    val userId = tokenManager.getUserId()
+                    val request = CreateChatRequest(userId!!, professionalId)
 
-                    Log.d("DoctorDetailViewModel", "Reviews cargadas: $reviews")
+                    // Llamada al repositorio para crear el chat
+                    val response = repository.createChat("Bearer $token", request)
+
+                    // Aquí recibimos directamente el objeto ChatResponse desde el repositorio
+                    val chatId = response.chat?._id
+                    if (!chatId.isNullOrEmpty()) {
+                        onChatCreated(chatId) // Notificar que el chat ha sido creado
+                    } else {
+                        Log.e("DoctorDetailViewModel", "Chat creado pero sin chatId")
+                    }
                 } else {
                     Log.e("DoctorDetailViewModel", "Token no disponible")
                 }
             } catch (exception: Exception) {
-                Log.e("DoctorDetailViewModel", "Error al cargar reviews: ${exception.message}")
+                Log.e("DoctorDetailViewModel", "Error al crear el chat: ${exception.message}")
             } finally {
                 isLoading = false
             }
         }
     }
 
+    fun sendMessage(chatId: String, message: String, senderId: String, senderModel: String) {
+        viewModelScope.launch {
+            try {
+                val token = tokenManager.getToken()
+                if (!token.isNullOrEmpty()) {
+                    // Llamar a la función del repositorio para enviar el mensaje
+                    repository.sendMessage("Bearer $token", chatId, message, senderId, senderModel)
+                } else {
+                    Log.e("DoctorDetailViewModel", "Token no disponible")
+                }
+            } catch (exception: Exception) {
+                Log.e("DoctorDetailViewModel", "Error al enviar el mensaje: ${exception.message}")
+            }
+        }
+    }
 
     class DoctorDetailViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
