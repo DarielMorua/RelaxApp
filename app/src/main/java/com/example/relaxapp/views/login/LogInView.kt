@@ -309,32 +309,6 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         }
 
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Registro con Google
-        Button(
-            onClick = { },
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White
-            )
-
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.googlelogo),
-                contentDescription = stringResource(id = R.string.continue_google),
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = stringResource(id = R.string.continue_google),
-                style = MaterialTheme.typography.headlineMedium,
-                color = Color.Black,
-            )
-        }
-
         Spacer(modifier = Modifier.height(8.dp))
 
         Column {
