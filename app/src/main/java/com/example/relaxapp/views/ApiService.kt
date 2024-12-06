@@ -1,5 +1,6 @@
 package com.example.relaxapp.views
 
+import com.example.relaxapp.views.aboutus.AboutUsInfo
 import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
 import com.example.relaxapp.views.mainmenu.ExcerciseResponse
 import com.example.relaxapp.views.login.LoginResponse
@@ -103,5 +104,7 @@ interface ApiService {
         @Body signUpUser: SignUpUser
     ): Response<Unit>
 
+    @POST("aboutus/obtener-info")
+    suspend fun getAboutUsInfo(): Response<List<AboutUsInfo>>
 
 }

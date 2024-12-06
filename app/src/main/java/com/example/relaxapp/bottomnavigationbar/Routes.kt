@@ -27,4 +27,5 @@ object Routes {
     const val ProfileView = "profileView"
     const val FavoritesView = "favorites/{userId}"
     const val DoctorDetailView = "doctor_detail/{professionalId}"
+    const val AboutUsView = "AboutUsView"
 }

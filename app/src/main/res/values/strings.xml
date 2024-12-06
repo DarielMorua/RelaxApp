@@ -55,5 +55,6 @@
     <string name="backbutton">Back</string>
     <string name="beginbutton">Begin</string>
     <string name="writemessage">Write a message</string>
+    <string name="aboutus">About Us</string>
 
 </resources>
