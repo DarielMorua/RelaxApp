@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class LogInViewModel(val userRepository: UserRepository, private val context: Context,) : ViewModel() {
 
-    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("","","","","", "", ""), false)  )
+    var loginResponse: LoginResponse by mutableStateOf(LoginResponse("", "", UserResponse("","","","","", "", "", ""), false)  )
     var isLoading: Boolean by mutableStateOf(false)
     var state: Int by mutableStateOf(0)
     private val tokenManager = TokenManager(context)

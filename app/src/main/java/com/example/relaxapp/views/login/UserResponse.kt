@@ -7,5 +7,6 @@ data class UserResponse(
     val email: String,
     val phone: String,
     val country: String,
-    val rol: String
+    val rol: String,
+    val photo: String
 )

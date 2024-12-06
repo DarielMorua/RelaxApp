@@ -1,5 +1,8 @@
 package com.example.relaxapp.views
 
+import com.example.relaxapp.views.chat.ChatResponse
+import com.example.relaxapp.views.chat.CreateChatRequest
+import com.example.relaxapp.views.chat.Message
 import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
 import com.example.relaxapp.views.mainmenu.ExcerciseResponse
 import com.example.relaxapp.views.login.LoginResponse
@@ -37,6 +40,12 @@ private const val END_URL_PROFFESIONALS_GET = "professionals/mostrar-profesional
 private const val END_URL_NOTIFICATION_DELETE = "notifications/borrar-notificacion"
 
 private const val END_URL_USER_GET = "users/obtener/"
+
+private const val END_URL_CREATE_CHAT = "chat/crear-chat"
+
+private const val END_URL_SEND_MESSAGE = "chat/mandar-mensaje"
+
+private const val END_URL_SHOW_MESSAGE = "chat/mostrar-mensajes"
 
 
 
@@ -108,6 +117,23 @@ interface ApiService {
         @Body request: UserRequest // Aquí UserRequest será una clase que tenga el campo userId
     ): UserResponse
 
+    @POST(END_URL_CREATE_CHAT)
+    suspend fun createChat(
+        @Header("Authorization") authHeader: String,
+        @Body request: CreateChatRequest
+    ): Response<ChatResponse>
+
+    @POST(END_URL_SEND_MESSAGE)
+    suspend fun sendMessage(
+        @Header("Authorization") authHeader: String,
+        @Body requestBody: Message
+    ): Response<ChatResponse>
+
+    @POST(END_URL_SHOW_MESSAGE)
+    suspend fun getMessages(
+        @Header("Authorization") authHeader: String,
+        @Body requestBody: Map<String, String>
+    ): Response<ChatResponse>
 
 
 }

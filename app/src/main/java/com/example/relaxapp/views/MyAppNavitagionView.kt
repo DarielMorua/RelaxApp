@@ -93,8 +93,16 @@ fun MyAppNavigationView() {
         composable(Routes.CalendarDataView) {
             CalendarView(navController)
         }
-        composable(Routes.ChatView) {
-            ChatView(navController)
+        composable(
+            route = "chatView/{chatId}/{userRole}",
+            arguments = listOf(
+                navArgument("chatId") { type = NavType.StringType },
+                navArgument("userRole") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val chatId = backStackEntry.arguments?.getString("chatId") ?: ""
+            val userRole = backStackEntry.arguments?.getString("userRole") ?: ""
+            ChatView(navController = navController, chatId = chatId, userRole = userRole)
         }
         composable(Routes.FAQView) {
             FAQView(navController)
