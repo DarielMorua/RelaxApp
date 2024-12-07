@@ -1,8 +1,17 @@
 package com.example.relaxapp.views
 
 
+
+
 import ImageViewModel
+
+
+
+import android.os.Build
+
+
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
@@ -57,6 +66,7 @@ import com.example.relaxapp.views.profile.personaldata.PersonalDataView
 import com.example.relaxapp.views.signup.SignUpView
 import com.example.relaxapp.views.signup.SignUpViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MyAppNavigationView() {
     val context = LocalContext.current
@@ -94,8 +104,14 @@ fun MyAppNavigationView() {
             val userId = backStackEntry.arguments?.getString("userId") ?: ""
             PersonalDataView(navController = navController, userId = userId)
         }
-        composable(Routes.CalendarDataView) {
-            CalendarView(navController)
+        composable(
+            route = "calendarDataView/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            // Obtener el parámetro de la ruta
+            val userId = backStackEntry.arguments?.getString("userId") ?: ""
+            // Pasar ese parámetro a tu CalendarView
+            CalendarView(navController = navController, context = context, userId = userId)
         }
         composable(
             route = "chatView/{chatId}/{userRole}",

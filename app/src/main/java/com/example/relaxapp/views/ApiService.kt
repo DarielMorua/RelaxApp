@@ -8,6 +8,7 @@ import com.example.relaxapp.views.chat.Message
 
 
 import com.example.relaxapp.views.aboutus.AboutUsInfo
+import com.example.relaxapp.views.calendar.EmotionApiResponse
 
 
 import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
@@ -38,7 +39,6 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Path
 
 private const val END_URL_LOGIN_WITH_EMAIL = "users/login"
 
@@ -173,5 +173,11 @@ interface ApiService {
   
     @POST("aboutus/obtener-info")
     suspend fun getAboutUsInfo(): Response<List<AboutUsInfo>>
+
+    @POST("emotion/get-emotions-by-user-id")
+    suspend fun getEmotionsByUserId(
+        @Header("Authorization") authToken: String,
+        @Body request: com.example.relaxapp.views.calendar.EmotionRequest
+    ): Response<EmotionApiResponse>
 
 }
