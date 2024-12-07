@@ -1,7 +1,15 @@
 package com.example.relaxapp.views
 
 
+
+
+import ImageViewModel
+
+
+
 import android.os.Build
+
+
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
@@ -52,6 +60,8 @@ import com.example.relaxapp.views.profesionales.ProfessionalViewModel
 import com.example.relaxapp.views.profesionalesfav.FavoriteProfessionalsView
 import com.example.relaxapp.views.profile.ProfileView
 import com.example.relaxapp.views.profile.favorites.FavoriteView
+import com.example.relaxapp.views.profile.images.ImageSelectionView
+import com.example.relaxapp.views.profile.images.ImagesData
 import com.example.relaxapp.views.profile.personaldata.PersonalDataView
 import com.example.relaxapp.views.signup.SignUpView
 import com.example.relaxapp.views.signup.SignUpViewModel
@@ -126,6 +136,17 @@ fun MyAppNavigationView() {
         composable(Routes.AboutUsView){
             AboutUsView(navController)
         }
+        composable(Routes.ImageSelectionView) {  // Usando la ruta definida en tu archivo Routes
+            ImageSelectionView(
+                navController = navController,
+                onImageSelected = { imageUrl ->
+                    Log.d("ImageSelectionView", "Image selected: $imageUrl")
+                },
+                ImageViewModel(userRepository = UserRepository, context)
+            )
+        }
+
+
         composable(Routes.ExerciseView) {
             ExerciseView(
                 ExerciseViewModel(

@@ -366,8 +366,3 @@ fun ProfileView(navController: NavController, userId: String) {
         }
     }
 }
-
-
-
-
-

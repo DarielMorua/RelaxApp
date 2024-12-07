@@ -24,12 +24,14 @@ import com.example.relaxapp.views.mainmenu.EmotionRequest
 import com.example.relaxapp.views.notifications.deleteNotification
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.Review
+import com.example.relaxapp.views.profile.UserProfile
 
 
 import com.example.relaxapp.views.signup.SignUpUser
 
 
 import com.example.relaxapp.views.profile.UserRequest
+import com.example.relaxapp.views.profile.images.ImagesData
 
 
 import retrofit2.Response
@@ -126,15 +128,22 @@ interface ApiService {
     ): Response<Unit>
 
   
-  
+  @POST("users/actualizar")
+  suspend fun updateUser(
+      @Header("Authorization") authHeader: String,
+      @Body user: UserProfile
+  ): Response<Unit>
 
   @POST("users/crear")
     suspend fun SignUp(
         @Body signUpUser: SignUpUser
     ): Response<Unit>
 
-  
-  
+  @POST("images/get-images")
+    suspend fun getImages(
+        @Header("Authorization") authHeader: String
+    ): List<ImagesData>
+
   @POST(END_URL_USER_GET)
     suspend fun getUserDetails(
         @Header("Authorization") token: String, 
