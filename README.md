@@ -1,13 +1,14 @@
 # Relax App
 
 ## **Objetivo del Proyecto**
-Describe el objetivo principal de la aplicación. 
 
+El objetivo principal de este proyecto es dar a conciencia y apoyar a las personsas que necesiten ayuda psicológica y, por alguna razón, no puedan salir de sus casas ya sean por problemas de transporte o por aislamiento social brindándoles herramientas como chats con psicólogos y psiquiatras y, a la vez, ejercicios ya sean de meditación, respiración, etc. Para poder apoyarlos aunque no hablen con un profesional. A su vez, hay un calendario donde se puede actualizar cada determinado tiempo la emoción que sienten demostradas con Emojis y, al finalizar el día, puedan ver en retrospectiva los sentimmientos que han llegado a sentir ese día.
 
 ---
 
 ## **¿Quién lo utilizaría?**
-Define el público objetivo de la aplicación. 
+
+El público objetivo de la aplicación sería cualquier persona que necesite de algún tipo de atención psicológica o solo quieran mejorar su salud mental.
 
 ---
 
@@ -18,7 +19,7 @@ Explica las posibles estrategias para generar ingresos.
 ---
 
 ## **Impacto en los Usuarios**
-
+La aplicación permitirá a los usuarios acceder a servicios de apoyo psicológico sin importar su ubicación, ayudándoles a manejar sus emociones y estrés. Además, dará herramientas de autoayuda, como ejercicios de meditación y respiración, que mejorarán la salud mental y emocional de los usuarios, mejorando su calidad de vida.
 
 ---
 
@@ -42,7 +43,11 @@ Explica cómo está organizado el proyecto. Ejemplo:
 ---
 
 ## **Patrón de Diseño**
-Especifica el patrón de diseño implementado. 
+La aplicación sigue el patrón MVVM (Model-View-ViewModel), donde:
+
+Model: Representa los datos de la aplicación.
+View: Es la interfaz de usuario (UI).
+ViewModel: Actúa como el intermediario entre la UI y los datos, gestionando la lógica de presentación y la interacción con los datos.
 
 ---
 
@@ -65,22 +70,22 @@ Menciona ejemplos. Ejemplo:
 ---
 
 ## **Estatus de Respuesta del Servidor**
-Ejemplo:  
-- **200 OK**:   
-- **400 Bad Request**: 
-- **401 Unauthorized**: 
-- **404 Not Found**:
-- **500 Internal Server Error**: 
----
+200 OK: La solicitud fue exitosa y el servidor ha devuelto la respuesta esperada.
+400 Bad Request: La solicitud es incorrecta o malformada.
+401 Unauthorized: El usuario no está autorizado para realizar la acción solicitada.
+404 Not Found: El recurso solicitado no se encuentra en el servidor.
+500 Internal Server Error: El servidor ha encontrado un error inesperado.
 
 ## **Características Técnicas**
 
 ### Base64
-- **¿Para qué sirve?**  
+- **¿Para qué sirve?**
+Base64 se utiliza para codificar datos binarios (como imágenes o archivos) en un formato de texto. Se emplea en la aplicación para enviar imágenes o archivos adjuntos durante las consultas con psicólogos.
     
 
 ### Data Class  
-- **¿Qué es?**  
+- **¿Qué es?**
+Una Data Class es una clase en Kotlin que se utiliza principalmente para almacenar datos. Se emplea para representar entidades como usuarios, consultas y emociones.
   
 
 ### Navegación
