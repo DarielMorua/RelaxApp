@@ -130,7 +130,6 @@ fun CalendarView(
     }
 }
 
-// Composable que muestra cada ítem de emoción
 @Composable
 fun EmotionItem(emotion: EmotionRecord) {
     val dateFormat = SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a", Locale.getDefault())
@@ -149,23 +148,33 @@ fun EmotionItem(emotion: EmotionRecord) {
                 .padding(16.dp)
                 .fillMaxWidth()
         ) {
-            Text(
-                text = emotion.emotion,
-                style = MaterialTheme.typography.headlineSmall.copy(
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                ),
-                color = Color.White
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Fecha: $formattedDate",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Normal
-                ),
-                color = Color.White
-            )
-            Spacer(modifier = Modifier.height(8.dp))
+            // Usamos una Row para la fecha a la izquierda y el emoji a la derecha
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Fecha a la izquierda
+                Text(
+                    text = "Fecha: $formattedDate",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Normal
+                    ),
+                    color = Color.White
+                )
+
+                // Emoji a la derecha, en tamaño grande
+                Text(
+                    text = emotion.emotion,  // Esto asumo es el emoji o texto asociado a la emoción
+                    style = MaterialTheme.typography.headlineLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = Color.White,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .size(48.dp)  // Tamaño grande del emoji
+                )
+            }
         }
     }
 }

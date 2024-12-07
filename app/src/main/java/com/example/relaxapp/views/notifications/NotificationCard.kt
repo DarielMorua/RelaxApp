@@ -32,6 +32,7 @@ import androidx.wear.compose.material.rememberSwipeableState
 import androidx.wear.compose.material.swipeable
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
@@ -56,17 +57,19 @@ fun NotificationCard(
     val sizePx = with(LocalDensity.current) { 200.dp.toPx() } // Ancho del swipeable
     val anchors = mapOf(0f to 0, -sizePx to 1) // Puntos de anclaje para el swipeable
 
+    val cornerRadius = 16.dp // Radio de redondeo común
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .height(100.dp)
     ) {
-        // Fondo con el botón de borrar
+        // Fondo con el botón de borrar (redondeado)
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Red)
+                .background(Color.Red, shape = RoundedCornerShape(cornerRadius)) // Aplica el mismo redondeo
                 .padding(end = 16.dp),
             contentAlignment = Alignment.CenterEnd // Alinea el botón al final
         ) {
@@ -90,7 +93,7 @@ fun NotificationCard(
             }
         }
 
-        // Tarjeta deslizable
+        // Tarjeta deslizable con el mismo redondeo
         Card(
             modifier = Modifier
                 .fillMaxSize()
@@ -102,7 +105,8 @@ fun NotificationCard(
                     orientation = Orientation.Horizontal
                 ),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            elevation = CardDefaults.cardElevation(4.dp)
+            elevation = CardDefaults.cardElevation(4.dp),
+            shape = RoundedCornerShape(cornerRadius) // Aplica el mismo redondeo a la tarjeta
         ) {
             Column(
                 modifier = Modifier

@@ -32,12 +32,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.relaxapp.R
+import com.example.relaxapp.TokenManager
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 
 @Composable
 fun HelpView(navController: NavController) {
     val context = LocalContext.current
+    val tokenManager = TokenManager(context)
+
+    val userId = tokenManager.getUserId()
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
@@ -65,7 +69,7 @@ fun HelpView(navController: NavController) {
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
-                            navController.navigate(Routes.ProfileView)
+                            navController.navigate("profileView/$userId")
                         }
                 )
                 Text(
