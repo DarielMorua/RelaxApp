@@ -1,5 +1,6 @@
 package com.example.relaxapp.views.mainmenu
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.core.animateDpAsState
@@ -119,9 +120,29 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
 
     var selectedEmoji by remember { mutableStateOf<String?>(null) }
+    var canSelectEmoji by remember { mutableStateOf(true) }
+    var timeRemaining by remember { mutableStateOf<Long>(0L) }
 
     LaunchedEffect(Unit) {
         mainMenuViewModel.getRecommendedExercises()
+    }
+
+    // Verifica si ya han pasado las 5 horas o no
+    LaunchedEffect(selectedEmoji) {
+        canSelectEmoji = mainMenuViewModel.canSelectEmoji()
+
+        if (!canSelectEmoji) {
+            val timestamp = System.currentTimeMillis()
+            val lastTimestamp = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+                .getLong("emoji_timestamp", 0L)
+
+            val timePassed = timestamp - lastTimestamp
+            val timeLeft = (5 * 60 * 60 * 1000) - timePassed
+
+            if (timeLeft > 0) {
+                timeRemaining = timeLeft
+            }
+        }
     }
 
     Scaffold(
@@ -219,11 +240,22 @@ fun MainMenu(viewModel: MainMenuViewModel, navController: NavController) {
 
                         Button(
                             onClick = {
-                                selectedEmoji = emoji
-                                mainMenuViewModel.onEmojiSelected(emoji)
-                                mainMenuViewModel.submitEmotion(emoji)
-                                Toast.makeText(context, "Emoción guardada.", Toast.LENGTH_LONG)
-                                    .show()
+                                if (canSelectEmoji) {
+                                    selectedEmoji = emoji
+                                    mainMenuViewModel.onEmojiSelected(emoji)
+                                    mainMenuViewModel.submitEmotion(emoji)
+                                    Toast.makeText(context, "Emoción guardada.", Toast.LENGTH_LONG).show()
+                                } else {
+                                    // Mostrar el tiempo restante si no se puede seleccionar
+                                    val timeLeft = timeRemaining / 1000
+                                    val hours = timeLeft / 3600
+                                    val minutes = (timeLeft % 3600) / 60
+                                    Toast.makeText(
+                                        context,
+                                        "Todavía no han pasado las 5 horas. Quedan $hours horas y $minutes minutos.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
                             },
                             shape = RoundedCornerShape(percent = 50),
                             modifier = Modifier

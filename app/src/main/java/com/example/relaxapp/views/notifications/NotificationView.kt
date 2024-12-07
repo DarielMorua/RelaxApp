@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.relaxapp.R
+import com.example.relaxapp.TokenManager
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 
@@ -50,6 +51,10 @@ fun NotificationView(navController: NavController, notificationRepository: Notif
 
     val isLoading by viewModel.isLoading.collectAsState()
     val notifications by viewModel.notifications.collectAsState()
+
+    val tokenManager = TokenManager(context)
+
+    val userId = tokenManager.getUserId()
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
@@ -83,7 +88,7 @@ fun NotificationView(navController: NavController, notificationRepository: Notif
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
-                            navController.navigate(Routes.ProfileView)
+                            navController.navigate("profileView/$userId")
                         }
                 )
             }

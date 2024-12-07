@@ -10,29 +10,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.relaxapp.TokenManager
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    BottomAppBar(containerColor =  Color(144, 181, 179) ) {
+    BottomAppBar(containerColor = Color(144, 181, 179)) {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backStackEntry?.destination?.route
+        val tokenManager = TokenManager(LocalContext.current)
 
         NavBarItems.forEach { navItem ->
             NavigationBarItem(
                 selected = currentRoute == navItem.route,
                 onClick = {
-                    navController.navigate(navItem.route) {
-//                        popUpTo(navController.graph.findStartDestination().id) {
-//                            saveState = true
-//                        }
-                        launchSingleTop = true
-                        restoreState = true
+                    // Verificamos si la ruta es para el calendario, que requiere un parámetro
+                    if (navItem.route == "calendarDataView/{userId}") {
+                        val userId = tokenManager.getUserId()
+                        navController.navigate("calendarDataView/$userId")  // Navegar con el parámetro
+                    } else {
+                        // Para el resto de rutas no dinámicas
+                        navController.navigate(navItem.route) {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 },
                 icon = {
@@ -54,8 +61,10 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 },
                 label = {
-                    Text(text = stringResource(navItem.title),
-                        color = Color.White, fontSize = 10.sp
+                    Text(
+                        text = stringResource(navItem.title),
+                        color = Color.White,
+                        fontSize = 10.sp
                     )
                 }
             )
