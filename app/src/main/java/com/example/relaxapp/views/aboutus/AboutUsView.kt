@@ -4,17 +4,24 @@ import android.os.Bundle
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.relaxapp.TokenManager
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 
 
@@ -24,12 +31,34 @@ fun AboutUsView(navController: NavController) {
     val aboutUsViewModel: AboutUsViewModel = viewModel()
     val aboutUsInfo by aboutUsViewModel.getAboutUsInfo().observeAsState()
 
+    val tokenManager = TokenManager(LocalContext.current)
+    val userId = tokenManager.getUserId()
+
     // Contenido principal de la pantalla
-    Scaffold(        bottomBar = { BottomNavigationBar(navController = navController) }
-,
-            topBar = {
+    Scaffold(
+        bottomBar = { BottomNavigationBar(navController = navController) },
+        topBar = {
             TopAppBar(
-                title = { Text("Acerca de", fontWeight = FontWeight.Bold) },
+                title = {
+                    Text(
+                        "Acerca de",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center // Centra el título
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        navController.navigate("profileView/$userId") // Navega al perfil
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black,
+                            modifier = Modifier.size(35.dp) // Tamaño del ícono
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.primary)
             )
         },
