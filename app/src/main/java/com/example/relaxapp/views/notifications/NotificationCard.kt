@@ -54,10 +54,10 @@ fun NotificationCard(
     modifier: Modifier = Modifier
 ) {
     val swipeState = rememberSwipeableState(initialValue = 0)
-    val sizePx = with(LocalDensity.current) { 200.dp.toPx() } // Ancho del swipeable
-    val anchors = mapOf(0f to 0, -sizePx to 1) // Puntos de anclaje para el swipeable
+    val sizePx = with(LocalDensity.current) { 200.dp.toPx() }
+    val anchors = mapOf(0f to 0, -sizePx to 1)
 
-    val cornerRadius = 16.dp // Radio de redondeo común
+    val cornerRadius = 16.dp
 
     Box(
         modifier = Modifier
@@ -65,20 +65,19 @@ fun NotificationCard(
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .height(100.dp)
     ) {
-        // Fondo con el botón de borrar (redondeado)
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Red, shape = RoundedCornerShape(cornerRadius)) // Aplica el mismo redondeo
+                .background(Color.Red, shape = RoundedCornerShape(cornerRadius))
                 .padding(end = 16.dp),
-            contentAlignment = Alignment.CenterEnd // Alinea el botón al final
+            contentAlignment = Alignment.CenterEnd
         ) {
             IconButton(
                 onClick = {
                     Log.d("NotificationCard", "Delete button clicked")
                     Log.d("NotificationCard", "Notification ID: $id")
                     viewModel.deleteNotification(notificationId = id)
-                    onDismiss() // Ejecuta la acción de borrar
+                    onDismiss()
                 },
                 modifier = Modifier
                     .size(48.dp)
@@ -93,7 +92,6 @@ fun NotificationCard(
             }
         }
 
-        // Tarjeta deslizable con el mismo redondeo
         Card(
             modifier = Modifier
                 .fillMaxSize()
@@ -106,7 +104,7 @@ fun NotificationCard(
                 ),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             elevation = CardDefaults.cardElevation(4.dp),
-            shape = RoundedCornerShape(cornerRadius) // Aplica el mismo redondeo a la tarjeta
+            shape = RoundedCornerShape(cornerRadius)
         ) {
             Column(
                 modifier = Modifier
