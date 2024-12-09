@@ -95,7 +95,12 @@ class DoctorDetailViewModel(
         }
     }
 
-    fun sendMessage(chatId: String, message: String, senderId: String, senderModel: String) {
+    fun sendMessage(
+        chatId: String,
+        message: String,
+        senderId: String,
+        senderModel: String,
+    ) {
         viewModelScope.launch {
             try {
                 val token = tokenManager.getToken()

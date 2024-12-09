@@ -34,6 +34,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,8 +59,10 @@ fun DoctorDetailView(
     val professional = viewModel.professional
     val reviews = viewModel.reviews
     val isLoading = viewModel.isLoading
+    var chatIdVar = remember { mutableStateOf("") }
 
-    // Llama al método para cargar los datos cuando se monta la vista
+
+        // Llama al método para cargar los datos cuando se monta la vista
     LaunchedEffect(professionalId) {
         viewModel.loadProfessionalDetails(professionalId)
     }
@@ -167,10 +171,13 @@ fun DoctorDetailView(
                                     // Aquí recibimos el chatId y podemos navegar a la vista de ChatView
                                     Log.d("Chat", "Chat creado con ID: $chatId")
 
+                                    chatIdVar.value = chatId
+
                                     // Asumimos que 'userRole' es "User" para este ejemplo
                                     val userRole = "User" // o usa una variable o ViewModel para obtener el rol
 
                                     // Navegar al ChatView pasando chatId y userRole
+
                                     navController.navigate("chatView/$chatId/$userRole")
                                 }
                             },
@@ -194,7 +201,8 @@ fun DoctorDetailView(
                             onClick = {
                                 // Navegar al ChatView directamente
                                 // En este caso, estamos pasando un chatId de ejemplo (puedes modificar esto según tu lógica)
-                                val chatId = "someChatId" // Aquí deberías usar un ID de chat existente
+                                val chatId = chatIdVar.value  // Aquí deberías usar un ID de chat existente
+                                Log.d("Chat", "Chat existente con ID: $chatId")
                                 val userRole = "User" // El rol del usuario
                                 navController.navigate("chatView/$chatId/$userRole")
                             },
