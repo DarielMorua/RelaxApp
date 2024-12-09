@@ -13,7 +13,9 @@ El público objetivo de la aplicación sería cualquier persona que necesite de 
 ---
 
 ## **¿Cómo monetizar la aplicación?**
-Explica las posibles estrategias para generar ingresos. 
+Explica las posibles estrategias para generar ingresos.
+
+Nuestra manera de monetizar la aplicacion va a ser por medio de suscripciones ya que doctores recien egresados y sin experiencia pueden pagar en nuestra aplicacion para lograr captar a posibles clientes. Lo que se va a hacer es recomendarlos por medio de notificaciones donde vamos a decir en que se especializa el profesional y por que es bueno.
 
 
 ---
@@ -114,18 +116,24 @@ Los permisos de la aplicacion se guardan desde al AndroidManifest. Este archivo 
 ## **Generación del APK**
 Explica el proceso. 
 
+Desde la pantalla principal de Android Studio vamos al Main Menu, una vez ahi nos saldran varias opciones, nos iremos hasta el apartado de Build, una vez en Build, seleccionaremos Build App Bundle y ahi tendremos la opcion de Build APK, esto nos descargara el APK de la aplicacion.
+
 ---
 
 ## **Librerías Utilizadas**
 Lista las librerías clave del proyecto. Ejemplo:  
-- Retrofit: Para manejo de solicitudes HTTP.  
+- Retrofit: Para manejo de solicitudes HTTP.
+- OKhttp: Manejo de las solicitudes entre Android y Java.
+- SwipeRefresh: Poder recargar la pantalla.
+- Materials3: Para poner estilos a las pantallas.
   
 
 ---
 
 ## **Debugging y Logs**
 Describe cómo manejar errores. Ejemplo:  
-- Utiliza `Log.d("TAG", "Mensaje")` para depuración en tiempo de ejecución.  
+- Utiliza `Log.d("TAG", "Mensaje")` para depuración en tiempo de ejecución.
+Para el manejo de errores se usa Log.d, esto con el fin de buscar en que parte esta fallando el codigo, suponiendo que tenemos varias lineas de codigo donde cada linea sigue un cierto paso para poder hacer algo, usariamos Log.d, para poder saber en que parte esta fallando el codigo y poder hacer cambios. La manera mas facil seria Log.d("ExerciseViewModel", "La cantidad de ejercicios es $exercise"). En este Log vamos a buscar por medio del tag de ExerciseViewModel para poder saber si nos esta devolviendo la cantidad de ejercicios o no.
 
 
 ---
@@ -137,6 +145,8 @@ Describe cómo manejar errores. Ejemplo:
 ---
 
 ## **Archivo Scratch**
-Describe el propósito de un archivo Scratch.   
+Describe el propósito de un archivo Scratch. 
+
+El proposito de un archivo Scrach es crear archivos o clases temporales para probar codigo de manera rápida, sin tener que comprometer el archivo principal que se esta utilizando. 
 
 ---
