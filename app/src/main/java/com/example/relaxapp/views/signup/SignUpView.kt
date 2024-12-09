@@ -16,6 +16,10 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,6 +27,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -93,6 +100,7 @@ val CustomTypography = Typography(
     )
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
     val email by signUpViewModel.email.observeAsState("")
@@ -101,9 +109,11 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
     val lastname by signUpViewModel.lastname.observeAsState("") // Corregí el error aquí, usabas 'name' en lugar de 'lastname'
     val password by signUpViewModel.password.observeAsState("")
     val passwordConf by signUpViewModel.passwordConf.observeAsState("")
-    val registerStatus by signUpViewModel.registerStatus.observeAsState("")
     val country by signUpViewModel.country.observeAsState("")
-
+    var expanded by remember { mutableStateOf(false) }
+    val selectedRole by signUpViewModel.rol.observeAsState("Selecciona un rol")
+    val roles = listOf("Profesional", "User")
+    val rol by signUpViewModel.rol.observeAsState("User") // Observa el rol seleccionado
     val context = LocalContext.current
 
     // Funcion para validar el formulario
@@ -165,6 +175,11 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
         // Validación del país (convertir a mayúsculas y quitar acentos)
         val formattedCountry = country.removeAccents().uppercase()
         signUpViewModel.onCountryChange(formattedCountry)
+
+        if (rol.isEmpty()) {
+            Toast.makeText(context, "Por favor selecciona un rol.", Toast.LENGTH_SHORT).show()
+            return false
+        }
 
         return true
     }
@@ -319,6 +334,35 @@ fun SignUpView(signUpViewModel: SignUpViewModel, navController: NavController) {
                 .fillMaxWidth()
                 .background(Color.White, shape = MaterialTheme.shapes.small)
         )
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded }
+        ) {
+            TextField(
+                value = selectedRole,
+                onValueChange = {},
+                readOnly = true,
+                label = { Text("Rol") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                modifier = Modifier
+                    .menuAnchor()
+                    .fillMaxWidth()
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                roles.forEach { role ->
+                    DropdownMenuItem(
+                        text = { Text(role)},
+                        onClick = {
+                            signUpViewModel.onRolChange(role) // Actualiza el rol en el ViewModel
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 

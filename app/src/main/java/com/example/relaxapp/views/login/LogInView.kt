@@ -22,6 +22,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -240,7 +242,11 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
             },
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = Icons.Filled.Info, contentDescription = null)
+                    if (passwordVisible) {
+                        Icon(imageVector = Icons.Filled.VisibilityOff, contentDescription = null)
+                    } else {
+                        Icon(imageVector = Icons.Filled.Visibility, contentDescription = null)
+                    }
                 }
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -271,7 +277,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
+          /*  Text(
                 stringResource(id = R.string.remember_me),
                 style = MaterialTheme.typography.labelSmall,
                 color = BlueGray,
@@ -284,7 +290,7 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
                     checked = it
                 },
                 modifier = Modifier.align(Alignment.CenterVertically)
-            )
+            ) */
         }
 
         Spacer(modifier = Modifier.height(16.dp))
