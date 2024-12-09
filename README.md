@@ -36,10 +36,14 @@ Indica la versión más antigua de Android que soportará la aplicación.
 
 ## **Estructura Organizacional del Proyecto**
 Explica cómo está organizado el proyecto. Ejemplo:  
-- Carpeta `models/` para las clases de datos.  
-- Carpeta `views/` para las interfaces de usuario.  
+- Carpeta `models/` para las clases de datos.
+La carpeta models esta dentro de la carpeta de las pantallas, ya que basicamente ocupamos los modelos para poder replicar las respuestas de la API y que de esa manera el Android Studio lea los datos y los pueda mapear.
+  
+- Carpeta `views/` para las interfaces de usuario.
+La carpeta views seran todas las vistas del usuario, que a su vez estas estan dentro de una carpeta con el nombre de la pantalla de la vista para poder diferencial cual es cual.
+  
 - Carpeta `viewModels/` para la lógica de negocio.
-
+La carpeta viewModels esta organizada por cada vista, ya que cada vista tiene su propia logica detras donde se emplean funciones para utilizarlas en las vistas.
 ---
 
 ## **Patrón de Diseño**
@@ -58,14 +62,14 @@ Indica la tecnología utilizada.
 
 ## **Arquitectura Cliente-Servidor**
 Describe cómo interactúa la aplicación con un servidor. 
-
+Para poder tener una correcta comunicacion con el servidor, primero tenemos que configurar las rutas en una clase que creamos llamada Api Service, donde van a ir los @POST, cabe destacar que tienen que ser iguales al backend ya que si la ruta puesta esta mal, el servidor no va a poder recibir correctamente la peticion, una vez hechas las rutas, tenemos que crear las funciones que se van a implementar y que parametros va a llevar cada una. Posteriormente tenemos que crear data clases que pongan exactamente la respuesta del servidor, ya que para lograr un correcto mapeo de los datos en Android Studio, tenemos que hacer que la respuesta JSON sea igual en Android Studio. Una vez logrado todo lo mencionado anteriormente, en los ViewModels, tenemos que llamar a las funciones que creamos para poder implementarlas en la vista y que cuando se intente utilizar logica del backend desde el frontend funcione correctamente.
 ---
 
 ## **Verbos Comunes del Protocolo HTTP**
 Menciona ejemplos. Ejemplo:  
-- **GET**: 
-- **POST**: 
-- **DELETE**:
+- **GET**: @GET(users/getUser), este get lo que haria seria traer toda la informacion del usuario.
+- **POST**: @POST(login), este post pasaria los datos que el usuario proporciono en el frontend al backend para que se verifiquen y garantizar si la informacion es correcta o no.
+- **DELETE**: @(notification/deleteNotification), el delete como su nombre lo indica, actua para eliminar, basicamente las funciones que tenemos que eliminan datos pasan por el protocolo DELETE.
 
 ---
 
@@ -89,15 +93,19 @@ Una Data Class es una clase en Kotlin que se utiliza principalmente para almacen
   
 
 ### Navegación
-- **¿Cómo funciona?**  
+- **¿Cómo funciona?**
+Para cada pantalla creada se tiene que poner en un archivo de Rutas, esto con el fin de poder saber como se llaman las rutas que vamos a proporcionar a la aplicacion, una vez hecho esto, el siguiente paso seria poner las rutas en un archivo de navegacion, como por ejemplo, "MyAppNavigationApp", en este archivo es donde va toda la logica de navegacion, es el papa por asi decirlo, aqui es donde se ponen todas las rutas que tiene la pantalla. Es importante tomar en cuenta que para que la navegacion funciones correctamente tenemos que hacer que cada vista tenga el parametro de navController, ya que sin este parametro nunca se va a implementar la navegacion en las pantallas.
   
 ### SharedPreferences
-- **¿Qué es?**  
-- **¿Cómo se usa?**  
+- **¿Qué es?**
+El SharedPreference es una manera de poder guardar datos en la memoria del dispositivo para su uso futuro, como por ejemplo, el token de la sesion o el id del usuario con la sesion activa. Estos datos se mantienen incluso cuando la aplicación se cierra o el dispositivo se reinicia. Sin embargo, para quitar el SharedPreference y no dejar rastro se tiene que eliminar de tu dispositivo el cache de la aplicacion.
+- **¿Cómo se usa?**
+Se tiene que hacer un documento donde se inicialice una instancia de SharedPreference, una vez hecha la instancia, se pueden guardar datos para poder usarse en diferentes partes de la aplicacion. No es recomendable guardar datos grandes ya que no tiene un buen nivel de seguridad.
 
 
 ### Permisos de la aplicación 
-- **¿Cómo se agregan?**  
+- **¿Cómo se agregan?**
+Los permisos de la aplicacion se guardan desde al AndroidManifest. Este archivo es esencial para configurar aspectos importantes de la aplicacion, como por ejemplo, el nombre, el icono de la aplicacion, y los permisos necesarios. Los permisos permiten a la aplicacion acceder la internet, la cámara, o el almacenamiento.
 
 ---
 
