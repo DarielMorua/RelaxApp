@@ -26,13 +26,16 @@ La aplicación permitirá a los usuarios acceder a servicios de apoyo psicológi
 ---
 
 ## **Lenguaje de Programación**
-Indica el lenguaje utilizado y una breve descripción. 
+Indica el lenguaje utilizado y una breve descripción.
+
+Usamos Kotlin ya que es un lenguaje muy sencillo y facil de entender de Android Studio. Además, Kotlin permite compilar a JavaScript, algo que es muy bueno ya que la aplicacion movil la podemos conectar a una aplicacion web.
 
 ---
 
 ## **Versión Mínima de Android**
 Indica la versión más antigua de Android que soportará la aplicación. 
 
+La versión mínima del SDK es el API 25 que serían dispositivos de Android 7.1 Nougat y posteriores, el cuál es un buen margen de ususarios de Android ya que esta versión salió en 2016 y sigue siendo compatible con varios dispositivos
 
 ---
 
@@ -58,7 +61,9 @@ ViewModel: Actúa como el intermediario entre la UI y los datos, gestionando la 
 ---
 
 ## **Herramienta para la Creación de Vistas**
-Indica la tecnología utilizada.   
+Indica la tecnología utilizada.
+
+Utilizamos Jetpack Compose ya que es un gran framework que nos ayudo para el diseño de las vistas, a su vez, ofrece ventajas como la actualizacion de la interfaz (por ejemplo, al cambiar texto, imágenes o interactuar con botones).
 
 ---
 
@@ -139,8 +144,9 @@ Para el manejo de errores se usa Log.d, esto con el fin de buscar en que parte e
 ---
 
 ## **Firebase Cloud Messaging**
-- **¿Qué es y cómo funciona?**  
+- **¿Qué es y cómo funciona?**
 
+Firebase es un servicio que permite a las aplicaciones enviar notificaciones y mensajes a los usuarios de forma remota.  Para usarlo en nuestra aplicación de Android, primero se  integró Firebase en el proyecto con la consola de Firebase y con la configuración de dependencias en el archivo build.gradle y esto hace que la aplicación reciba un token único de dispositivo que se uso para identificar cada dispositivo al que se enviarán los mensajes
 
 ---
 
