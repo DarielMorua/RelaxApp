@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation("androidx.wear.compose:compose-material:1.4.0")
+    implementation(libs.androidx.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -85,6 +86,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging-ktx") // Firebase Messaging
     implementation ("org.osmdroid:osmdroid-android:6.1.10")
     implementation(libs.accompanist.swiperefresh)
+    implementation("androidx.compose.material:material-icons-extended:1.4.3")
 
 
 implementation(libs.coil.compose)

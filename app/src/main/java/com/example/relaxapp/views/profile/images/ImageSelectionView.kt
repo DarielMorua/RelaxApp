@@ -4,6 +4,7 @@ package com.example.relaxapp.views.profile.images
 import ImageViewModel
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,9 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.relaxapp.TokenManager
+import com.example.relaxapp.bottomnavigationbar.Routes
 import com.example.relaxapp.views.RetrofitClientInstance
 import com.example.relaxapp.views.login.UserRepository
 import com.example.relaxapp.views.profile.images.ImagesData
@@ -68,22 +72,37 @@ fun ImageSelectionView(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(images) { image ->
-                    ImageCard(image = image) {
-                        viewModel.updateUserProfile(image.url)
-                    }
+                    ImageCard(
+                        image = image,
+                        navController = navController, // Pasa el navController aquí
+                        onClick = { // Define la acción onClick
+                            viewModel.updateUserProfile(image.url)
+                        }
+                    )
                 }
             }
+
         }
     }
 }
 
 
 @Composable
-fun ImageCard(image: ImagesData, onClick: () -> Unit) {
+fun ImageCard(image: ImagesData, onClick: () -> Unit,navController: NavController) {
+    val context = LocalContext.current
+    val tokenManager = TokenManager(context)
+
+    val userId = tokenManager.getUserId()
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickable { onClick()
+                navController.navigate("personalDataView/$userId")
+                Toast.makeText(
+                    context,
+                    "Imagen actualizada",
+                    Toast.LENGTH_SHORT
+                ).show()}
             .padding(8.dp),
         shape = CircleShape,
     ) {
@@ -105,3 +124,4 @@ fun ImageCard(image: ImagesData, onClick: () -> Unit) {
         }
     }
 }
+
