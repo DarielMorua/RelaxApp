@@ -158,21 +158,20 @@ fun EmotionItem(emotion: EmotionRecord) {
                 Text(
                     text = "Fecha: $formattedDate",
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.Normal
+                        fontSize = 10.sp
                     ),
                     color = Color.White
                 )
 
                 // Emoji a la derecha, en tamaño grande
                 Text(
-                    text = emotion.emotion,  // Esto asumo es el emoji o texto asociado a la emoción
+                    text = emotion.emotion,
                     style = MaterialTheme.typography.headlineLarge.copy(
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp
                     ),
                     color = Color.White,
-                    modifier = Modifier
-                        .padding(start = 16.dp)
-                        .size(48.dp)  // Tamaño grande del emoji
+                    modifier = Modifier.padding(start = 16.dp)
                 )
             }
         }
