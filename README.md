@@ -61,8 +61,8 @@ Indica la tecnología utilizada.
 ---
 
 ## **Arquitectura Cliente-Servidor**
-
 Describe cómo interactúa la aplicación con un servidor. 
+
 Para poder tener una correcta comunicacion con el servidor, primero tenemos que configurar las rutas en una clase que creamos llamada Api Service, donde van a ir los @POST, cabe destacar que tienen que ser iguales al backend ya que si la ruta puesta esta mal, el servidor no va a poder recibir correctamente la peticion, una vez hechas las rutas, tenemos que crear las funciones que se van a implementar y que parametros va a llevar cada una. Posteriormente tenemos que crear data clases que pongan exactamente la respuesta del servidor, ya que para lograr un correcto mapeo de los datos en Android Studio, tenemos que hacer que la respuesta JSON sea igual en Android Studio. Una vez logrado todo lo mencionado anteriormente, en los ViewModels, tenemos que llamar a las funciones que creamos para poder implementarlas en la vista y que cuando se intente utilizar logica del backend desde el frontend funcione correctamente.
 
 ---
