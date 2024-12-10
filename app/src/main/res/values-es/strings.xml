@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     <resources>
-        <string name="app_name">RelaxUlsa</string>
+        <string name="app_name">RelaxApp</string>
         <string name="sign_up_title">Registrate</string>
         <string name="log_in_title">Bienvenido</string>
         <string name="email">Correo Electrónico</string>
@@ -23,7 +23,7 @@
     <string name = "home">Inicio</string>
     <string name = "drchat">Dr. Chat</string>
     <string name = "calendar">Calendario</string>
-    <string name = "notificaciones">Notificaciones</string>
+    <string name = "notificaciones">Notificación</string>
     <string name ="empty"> </string>
     <string name="Relax">RelaxApp</string>
     <string name="how_are_you">¿Cómo te sientes en este momento?</string>
@@ -57,6 +57,7 @@
     <string name="backbutton">Atrás</string>
     <string name="beginbutton">Comenzar</string>
     <string name="writemessage">Escribe un mensaje</string>
+    <string name="aboutus">Acerca de nosotros</string>
 
 
 </resources>
