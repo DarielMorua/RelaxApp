@@ -15,7 +15,7 @@ El público objetivo de la aplicación sería cualquier persona que necesite de 
 ## **¿Cómo monetizar la aplicación?**
 Explica las posibles estrategias para generar ingresos.
 
-Nuestra manera de monetizar la aplicacion va a ser por medio de suscripciones ya que doctores recien egresados y sin experiencia pueden pagar en nuestra aplicacion para lograr captar a posibles clientes. Lo que se va a hacer es recomendarlos por medio de notificaciones donde vamos a decir en que se especializa el profesional y por que es bueno.
+Nuestra manera de monetizar la aplicacion va a ser por medio de suscripciones ya que doctores recien egresados y sin experiencia pueden pagar en nuestra aplicacion para lograr captar a posibles clientes. Lo que se va a hacer es recomendarlos por medio de notificaciones donde vamos a decir en que se especializa el profesional y por que es bueno. A su vez, los usuarios también tendrán una suscripción para tener una prioridad en lograr comunicarse con los profesionales y, además, tener acceso a ejercicios extra y exlusivos.
 
 
 ---
