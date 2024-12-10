@@ -318,6 +318,8 @@ fun ProfileView(navController: NavController, userId: String) {
                 Button(
 
                   
+                  
+                  
                   onClick = {
                         // Limpiar el token y el userId cuando el usuario cierre sesion
                         val tokenManager = TokenManager(context)

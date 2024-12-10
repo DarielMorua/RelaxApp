@@ -2,6 +2,7 @@ package com.example.relaxapp.views.login
 
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,6 +29,8 @@ class LogInViewModel(val userRepository: UserRepository, private val context: Co
             try {
                 loginResponse = userRepository.doLogin(User(email, password))
                 tokenManager.saveToken(loginResponse.token)
+                Log.d("RolLogIn", loginResponse.user.rol)
+                tokenManager.saveRole(loginResponse.user.rol)
                 val userId = loginResponse.user.id // Asegúrate de que esta propiedad existe
                 tokenManager.saveUserId(userId)
 
@@ -45,6 +48,7 @@ class LogInViewModel(val userRepository: UserRepository, private val context: Co
             }
         }
     }
+
     fun getToken(): String? {
         return tokenManager.getToken() // Método para recuperar el token
     }

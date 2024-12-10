@@ -34,13 +34,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.example.relaxapp.TokenManager
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.views.profesionales.Review
 import com.example.relaxapp.views.doctordetails.viewmodels.DoctorDetailViewModel
@@ -57,8 +61,12 @@ fun DoctorDetailView(
     val professional = viewModel.professional
     val reviews = viewModel.reviews
     val isLoading = viewModel.isLoading
+    var chatIdVar = remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val token = TokenManager(context)
 
-    // Llama al método para cargar los datos cuando se monta la vista
+
+        // Llama al método para cargar los datos cuando se monta la vista
     LaunchedEffect(professionalId) {
         viewModel.loadProfessionalDetails(professionalId)
     }
@@ -162,16 +170,18 @@ fun DoctorDetailView(
                         Spacer(modifier = Modifier.height(16.dp)) // Espacio antes del botón
                         Button(
                             onClick = {
-                                // Llamamos a createChat y pasamos el ID del profesional
-                                viewModel.createChat(professionalId) { chatId ->
-                                    // Aquí recibimos el chatId y podemos navegar a la vista de ChatView
-                                    Log.d("Chat", "Chat creado con ID: $chatId")
+                                val userId = token.getUserId() // Obtener el ID del usuario logueado
+                                val professionalUserId = prof.userId // ID del usuario asociado al profesional
 
-                                    // Asumimos que 'userRole' es "User" para este ejemplo
-                                    val userRole = "User" // o usa una variable o ViewModel para obtener el rol
+                                if (userId != null && professionalUserId != null) {
+                                    viewModel.createChat(userId, professionalUserId) { chatId ->
+                                        Log.d("Chat", "Chat creado con ID: $chatId")
+                                        chatIdVar.value = chatId // Actualiza la variable correctamente
+                                        Log.d("DoctorDetailView", "userId: $userId, professionalId: $professionalId")
+                                    }
 
-                                    // Navegar al ChatView pasando chatId y userRole
-                                    navController.navigate("chatView/$chatId/$userRole")
+                                } else {
+                                    Log.e("DoctorDetailView", "Error: No se pudo obtener los IDs necesarios")
                                 }
                             },
                             modifier = Modifier
@@ -192,11 +202,14 @@ fun DoctorDetailView(
                         Spacer(modifier = Modifier.height(16.dp)) // Espacio antes del botón
                         Button(
                             onClick = {
-                                // Navegar al ChatView directamente
-                                // En este caso, estamos pasando un chatId de ejemplo (puedes modificar esto según tu lógica)
-                                val chatId = "someChatId" // Aquí deberías usar un ID de chat existente
-                                val userRole = "User" // El rol del usuario
-                                navController.navigate("chatView/$chatId/$userRole")
+                                val chatId = chatIdVar.value // Aquí debería contener el ID actualizado
+                                if (chatId.isNotEmpty()) {
+                                    Log.d("Chat", "Navegando al chat con ID: $chatId")
+                                    val userRole = "User" // El rol del usuario
+                                    navController.navigate("chatView/$chatId/$userRole")
+                                } else {
+                                    Log.e("Chat", "Error: chatId está vacío. No se puede navegar al chat.")
+                                }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()

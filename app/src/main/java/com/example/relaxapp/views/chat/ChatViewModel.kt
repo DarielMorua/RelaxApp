@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 
 class ChatViewModel(private val repository: ProfessionalRepository,  private val context: Context) : ViewModel() {
 
-    val messages = MutableStateFlow<List<Message>>(emptyList())
+    private val _messages = MutableStateFlow<List<Message>>(emptyList())
+    val messages: StateFlow<List<Message>> = _messages
     private val tokenManager = TokenManager(context)
 
     // Función para cargar los mensajes de un chat
@@ -27,7 +28,7 @@ class ChatViewModel(private val repository: ProfessionalRepository,  private val
                         "Bearer $token",
                         chatId
                     ) // Llamada correcta a la función
-                    messages.value = response
+                    _messages.value = response
                 }
             } catch (exception: Exception) {
                 Log.e("ChatViewModel", "Error al cargar los mensajes: ${exception.message}")
@@ -41,11 +42,18 @@ class ChatViewModel(private val repository: ProfessionalRepository,  private val
     fun sendMessage(authToken: String, chatId: String, senderId: String, senderModel: String, content: String) {
         viewModelScope.launch {
             try {
+                val newMessage = Message(
+                    chatId = chatId,
+                    senderId = senderId,
+                    senderModel = senderModel,
+                    content = content
+                )
                 // Llamada al repositorio para enviar el mensaje
                 repository.sendMessage("Bearer $authToken", chatId, senderId, senderModel, content)
-                // Si la respuesta fue exitosa, actualizamos los mensajes o hacemos cualquier otra acción necesaria
+                // Agregar mensaje a la lista local inmediatamente
+                _messages.value = _messages.value + newMessage
             } catch (e: Exception) {
-                Log.e("ChatViewModel", "Error al enviar mensaje: ${e.message}")
+                Log.e("ChatViewModel", "Error al enviar mensaje: ${e.message}", e)
             }
         }
     }

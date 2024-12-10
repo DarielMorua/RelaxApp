@@ -1,3 +1,3 @@
 package com.example.relaxapp.views.profesionales
 
-data class ProfessionalRequest(    val professionalId: String)
+data class ProfessionalRequest(    val userId: String)

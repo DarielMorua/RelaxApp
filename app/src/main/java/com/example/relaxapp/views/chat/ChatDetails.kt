@@ -1,9 +1,9 @@
 package com.example.relaxapp.views.chat
 
 data class ChatDetails(
+    val user: String?,
+    val professional: String?,
     val _id: String,
-    val user: User?,
-    val professional: Professional,
     val messages: List<Message>,
     val __v: Int
 )

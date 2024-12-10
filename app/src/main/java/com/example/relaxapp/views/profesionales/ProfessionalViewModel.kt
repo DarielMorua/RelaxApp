@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.relaxapp.TokenManager
+import com.example.relaxapp.views.chat.ChatDetailsMessages
+import com.example.relaxapp.views.profesionales.conexionChat.ChatProfesional
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,13 +25,24 @@ class ProfessionalViewModel(
     private val _professionals = MutableStateFlow<List<Professional>>(emptyList())
     val professionals: StateFlow<List<Professional>> = _professionals
 
+    private val _chats = MutableStateFlow<List<ChatDetailsMessages>>(emptyList())
+    val chats: StateFlow<List<ChatDetailsMessages>> = _chats
+
+    private val _rol = MutableStateFlow<String>("")
+    val rol: StateFlow<String> = _rol
+
     private val tokenManager = TokenManager(context)
 
     init {
         loadProfessionals()
+        getRole()
     }
 
-    private fun loadProfessionals() {
+    fun getRole() {
+        _rol.value = tokenManager.getRole() ?: ""
+    }
+
+    fun loadProfessionals() {
         viewModelScope.launch {
             try {
                 val token = tokenManager.getToken()
@@ -43,6 +56,29 @@ class ProfessionalViewModel(
                 }
             } catch (e: Exception) {
                 Log.e("ProfessionalViewModel", "Error fetching professionals: ${e.message}")
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadProfessionalChats() {
+        val userId = tokenManager.getUserId() ?: ""
+        Log.d("ProfessionalViewModel", "Cargando chats para el usuario con ID: $userId")
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val token = tokenManager.getToken()!!
+                val chats = professionalRepository.getChatsForProfessional(token, userId)
+                if (chats.isNotEmpty()) {
+                    Log.d("ProfessionalViewModel", "Chats obtenidos del backend: ${chats.size}")
+                    _chats.value = chats // Actualiza solo si hay datos válidos
+                    Log.d("ProfessionalViewModel", "Estado de _chats actualizado: ${_chats.value}")
+                } else {
+                    Log.d("ProfessionalViewModel", "No hay chats disponibles.")
+                }
+            } catch (exception: Exception) {
+                Log.e("ProfessionalViewModel", "Error al cargar los chats: ${exception.message}")
             } finally {
                 _isLoading.value = false
             }

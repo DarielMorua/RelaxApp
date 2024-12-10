@@ -10,4 +10,6 @@ data class Professional(
     val description: String,
     val phone: String,
     val ubicacion: Ubicacion,
-    val isActive: Boolean)
+    val isActive: Boolean,
+    val userId: String
+)

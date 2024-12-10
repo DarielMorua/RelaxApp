@@ -12,6 +12,14 @@ class TokenManager(context: Context) {
         sharedPreferences.edit().putString("auth_token", token).apply()
     }
 
+    fun saveRole(rol: String) {
+        sharedPreferences.edit().putString("role", rol).apply()
+    }
+
+    fun getRole(): String? {
+        return sharedPreferences.getString("role", null)
+    }
+
     fun getToken(): String? {
         return sharedPreferences.getString("auth_token", null)
     }

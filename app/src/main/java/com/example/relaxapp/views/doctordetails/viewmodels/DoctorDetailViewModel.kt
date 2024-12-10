@@ -14,6 +14,7 @@ import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.ProfessionalRepository
 import com.example.relaxapp.views.profesionales.Review
 import kotlinx.coroutines.launch
+import kotlin.jvm.Throws
 
 class DoctorDetailViewModel(
     private val repository: ProfessionalRepository,
@@ -63,29 +64,26 @@ class DoctorDetailViewModel(
         }
     }
 
-    // Función para crear el chat
-    fun createChat(professionalId: String, onChatCreated: (chatId: String) -> Unit) {
+    fun createChat(userId: String, professionalUserId: String, onChatCreated: (chatId: String) -> Unit) {
         viewModelScope.launch {
             isLoading = true
             try {
-                val token = tokenManager.getToken() // Obtener el token de autenticación
+                val token = tokenManager.getToken()
                 if (!token.isNullOrEmpty()) {
-                    // Asumiendo que tienes el userId disponible en alguna parte
-                    val userId = tokenManager.getUserId()
-                    val request = CreateChatRequest(userId!!, professionalId)
+                    val request = CreateChatRequest(userId, professionalUserId)
 
                     // Llamada al repositorio para crear el chat
                     val response = repository.createChat("Bearer $token", request)
 
-                    // Aquí recibimos directamente el objeto ChatResponse desde el repositorio
+                    // Procesar respuesta
                     val chatId = response.chat?._id
                     if (!chatId.isNullOrEmpty()) {
-                        onChatCreated(chatId) // Notificar que el chat ha sido creado
+                        onChatCreated(chatId) // Asegúrate de que esto se llama
                     } else {
-                        Log.e("DoctorDetailViewModel", "Chat creado pero sin chatId")
+                        Log.e("DoctorDetailViewModel", "Error: Chat creado pero sin ID")
                     }
                 } else {
-                    Log.e("DoctorDetailViewModel", "Token no disponible")
+                    Log.e("DoctorDetailViewModel", "Error: Token no disponible")
                 }
             } catch (exception: Exception) {
                 Log.e("DoctorDetailViewModel", "Error al crear el chat: ${exception.message}")
@@ -95,7 +93,12 @@ class DoctorDetailViewModel(
         }
     }
 
-    fun sendMessage(chatId: String, message: String, senderId: String, senderModel: String) {
+    fun sendMessage(
+        chatId: String,
+        message: String,
+        senderId: String,
+        senderModel: String,
+    ) {
         viewModelScope.launch {
             try {
                 val token = tokenManager.getToken()

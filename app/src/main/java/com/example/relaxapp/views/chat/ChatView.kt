@@ -1,39 +1,16 @@
 package com.example.relaxapp.views.chat
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.materialIcon
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,44 +30,33 @@ import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
-
 @Composable
 fun ChatView(navController: NavController, chatId: String, userRole: String) {
-    val context = LocalContext.current // Utiliza el contexto local
+    val context = LocalContext.current
     var messageText by remember { mutableStateOf("") }
-    val messages = remember { mutableStateOf<List<Message>>(emptyList()) }
-    val isSendingMessage = remember { mutableStateOf(false) }
+    val viewModel: ChatViewModel = viewModel(factory = ChatViewModel.ChatViewModelFactory(context))
+    val messages by viewModel.messages.collectAsState()
     val refreshing = remember { mutableStateOf(false) }
+
     val tokenManager = TokenManager(context)
 
-    // Obtén el ViewModel usando la ViewModelFactory
-
-    val viewModel: ChatViewModel = viewModel(factory = ChatViewModel.ChatViewModelFactory(context))
+    LaunchedEffect(chatId) {
+        viewModel.loadMessages(chatId) {}
+    }
 
     fun sendMessage() {
         if (messageText.isNotBlank()) {
-            isSendingMessage.value = true
+            val authToken = tokenManager.getToken()!!
+            val senderId = tokenManager.getUserId()!!
             val senderModel = if (userRole == "Professional") "Professional" else "User"
-            val senderId = tokenManager.getUserId() // El ID del usuario
-            val authToken = tokenManager.getToken() // Obtén el token de autenticación
-
-            // Llamar al ViewModel para enviar el mensaje
-            viewModel.sendMessage(authToken!!, chatId, senderId!!, senderModel, messageText)
+            viewModel.sendMessage(authToken, chatId, senderId, senderModel, messageText)
+            messageText = ""
         }
     }
 
     fun refreshMessages() {
         refreshing.value = true
-        viewModel.loadMessages(chatId) {
-            refreshing.value = false
-        }
-    }
-
-    LaunchedEffect(viewModel.messages) {
-        viewModel.messages.collect { newMessages ->
-            messages.value = newMessages
-            isSendingMessage.value = false
-        }
+        viewModel.loadMessages(chatId) { refreshing.value = false }
     }
 
     Scaffold(
@@ -135,10 +101,11 @@ fun ChatView(navController: NavController, chatId: String, userRole: String) {
                         .padding(bottom = 16.dp),
                     verticalArrangement = Arrangement.Bottom
                 ) {
-                    messages.value.forEach { message ->
+                    messages.forEach { message ->
                         ChatBubble(
                             message = message.content,
-                            avatar = R.drawable.dummy // Usar el avatar del remitente
+                            avatar = R.drawable.dummy ,
+                            senderModel = message.senderModel
                         )
                     }
                 }
@@ -167,10 +134,12 @@ fun ChatView(navController: NavController, chatId: String, userRole: String) {
 }
 
 @Composable
-fun ChatBubble(message: String, avatar: Int) {
+fun ChatBubble(message: String, avatar: Int, senderModel: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(8.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
     ) {
         Image(
             painter = painterResource(avatar),
@@ -191,7 +160,7 @@ fun ChatBubble(message: String, avatar: Int) {
                 .fillMaxWidth()
         ) {
             Column {
-                Text(text = "Doctor", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text(text = senderModel, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(text = message, fontSize = 14.sp)
             }
