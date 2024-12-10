@@ -25,17 +25,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -46,8 +50,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.relaxapp.R
+import com.example.relaxapp.TokenManager
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 
@@ -98,11 +104,20 @@ val CustomTypography = Typography(
 )
 
 @Composable
-fun ProfileView(navController: NavController) {
+fun ProfileView(navController: NavController, userId: String) {
+    val context = LocalContext.current
+    val profileViewModel: ProfileViewModel = viewModel(factory = ProfileViewModel.ProfileViewModelFactory(context))
+    val user by profileViewModel.user
+    val isLoading by profileViewModel.isLoading
+
+    // Llamada a la API para obtener los datos del usuario
+    LaunchedEffect(userId) {
+        profileViewModel.getUserDetails(userId)
+    }
+
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
@@ -125,7 +140,8 @@ fun ProfileView(navController: NavController) {
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "ArrowBack Icon",
                     tint = Color.Black,
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier
+                        .size(50.dp)
                         .clickable {
                             navController.popBackStack()
                         }
@@ -133,9 +149,11 @@ fun ProfileView(navController: NavController) {
                 Text(
                     text = stringResource(id = R.string.profile),
                     style = MaterialTheme.typography.headlineLarge,
-                    color = Color(26, 204, 181, 255),
+                    color = MintGreen,
                     fontSize = 50.sp,
-                    modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp),
                     textAlign = TextAlign.Center
                 )
                 Icon(
@@ -146,14 +164,16 @@ fun ProfileView(navController: NavController) {
                 )
             }
 
+            // Mostrar usuario
             Card(
                 shape = RoundedCornerShape(32.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(26, 204, 181, 255)),
+                colors = CardDefaults.cardColors(containerColor = MintGreen),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
+                    // Card del usuario
                     Card(
                         shape = RoundedCornerShape(32.dp),
                         colors = CardDefaults.cardColors(
@@ -163,16 +183,22 @@ fun ProfileView(navController: NavController) {
                             .fillMaxWidth(0.9f)
                             .padding(8.dp)
                     ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp)
-                        ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            // Mostrar saludo personalizado dependiendo del rol del usuario
+                            val greeting = when (user?.rol) {
+                                "Profesional" -> stringResource(id = R.string.greeting_professional)
+                                else -> stringResource(id = R.string.greeting_user)
+                            }
+
                             Text(
-                                text = stringResource(id = R.string.greeting),
+                                text = greeting,
                                 style = MaterialTheme.typography.headlineSmall,
                                 color = Color.Black
                             )
+
+                            // Mostrar nombre del usuario
                             Text(
-                                text = "Venustiano Carranza",
+                                text = user?.name ?: "Cargando...",
                                 style = MaterialTheme.typography.headlineMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.Black
@@ -182,10 +208,9 @@ fun ProfileView(navController: NavController) {
                 }
             }
 
-            // Buttons section
             Column {
                 Button(
-                    onClick = { navController.navigate(Routes.PersonalDataView) },
+                    onClick = { navController.navigate("personalDataView/$userId") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
@@ -214,7 +239,7 @@ fun ProfileView(navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
-                    onClick = { navController.navigate(Routes.FavoriteView) },
+                    onClick = { navController.navigate("favorites/$userId") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
@@ -241,8 +266,6 @@ fun ProfileView(navController: NavController) {
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-
-
             }
 
             Spacer(modifier = Modifier.weight(1f))
@@ -256,7 +279,6 @@ fun ProfileView(navController: NavController) {
                 Button(
                     onClick = { navController.navigate(Routes.HelpView) },
                     modifier = Modifier
-                        //.fillMaxWidth()
                         .padding(start = 8.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
@@ -268,35 +290,48 @@ fun ProfileView(navController: NavController) {
                         color = Color.Black,
                         textDecoration = TextDecoration.Underline,
                         fontWeight = FontWeight.Bold,
-                        //modifier = Modifier.align(Alignment.Start),
                         fontSize = 16.sp
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
+
                 Button(
-                    onClick = { navController.navigate(Routes.FAQView) },
+
+                  onClick = { navController.navigate(Routes.AboutUsView) },
                     modifier = Modifier
-                        //.fillMaxWidth()
                         .padding(start = 8.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
                     colors = ButtonDefaults.buttonColors(Color.Transparent)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.faqs),
+                        text = stringResource(id = R.string.aboutus),
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color.Black,
                         textDecoration = TextDecoration.Underline,
                         fontWeight = FontWeight.Bold,
-                        //modifier = Modifier.align(Alignment.Start),
                         fontSize = 16.sp
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
+
                 Button(
-                    onClick = { navController.navigate(Routes.LoginView) },
-                    modifier = Modifier
-                        //.fillMaxWidth()
+
+                  
+                  
+                  
+                  onClick = {
+                        // Limpiar el token y el userId cuando el usuario cierre sesion
+                        val tokenManager = TokenManager(context)
+                        tokenManager.clearToken()
+                        tokenManager.clearUserId()
+                        navController.navigate(Routes.LoginView) {
+                            popUpTo(Routes.ProfileView) { inclusive = true }
+                        }
+                    },
+
+                  
+                  modifier = Modifier
                         .padding(start = 8.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
@@ -307,7 +342,6 @@ fun ProfileView(navController: NavController) {
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color(255, 116, 104, 255),
                         fontWeight = FontWeight.ExtraBold,
-                        //modifier = Modifier.align(Alignment.Start),
                         fontSize = 16.sp
                     )
                 }
@@ -316,6 +350,3 @@ fun ProfileView(navController: NavController) {
         }
     }
 }
-
-
-

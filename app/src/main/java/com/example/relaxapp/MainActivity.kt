@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.relaxapp.views.profesionales.ProfessionalView
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -16,9 +17,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.relaxapp.ui.theme.RelaxAppTheme
 import com.example.relaxapp.views.MyAppNavigationView
 import com.example.relaxapp.views.chat.ChatView
+import com.example.relaxapp.views.doctordetails.DoctorDetailView
+import com.example.relaxapp.views.doctorschedule.DoctorScheduleView
 import com.example.relaxapp.views.exercises.ExerciseView
+import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailView
 import com.example.relaxapp.views.mainmenu.MainMenu
 import com.example.relaxapp.views.mainmenu.MainMenuViewModel
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 
 
 //Prueba dev commit
@@ -26,6 +32,8 @@ import com.example.relaxapp.views.mainmenu.MainMenuViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Firebase.messaging.isAutoInitEnabled = true
+
         enableEdgeToEdge()
         setContent {
 
@@ -39,6 +47,7 @@ class MainActivity : ComponentActivity() {
                 //MainMenu(viewModel = MainMenuViewModel(), navContoller)
                     //CalendarView(navContoller)
                 //ExerciseView(navContoller)
+                //ExerciseDetailView(navContoller)
                 }
             }
         }

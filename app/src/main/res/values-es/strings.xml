@@ -26,7 +26,7 @@
     <string name = "notificaciones">Notificaciones</string>
     <string name ="empty"> </string>
     <string name="Relax">RelaxApp</string>
-    <string name="how_are_you">¿Cómo te sientes hoy?</string>
+    <string name="how_are_you">¿Cómo te sientes en este momento?</string>
     <string name="improve">Mejora tu salud mental</string>
     <string name="explore">Explora herramientas para mejorar tu bienestar emocional</string>
     <string name="chatw">Chatea con profesionales</string>
@@ -40,7 +40,8 @@
     <string name="delete_account">Eliminar Cuenta</string>
     <string name="profile">Perfil</string>
     <string name="logout">Cerrar Sesión</string>
-    <string name="greeting">¡Hola!</string>
+    <string name="greeting_user">¡Hola Usuario!</string>
+    <string name="greeting_professional">¡Hola Profesional!</string>
     <string name="favoritedr">Doctores Favoritos</string>
     <string name="appoinments">Citas</string>
     <string name="need_help">¿Necesitas ayuda?</string>

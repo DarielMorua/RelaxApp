@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -59,11 +60,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-
-
-    implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.5")
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation("androidx.wear.compose:compose-material:1.4.0")
+    implementation(libs.androidx.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -74,4 +75,19 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.ui)
     implementation(platform(libs.androidx.compose.bom.vlatestversion))
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation(libs.lottie.compose)
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
+    implementation("com.google.firebase:firebase-messaging:23.0.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2")) // BOM de Firebase
+    implementation("com.google.firebase:firebase-messaging-ktx") // Firebase Messaging
+    implementation ("org.osmdroid:osmdroid-android:6.1.10")
+    implementation(libs.accompanist.swiperefresh)
+    implementation("androidx.compose.material:material-icons-extended:1.4.3")
+
+
+implementation(libs.coil.compose)
 }

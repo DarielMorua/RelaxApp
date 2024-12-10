@@ -20,7 +20,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.drchat,
         image = Icons.Filled.Face,
-        route = Routes.ChatView
+        route = Routes.ProfessionalView
     ),
     BarItem(
         title = R.string.empty,
@@ -30,7 +30,7 @@ val NavBarItems = listOf(
     BarItem(
         title = R.string.calendar,
         image = Icons.Filled.DateRange,
-        route = Routes.CalendarDataView
+        route = "calendarDataView/{userId}"
     ),
     BarItem(
         title = R.string.notificaciones,

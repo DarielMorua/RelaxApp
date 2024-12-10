@@ -1,8 +1,13 @@
 package com.example.relaxapp.views.login
 
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,9 +17,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -22,8 +35,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +43,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,10 +61,19 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.Routes
-import com.example.relaxapp.views.onboarding.OnboardingViewModel
+import androidx.compose.ui.input.key.*
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+
 
 val MintGreen = Color(26, 204, 181, 255) // #B9DAD4
 val CarolinaBlue = Color(139, 172, 205) // #8BACCD
@@ -95,23 +123,71 @@ val CustomTypography = Typography(
 )
 
 @Composable
+fun loadingOverlay(isLoading: Boolean, content: @Composable () -> Unit) {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+    val progress by animateLottieCompositionAsState(composition, isPlaying = true)
+
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        content()
+        if (isLoading) {
+            LottieAnimation(
+                composition = composition,
+                progress = progress,
+                modifier = Modifier.size(100.dp)
+            )
+        }
+    }
+
+}
+
+@Composable
 fun LogInView(viewModel: LogInViewModel, navController: NavController) {
-    val username by viewModel.username.observeAsState("")
-    val password by viewModel.password.observeAsState("")
-    var checked by remember { mutableStateOf(true) }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var checked by remember { mutableStateOf(false) }
+    var passwordVisible by remember { mutableStateOf(false) }
+    val loginViewModel: LogInViewModel = viewModel(factory = LoginViewModelFactory(context = LocalContext.current))
+    val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    var backButtonEnabled by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = !backButtonEnabled) {}
+
+
+
+    if (loginViewModel.state != 0) {
+        if (loginViewModel.loginResponse.isSuccess) { // Estado de éxito
+            navController.navigate("MainMenuView")
+            loginViewModel.state = 0
+        } else { // Estado de error
+            Toast.makeText(context, "Contraseña o Usuario Incorrecto", Toast.LENGTH_SHORT).show()
+            loginViewModel.state = 0
+        }
+    }
+
+
 
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+        detectTapGestures(onTap = {
+            focusManager.clearFocus()
+        })
+    })
+     {
+        Spacer(modifier = Modifier.height(16.dp))
         // Logo
         Image(
             painter = painterResource(id = R.drawable.relaxlogo),
             contentDescription = stringResource(id = R.string.app_name),  // Usa el nombre de la app
             modifier = Modifier.size(100.dp)
         )
+
 
         // Título
         Text(
@@ -122,30 +198,67 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
         Spacer(modifier = Modifier.height(8.dp))
 
         // Usuario
-        TextField(
-            value = username,
-            onValueChange = { viewModel.onUsernameChange(it) },
-            label = { Text(text = stringResource(id = R.string.email), style = MaterialTheme.typography.headlineSmall)},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-                .fillMaxWidth()
-                .background(Color.White, shape = MaterialTheme.shapes.small),
-            colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.Transparent,
-                focusedContainerColor = Color.Transparent,
-            )
-        )
+         TextField(
+             value = username,
+             onValueChange = { username = it },
+             modifier = Modifier
+                 .padding(start = 16.dp, end = 16.dp)
+                 .fillMaxWidth()
+                 .background(Color.White, shape = MaterialTheme.shapes.small),
+             label = {
+                 Text(
+                     text = stringResource(id = R.string.email),
+                     style = MaterialTheme.typography.headlineSmall
+                 )
+             },
+             keyboardOptions = KeyboardOptions(
+                 keyboardType = KeyboardType.Text,
+                 imeAction = ImeAction.Done
+             ),
+             maxLines = 1,
+             singleLine = true,
+             keyboardActions = KeyboardActions(
+                 onDone = {
+                     keyboardController?.hide()
+                 }
+             ),
+             colors = TextFieldDefaults.colors(
+                 unfocusedContainerColor = Color.Transparent,
+                 focusedContainerColor = Color.Transparent,
+             )
+         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         // Contraseña
         TextField(
             value = password,
-            onValueChange = { viewModel.onPasswordChange(it) },
-            label = { Text(text = stringResource(id = R.string.password), style = MaterialTheme.typography.headlineSmall) },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            onValueChange = { password = it },
+            label = {
+                Text(
+                    text = stringResource(id = R.string.password),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            },
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    if (passwordVisible) {
+                        Icon(imageVector = Icons.Filled.VisibilityOff, contentDescription = null)
+                    } else {
+                        Icon(imageVector = Icons.Filled.Visibility, contentDescription = null)
+                    }
+                }
+            },
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    keyboardController?.hide()
+                }
+            ),
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
@@ -162,81 +275,70 @@ fun LogInView(viewModel: LogInViewModel, navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween ) {
-            Text( stringResource(id = R.string.remember_me), style = MaterialTheme.typography.labelSmall, color = BlueGray, fontSize = 16.sp,
-                modifier = Modifier.padding(start = 16.dp).align(Alignment.CenterVertically))
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+          /*  Text(
+                stringResource(id = R.string.remember_me),
+                style = MaterialTheme.typography.labelSmall,
+                color = BlueGray,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(start = 16.dp).align(Alignment.CenterVertically)
+            )
             Switch(
                 checked = checked,
                 onCheckedChange = {
                     checked = it
                 },
                 modifier = Modifier.align(Alignment.CenterVertically)
-            )
+            ) */
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Botón Registro
         Button(
-            onClick = { //viewModel.onRegisterClicked()
-                 navController.navigate(Routes.MainMenuView)},
+            onClick = {
+                loginViewModel.doLogin(username, password)
+            },
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(26, 204, 181, 255))
-        ) {
-            Text(text = stringResource(id = R.string.log_in_button), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Registro con Google
-        Button(
-            onClick = { viewModel.onGoogleSignUp() },
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White)
-
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.googlelogo),
-                contentDescription = stringResource(id = R.string.continue_google),
-                modifier = Modifier.size(24.dp)
+                containerColor = Color(26, 204, 181, 255)
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = stringResource(id = R.string.continue_google), style = MaterialTheme.typography.headlineMedium, color = Color.Black,)
+        ) {
+            Text(
+                text = stringResource(id = R.string.log_in_button),
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.Black
+            )
         }
+
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Registro con Facebook
-        Button(
-            onClick = { viewModel.onFacebookSignUp() },
-            modifier = Modifier
-                .padding(start = 8.dp, end = 8.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.facebooklogo),
-                contentDescription = stringResource(id = R.string.continue_facebook),
-                modifier = Modifier.size(30.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = stringResource(id = R.string.continue_facebook), style = MaterialTheme.typography.headlineMedium, color = Color.Black)
-        }
         Column {
-            Button(onClick = {navController.navigate(Routes.SignUpView)},
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
-                Text( stringResource(id = R.string.sign_in_dont_have_account),
-                    color = Color.Black)
+            Button(
+                onClick = { navController.navigate(Routes.SignUpView) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+            ) {
+                Text(
+                    stringResource(id = R.string.sign_in_dont_have_account),
+                    color = Color.Black
+                )
 
             }
         }
     }
-
+    //loadingOverlay(isLoading = loginViewModel.isLoading) {
+       // LogInView(LogInViewModel(userRepository = UserRepository), navController)
+    //
+//
+// }
 }
+
+
+
+
+
+
