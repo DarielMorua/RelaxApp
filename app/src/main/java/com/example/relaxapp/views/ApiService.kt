@@ -8,7 +8,14 @@ import com.example.relaxapp.views.chat.Message
 
 
 import com.example.relaxapp.views.aboutus.AboutUsInfo
+
+
 import com.example.relaxapp.views.chat.ChatResponseMessages
+
+
+
+import com.example.relaxapp.views.calendar.EmotionApiResponse
+
 
 
 import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
@@ -25,13 +32,21 @@ import com.example.relaxapp.views.notifications.deleteNotification
 import com.example.relaxapp.views.profesionales.Professional
 import com.example.relaxapp.views.profesionales.ProfessionalRequest
 import com.example.relaxapp.views.profesionales.Review
+
+
 import com.example.relaxapp.views.profesionales.conexionChat.ProfessionalChatsResponse
+
+
+import com.example.relaxapp.views.profile.UserProfile
+
+
 
 
 import com.example.relaxapp.views.signup.SignUpUser
 
 
 import com.example.relaxapp.views.profile.UserRequest
+import com.example.relaxapp.views.profile.images.ImagesData
 
 
 import retrofit2.Response
@@ -39,7 +54,6 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Path
 
 private const val END_URL_LOGIN_WITH_EMAIL = "users/login"
 
@@ -131,15 +145,22 @@ interface ApiService {
     ): Response<Unit>
 
   
-  
+  @POST("users/actualizar")
+  suspend fun updateUser(
+      @Header("Authorization") authHeader: String,
+      @Body user: UserProfile
+  ): Response<Unit>
 
   @POST("users/crear")
     suspend fun SignUp(
         @Body signUpUser: SignUpUser
     ): Response<Unit>
 
-  
-  
+  @POST("images/get-images")
+    suspend fun getImages(
+        @Header("Authorization") authHeader: String
+    ): List<ImagesData>
+
   @POST(END_URL_USER_GET)
     suspend fun getUserDetails(
         @Header("Authorization") token: String, 
@@ -170,10 +191,21 @@ interface ApiService {
     @POST("aboutus/obtener-info")
     suspend fun getAboutUsInfo(): Response<List<AboutUsInfo>>
 
-    @POST(END_URL_GET_PROFESSIONAL_CHATS)
+  
+
+  @POST(END_URL_GET_PROFESSIONAL_CHATS)
     suspend fun getProfessionalChats(
         @Header("Authorization") authHeader: String,
         @Body request: ProfessionalRequest
     ): Response<ProfessionalChatsResponse>
 
+  
+  @POST("emotion/get-emotions-by-user-id")
+    suspend fun getEmotionsByUserId(
+        @Header("Authorization") authToken: String,
+        @Body request: com.example.relaxapp.views.calendar.EmotionRequest
+    ): Response<EmotionApiResponse>
+
+  
+  
 }

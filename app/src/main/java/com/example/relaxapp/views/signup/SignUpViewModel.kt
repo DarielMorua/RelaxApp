@@ -30,6 +30,9 @@ class SignUpViewModel : ViewModel() {
     private val _telephone = MutableLiveData("")
     val telephone: LiveData<String> = _telephone
 
+    private val _rol = MutableLiveData("User")
+    val rol: LiveData<String> = _rol
+
     private val _registerStatus = MutableLiveData<String>()
     val registerStatus: LiveData<String> = _registerStatus
 
@@ -62,6 +65,10 @@ class SignUpViewModel : ViewModel() {
         _country.value = newCountry
     }
 
+    fun onRolChange(newRol: String) {
+        _rol.value = newRol
+    }
+
     // Funcipon que se llama cuando el usuario hace clic en el registro
     fun onRegisterClicked() {
         if (validateInput()) {
@@ -73,7 +80,8 @@ class SignUpViewModel : ViewModel() {
                     _email.value.orEmpty(),
                     _password.value.orEmpty(),
                     _telephone.value.orEmpty(),
-                    _country.value.orEmpty()
+                    _country.value.orEmpty(),
+                    _rol.value.orEmpty()
                 )
 
 
@@ -88,6 +96,8 @@ class SignUpViewModel : ViewModel() {
                 _email.value?.isNotEmpty() == true &&
                 _password.value?.isNotEmpty() == true &&
                 _passwordConf.value == _password.value &&
-                _telephone.value?.isNotEmpty() == true
+                _telephone.value?.isNotEmpty() == true &&
+                _country.value?.isNotEmpty() == true &&
+                _rol.value?.isNotEmpty() == true
     }
 }

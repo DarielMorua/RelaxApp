@@ -1,7 +1,10 @@
 package com.example.relaxapp.views.login
 
 import com.example.relaxapp.views.RetrofitClientInstance
+import com.example.relaxapp.views.profile.UserProfile
 import com.example.relaxapp.views.profile.UserRequest
+import com.example.relaxapp.views.profile.images.ImagesData
+import retrofit2.Response
 
 object UserRepository {
 
@@ -16,5 +19,11 @@ object UserRepository {
         return apiService.getUserDetails(authHeader, request)
     }
 
+    suspend fun updateUser(authHeader: String, user: UserProfile): Response<Unit> {
+        return apiService.updateUser(authHeader, user)
+    }
+    suspend fun getImages(authHeader: String): List<ImagesData> {
+        return apiService.getImages(authHeader)
+    }
 }
 

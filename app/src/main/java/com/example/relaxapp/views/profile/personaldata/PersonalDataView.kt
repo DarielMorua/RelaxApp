@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
@@ -26,7 +27,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,10 +38,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
 import com.example.relaxapp.bottomnavigationbar.Routes
 import com.example.relaxapp.views.profile.ProfileViewModel
+import androidx.compose.runtime.livedata.observeAsState
+import com.example.relaxapp.views.profile.images.ImageSelectionView
+
 
 @Composable
 fun PersonalDataView(navController: NavController, userId: String?) {
@@ -93,7 +100,27 @@ fun PersonalDataView(navController: NavController, userId: String?) {
             }
 
             Spacer(modifier = Modifier.height(32.dp))
+            // Mostrar imagen de perfil en círculo
+            if (user != null) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .padding(bottom = 16.dp)
+                ) {
+                    AsyncImage(
+                        model = user?.photo ?: "", // Reemplazar con la URL de la imagen del usuario
+                        contentDescription = "Imagen de perfil",
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape)
+                            .clickable{navController.navigate("ImageSelectionView")},
+                        contentScale = ContentScale.Crop
 
+                    )
+                }
+            }
             // Asegurarse de que el usuario esté cargado antes de mostrar los datos
             if (user != null) {
                 // Nombre
@@ -132,6 +159,8 @@ fun DataRow(label: String, value: String?) {
         }
     }
 }
+
+
 
 
 

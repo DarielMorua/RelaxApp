@@ -11,9 +11,10 @@ object SignUpRepository {
         email: String,
         password: String,
         phone: String,
-        country: String
+        country: String,
+        rol: String
     ) {
-        val signUpUser = SignUpUser(name, lastname, email, password, phone, country)
+        val signUpUser = SignUpUser(name, lastname, email, password, phone, country,rol)
         apiService.SignUp(signUpUser)
     }
 }

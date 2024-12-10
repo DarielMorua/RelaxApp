@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.relaxapp.TokenManager
 import com.example.relaxapp.views.login.UserRepository
 import com.example.relaxapp.views.login.UserResponse
+import com.example.relaxapp.views.profile.images.ImagesData
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
@@ -23,6 +24,9 @@ class ProfileViewModel(
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
 
+
+    private val _images = mutableStateOf<List<ImagesData>>(emptyList())
+    val images: State<List<ImagesData>> = _images
     private val tokenManager = TokenManager(context)
 
     fun getUserDetails(userId: String) {
@@ -41,7 +45,10 @@ class ProfileViewModel(
                 val userDetails = userRepository.getUserDetails("Bearer $token", userId)
                 _user.value = userDetails
             } catch (exception: Exception) {
-                Log.d("ProfileViewModel", "Error al obtener detalles del usuario: ${exception.message}")
+                Log.d(
+                    "ProfileViewModel",
+                    "Error al obtener detalles del usuario: ${exception.message}"
+                )
                 _user.value = null
             } finally {
                 _isLoading.value = false
@@ -49,12 +56,14 @@ class ProfileViewModel(
         }
     }
 
-    class ProfileViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
-                return ProfileViewModel(UserRepository, context) as T
+    class ProfileViewModelFactory(private val context: Context) :
+                ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
+                        return ProfileViewModel(UserRepository, context) as T
+                    }
+                    throw IllegalArgumentException("Clase ViewModel desconocida")
+                }
             }
-            throw IllegalArgumentException("Clase ViewModel desconocida")
         }
-    }
-}
+

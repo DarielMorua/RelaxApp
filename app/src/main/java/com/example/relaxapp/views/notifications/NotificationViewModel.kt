@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import org.osmdroid.views.MapViewRepository
 
 
-class NotificationViewModel (val notificationRepository: NotificationRepository,private val context: Context): ViewModel() {
+class NotificationViewModel(val notificationRepository: NotificationRepository, private val context: Context) : ViewModel() {
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
 
@@ -32,6 +32,7 @@ class NotificationViewModel (val notificationRepository: NotificationRepository,
 
     private fun loadNotifications() {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 val token = tokenManager.getToken()
                 val response = withContext(Dispatchers.IO) {
@@ -57,7 +58,7 @@ class NotificationViewModel (val notificationRepository: NotificationRepository,
     fun deleteNotification(notificationId: String) {
         viewModelScope.launch {
             try {
-                val token = tokenManager.getToken() // Recupera el token
+                val token = tokenManager.getToken()
                 if (token != null) {
                     notificationRepository.deleteNotification("Bearer $token", notificationId)
                     _notifications.value = _notifications.value.filterNot { it.id == notificationId }
@@ -66,6 +67,11 @@ class NotificationViewModel (val notificationRepository: NotificationRepository,
                 Log.e("NotificationViewModel", "Error al eliminar notificación: ${e.message}")
             }
         }
+    }
+
+    fun refreshNotifications() {
+        _isLoading.value = true
+        loadNotifications()
     }
 }
 

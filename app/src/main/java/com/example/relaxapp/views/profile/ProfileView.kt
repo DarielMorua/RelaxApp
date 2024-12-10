@@ -208,7 +208,6 @@ fun ProfileView(navController: NavController, userId: String) {
                 }
             }
 
-            // Buttons section
             Column {
                 Button(
                     onClick = { navController.navigate("personalDataView/$userId") },
@@ -295,24 +294,7 @@ fun ProfileView(navController: NavController, userId: String) {
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                Button(
-                    onClick = { navController.navigate(Routes.FAQView) },
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .height(50.dp),
-                    shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.buttonColors(Color.Transparent)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.faqs),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = Color.Black,
-                        textDecoration = TextDecoration.Underline,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
-                    )
-                }
-                Spacer(modifier = Modifier.height(10.dp))
+
                 Button(
 
                   onClick = { navController.navigate(Routes.AboutUsView) },
@@ -332,7 +314,12 @@ fun ProfileView(navController: NavController, userId: String) {
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
+
                 Button(
+
+                  
+                  
+                  
                   onClick = {
                         // Limpiar el token y el userId cuando el usuario cierre sesion
                         val tokenManager = TokenManager(context)
@@ -363,8 +350,3 @@ fun ProfileView(navController: NavController, userId: String) {
         }
     }
 }
-
-
-
-
-
