@@ -53,7 +53,7 @@ class ChatViewModel(private val repository: ProfessionalRepository,  private val
                 // Agregar mensaje a la lista local inmediatamente
                 _messages.value = _messages.value + newMessage
             } catch (e: Exception) {
-                Log.e("ChatViewModel", "Error al enviar mensaje: ${e.message}")
+                Log.e("ChatViewModel", "Error al enviar mensaje: ${e.message}", e)
             }
         }
     }

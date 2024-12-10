@@ -8,6 +8,7 @@ import com.example.relaxapp.views.chat.Message
 
 
 import com.example.relaxapp.views.aboutus.AboutUsInfo
+import com.example.relaxapp.views.chat.ChatResponseMessages
 
 
 import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
@@ -22,7 +23,9 @@ import com.example.relaxapp.views.notifications.NotificationResponse
 import com.example.relaxapp.views.mainmenu.EmotionRequest
 import com.example.relaxapp.views.notifications.deleteNotification
 import com.example.relaxapp.views.profesionales.Professional
+import com.example.relaxapp.views.profesionales.ProfessionalRequest
 import com.example.relaxapp.views.profesionales.Review
+import com.example.relaxapp.views.profesionales.conexionChat.ProfessionalChatsResponse
 
 
 import com.example.relaxapp.views.signup.SignUpUser
@@ -60,6 +63,8 @@ private const val END_URL_CREATE_CHAT = "chat/crear-chat"
 private const val END_URL_SEND_MESSAGE = "chat/mandar-mensaje"
 
 private const val END_URL_SHOW_MESSAGE = "chat/mostrar-mensajes"
+
+private const val END_URL_GET_PROFESSIONAL_CHATS = "chat/obtener-chats-profesional"
 
 
 
@@ -157,12 +162,18 @@ interface ApiService {
     suspend fun getMessages(
         @Header("Authorization") authHeader: String,
         @Body requestBody: Map<String, String>
-    ): Response<ChatResponse>
+    ): Response<ChatResponseMessages>
 
   
   
   
     @POST("aboutus/obtener-info")
     suspend fun getAboutUsInfo(): Response<List<AboutUsInfo>>
+
+    @POST(END_URL_GET_PROFESSIONAL_CHATS)
+    suspend fun getProfessionalChats(
+        @Header("Authorization") authHeader: String,
+        @Body request: ProfessionalRequest
+    ): Response<ProfessionalChatsResponse>
 
 }
