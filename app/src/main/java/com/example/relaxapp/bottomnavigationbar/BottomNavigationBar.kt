@@ -30,12 +30,10 @@ fun BottomNavigationBar(navController: NavController) {
             NavigationBarItem(
                 selected = currentRoute == navItem.route,
                 onClick = {
-                    // Verificamos si la ruta es para el calendario, que requiere un parámetro
                     if (navItem.route == "calendarDataView/{userId}") {
                         val userId = tokenManager.getUserId()
-                        navController.navigate("calendarDataView/$userId")  // Navegar con el parámetro
+                        navController.navigate("calendarDataView/$userId")
                     } else {
-                        // Para el resto de rutas no dinámicas
                         navController.navigate(navItem.route) {
                             launchSingleTop = true
                             restoreState = true
@@ -43,7 +41,6 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 },
                 icon = {
-                    // Aquí es donde manejamos tanto ImageVector como Int
                     when (val image = navItem.image) {
                         is ImageVector -> {
                             Icon(

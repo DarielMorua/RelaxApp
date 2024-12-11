@@ -32,6 +32,7 @@ import com.example.relaxapp.bottomnavigationbar.Routes
 
 @Composable
 fun FAQView(navController: NavController) {
+    // PANTALLA QUE NO SE USA
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
@@ -42,7 +43,6 @@ fun FAQView(navController: NavController) {
                 .padding(innerPadding)
                 .background(Color.White)
         ) {
-            // Top section
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(

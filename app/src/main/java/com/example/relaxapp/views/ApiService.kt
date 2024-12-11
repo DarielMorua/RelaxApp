@@ -2,50 +2,50 @@ package com.example.relaxapp.views
 
 
 
-import com.example.relaxapp.views.chat.ChatResponse
-import com.example.relaxapp.views.chat.CreateChatRequest
-import com.example.relaxapp.views.chat.Message
+import com.example.relaxapp.views.chat.models.ChatResponse
+import com.example.relaxapp.views.chat.models.CreateChatRequest
+import com.example.relaxapp.views.chat.models.Message
 
 
-import com.example.relaxapp.views.aboutus.AboutUsInfo
+import com.example.relaxapp.views.aboutus.models.AboutUsInfo
 
 
-import com.example.relaxapp.views.chat.ChatResponseMessages
-
-
-
-import com.example.relaxapp.views.calendar.EmotionApiResponse
+import com.example.relaxapp.views.chat.models.ChatResponseMessages
 
 
 
-import com.example.relaxapp.views.exercises.excerciseDetails.CategoriesResponse
-import com.example.relaxapp.views.mainmenu.ExcerciseResponse
-import com.example.relaxapp.views.login.LoginResponse
-import com.example.relaxapp.views.login.User
-import com.example.relaxapp.views.login.UserResponse
-
-import com.example.relaxapp.views.notifications.NotificationResponse
+import com.example.relaxapp.views.calendar.models.EmotionApiResponse
 
 
-import com.example.relaxapp.views.mainmenu.EmotionRequest
-import com.example.relaxapp.views.notifications.deleteNotification
-import com.example.relaxapp.views.profesionales.Professional
-import com.example.relaxapp.views.profesionales.ProfessionalRequest
-import com.example.relaxapp.views.profesionales.Review
+
+import com.example.relaxapp.views.exercises.models.CategoriesResponse
+import com.example.relaxapp.views.mainmenu.models.ExcerciseResponse
+import com.example.relaxapp.views.login.models.LoginResponse
+import com.example.relaxapp.views.login.models.User
+import com.example.relaxapp.views.login.models.UserResponse
+
+import com.example.relaxapp.views.notifications.models.NotificationResponse
+
+
+import com.example.relaxapp.views.mainmenu.models.EmotionRequest
+import com.example.relaxapp.views.notifications.models.deleteNotification
+import com.example.relaxapp.views.profesionales.models.Professional
+import com.example.relaxapp.views.profesionales.models.ProfessionalRequest
+import com.example.relaxapp.views.profesionales.models.Review
 
 
 import com.example.relaxapp.views.profesionales.conexionChat.ProfessionalChatsResponse
 
 
-import com.example.relaxapp.views.profile.UserProfile
+import com.example.relaxapp.views.profile.models.UserProfile
 
 
 
 
-import com.example.relaxapp.views.signup.SignUpUser
+import com.example.relaxapp.views.signup.models.SignUpUser
 
 
-import com.example.relaxapp.views.profile.UserRequest
+import com.example.relaxapp.views.profile.models.UserRequest
 import com.example.relaxapp.views.profile.images.ImagesData
 
 
@@ -164,7 +164,7 @@ interface ApiService {
   @POST(END_URL_USER_GET)
     suspend fun getUserDetails(
         @Header("Authorization") token: String, 
-        @Body request: UserRequest 
+        @Body request: UserRequest
     ): UserResponse
 
     @POST(END_URL_CREATE_CHAT)
@@ -203,7 +203,7 @@ interface ApiService {
   @POST("emotion/get-emotions-by-user-id")
     suspend fun getEmotionsByUserId(
         @Header("Authorization") authToken: String,
-        @Body request: com.example.relaxapp.views.calendar.EmotionRequest
+        @Body request: com.example.relaxapp.views.calendar.models.EmotionRequest
     ): Response<EmotionApiResponse>
 
   

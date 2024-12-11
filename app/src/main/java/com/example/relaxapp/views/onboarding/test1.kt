@@ -28,7 +28,7 @@ fun OnboardingView(onFinish: () -> Unit) {
         test1dataclass(
             "¡Mejora tu Salud Mental!",
             "Explora herramientas para mejorar tu bienestar emocional",
-            R.drawable.dummy, // Imagen de fondo para esta página
+            R.drawable.dummy,
             "Siguiente"
         ),
 

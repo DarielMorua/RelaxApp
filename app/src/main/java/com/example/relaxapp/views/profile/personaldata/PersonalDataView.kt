@@ -12,12 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -33,7 +30,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -41,10 +37,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.relaxapp.R
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
-import com.example.relaxapp.bottomnavigationbar.Routes
-import com.example.relaxapp.views.profile.ProfileViewModel
-import androidx.compose.runtime.livedata.observeAsState
-import com.example.relaxapp.views.profile.images.ImageSelectionView
+import com.example.relaxapp.views.profile.viewmodels.ProfileViewModel
 
 
 @Composable
@@ -54,10 +47,9 @@ fun PersonalDataView(navController: NavController, userId: String?) {
     val user by profileViewModel.user
     val isLoading by profileViewModel.isLoading
 
-    // Llamada a la API para obtener los detalles del usuario, si es necesario
     LaunchedEffect(userId) {
         if (userId != null) {
-            profileViewModel.getUserDetails(userId) // Obtener los datos usando el userId
+            profileViewModel.getUserDetails(userId)
         }
     }
 
@@ -100,7 +92,6 @@ fun PersonalDataView(navController: NavController, userId: String?) {
             }
 
             Spacer(modifier = Modifier.height(32.dp))
-            // Mostrar imagen de perfil en círculo
             if (user != null) {
                 Box(
                     contentAlignment = Alignment.Center,
@@ -110,7 +101,7 @@ fun PersonalDataView(navController: NavController, userId: String?) {
                         .padding(bottom = 16.dp)
                 ) {
                     AsyncImage(
-                        model = user?.photo ?: "", // Reemplazar con la URL de la imagen del usuario
+                        model = user?.photo ?: "",
                         contentDescription = "Imagen de perfil",
                         modifier = Modifier
                             .fillMaxSize()
@@ -121,21 +112,15 @@ fun PersonalDataView(navController: NavController, userId: String?) {
                     )
                 }
             }
-            // Asegurarse de que el usuario esté cargado antes de mostrar los datos
             if (user != null) {
-                // Nombre
                 DataRow(label = stringResource(id = R.string.name), value = user?.name)
 
-                // Apellido
                 DataRow(label = stringResource(id = R.string.lastname), value = user?.lastname)
 
-                // Email
                 DataRow(label = stringResource(id = R.string.email), value = user?.email)
 
-                // Teléfono
                 DataRow(label = stringResource(id = R.string.phone_number), value = user?.phone)
 
-                // País
                 DataRow(label = stringResource(id = R.string.country), value = user?.country)
 
             }

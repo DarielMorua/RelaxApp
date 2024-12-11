@@ -31,40 +31,38 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.relaxapp.bottomnavigationbar.Routes
 import com.example.relaxapp.views.FAQ.FAQView
-import com.example.relaxapp.views.aboutus.AboutUsView
-import com.example.relaxapp.views.calendar.CalendarView
+import com.example.relaxapp.views.aboutus.views.AboutUsView
+import com.example.relaxapp.views.calendar.views.CalendarView
 
-import com.example.relaxapp.views.chat.ChatView
-import com.example.relaxapp.views.doctordetails.DoctorDetailView
+import com.example.relaxapp.views.chat.views.ChatView
+import com.example.relaxapp.views.doctordetails.views.DoctorDetailView
 import com.example.relaxapp.views.doctordetails.viewmodels.DoctorDetailViewModel
-import com.example.relaxapp.views.doctorschedule.DoctorScheduleView
-import com.example.relaxapp.views.exercises.ExerciseView
-import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseCategoriesRepository
-import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailCategoryView
-import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseDetailView
-import com.example.relaxapp.views.exercises.excerciseDetails.ExerciseViewModel
-import com.example.relaxapp.views.login.LogInView
-import com.example.relaxapp.views.login.LogInViewModel
-import com.example.relaxapp.views.login.UserRepository
-import com.example.relaxapp.views.mainmenu.ExerciseRepository
-import com.example.relaxapp.views.mainmenu.MainMenu
-import com.example.relaxapp.views.mainmenu.MainMenuViewModel
-import com.example.relaxapp.views.needhelp.HelpView
-import com.example.relaxapp.views.notifications.NotificationRepository
-import com.example.relaxapp.views.notifications.NotificationView
-import com.example.relaxapp.views.notifications.NotificationViewModel
-import com.example.relaxapp.views.onboarding.OnboardingView
-import com.example.relaxapp.views.profesionales.ProfessionalRepository
-import com.example.relaxapp.views.profesionales.ProfessionalView
-import com.example.relaxapp.views.profesionales.ProfessionalViewModel
+import com.example.relaxapp.views.doctorschedule.views.DoctorScheduleView
+import com.example.relaxapp.views.exercises.views.ExerciseView
+import com.example.relaxapp.views.exercises.models.ExerciseCategoriesRepository
+import com.example.relaxapp.views.exercises.views.ExerciseDetailCategoryView
+import com.example.relaxapp.views.exercises.models.ExerciseDetailView
+import com.example.relaxapp.views.exercises.viewmodel.ExerciseViewModel
+import com.example.relaxapp.views.login.views.LogInView
+import com.example.relaxapp.views.login.viewmodels.LogInViewModel
+import com.example.relaxapp.views.login.models.UserRepository
+import com.example.relaxapp.views.mainmenu.models.ExerciseRepository
+import com.example.relaxapp.views.mainmenu.views.MainMenu
+import com.example.relaxapp.views.mainmenu.viewmodels.MainMenuViewModel
+import com.example.relaxapp.views.needhelp.views.HelpView
+import com.example.relaxapp.views.notifications.models.NotificationRepository
+import com.example.relaxapp.views.notifications.views.NotificationView
+import com.example.relaxapp.views.onboarding.views.OnboardingView
+import com.example.relaxapp.views.profesionales.models.ProfessionalRepository
+import com.example.relaxapp.views.profesionales.views.ProfessionalView
+import com.example.relaxapp.views.profesionales.viewmodels.ProfessionalViewModel
 import com.example.relaxapp.views.profesionalesfav.FavoriteProfessionalsView
-import com.example.relaxapp.views.profile.ProfileView
-import com.example.relaxapp.views.profile.favorites.FavoriteView
+import com.example.relaxapp.views.profile.views.ProfileView
+import com.example.relaxapp.views.profile.favorites.views.FavoriteView
 import com.example.relaxapp.views.profile.images.ImageSelectionView
-import com.example.relaxapp.views.profile.images.ImagesData
 import com.example.relaxapp.views.profile.personaldata.PersonalDataView
-import com.example.relaxapp.views.signup.SignUpView
-import com.example.relaxapp.views.signup.SignUpViewModel
+import com.example.relaxapp.views.signup.views.SignUpView
+import com.example.relaxapp.views.signup.viewmodels.SignUpViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -108,9 +106,7 @@ fun MyAppNavigationView() {
             route = "calendarDataView/{userId}",
             arguments = listOf(navArgument("userId") { type = NavType.StringType })
         ) { backStackEntry ->
-            // Obtener el parámetro de la ruta
             val userId = backStackEntry.arguments?.getString("userId") ?: ""
-            // Pasar ese parámetro a tu CalendarView
             CalendarView(navController = navController, context = context, userId = userId)
         }
         composable(
@@ -136,7 +132,7 @@ fun MyAppNavigationView() {
         composable(Routes.AboutUsView){
             AboutUsView(navController)
         }
-        composable(Routes.ImageSelectionView) {  // Usando la ruta definida en tu archivo Routes
+        composable(Routes.ImageSelectionView) {
             ImageSelectionView(
                 navController = navController,
                 onImageSelected = { imageUrl ->
@@ -158,8 +154,6 @@ fun MyAppNavigationView() {
         composable(Routes.NotificationView) {
             NotificationView(navController, NotificationRepository)
         }
-
-        // Ruta para ExerciseDetailView con el parámetro exerciseId
         composable(
             route = "exerciseDetail/{exerciseId}",
             arguments = listOf(navArgument("exerciseId") { type = NavType.StringType })
@@ -189,7 +183,6 @@ fun MyAppNavigationView() {
             val exerciseId = backStackEntry.arguments?.getString("exerciseId")
             Log.d("ExerciseDetail", "Recibido exerciseId: $exerciseId")
 
-            // Usar ExerciseViewModel
             val exerciseViewModel: ExerciseViewModel = navController.getBackStackEntry("ExerciseView")
                 .let { ViewModelProvider(it)[ExerciseViewModel::class.java] }
 
@@ -213,9 +206,8 @@ fun MyAppNavigationView() {
 
 
         }
-//(navController, NotificationViewModel(notificationRepository = NotificationRepository, context
         composable(Routes.ProfessionalView) {
-            ProfessionalView(navController, ProfessionalViewModel(professionalRepository=ProfessionalRepository,context))
+            ProfessionalView(navController, ProfessionalViewModel(professionalRepository= ProfessionalRepository,context))
         }
         composable(Routes.DoctorScheduleView) {
             DoctorScheduleView(navController)

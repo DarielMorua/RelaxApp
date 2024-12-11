@@ -9,12 +9,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.relaxapp.TokenManager
-import com.example.relaxapp.views.chat.CreateChatRequest
-import com.example.relaxapp.views.profesionales.Professional
-import com.example.relaxapp.views.profesionales.ProfessionalRepository
-import com.example.relaxapp.views.profesionales.Review
+import com.example.relaxapp.views.chat.models.CreateChatRequest
+import com.example.relaxapp.views.profesionales.models.Professional
+import com.example.relaxapp.views.profesionales.models.ProfessionalRepository
+import com.example.relaxapp.views.profesionales.models.Review
 import kotlinx.coroutines.launch
-import kotlin.jvm.Throws
 
 class DoctorDetailViewModel(
     private val repository: ProfessionalRepository,
@@ -72,13 +71,11 @@ class DoctorDetailViewModel(
                 if (!token.isNullOrEmpty()) {
                     val request = CreateChatRequest(userId, professionalUserId)
 
-                    // Llamada al repositorio para crear el chat
                     val response = repository.createChat("Bearer $token", request)
 
-                    // Procesar respuesta
                     val chatId = response.chat?._id
                     if (!chatId.isNullOrEmpty()) {
-                        onChatCreated(chatId) // Asegúrate de que esto se llama
+                        onChatCreated(chatId)
                     } else {
                         Log.e("DoctorDetailViewModel", "Error: Chat creado pero sin ID")
                     }
@@ -103,7 +100,6 @@ class DoctorDetailViewModel(
             try {
                 val token = tokenManager.getToken()
                 if (!token.isNullOrEmpty()) {
-                    // Llamar a la función del repositorio para enviar el mensaje
                     repository.sendMessage("Bearer $token", chatId, message, senderId, senderModel)
                 } else {
                     Log.e("DoctorDetailViewModel", "Token no disponible")

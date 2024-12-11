@@ -30,8 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.relaxapp.bottomnavigationbar.BottomNavigationBar
-import com.example.relaxapp.views.profesionales.ProfessionalCard
-import com.example.relaxapp.views.profesionales.ProfessionalViewModel
+import com.example.relaxapp.views.profesionales.views.ProfessionalCard
+import com.example.relaxapp.views.profesionales.viewmodels.ProfessionalViewModel
 
 @Composable
 fun FavoriteProfessionalsView(
@@ -55,7 +55,6 @@ fun FavoriteProfessionalsView(
                 .padding(innerPadding)
                 .background(Color.White)
         ) {
-            // Título
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

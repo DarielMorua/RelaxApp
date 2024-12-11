@@ -1,7 +1,6 @@
 package com.example.relaxapp.views.profesionales.conexionChat
 
-import com.example.relaxapp.views.chat.Message
-import com.google.gson.annotations.SerializedName
+import com.example.relaxapp.views.chat.models.Message
 
 data class ChatProfesional(
     val id: String?,
